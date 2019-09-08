@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
                 color: Colors.black87,
               ),
               body2: TextStyle(
-                  fontFamily: 'regular', fontSize: 16, letterSpacing: 0.1, color: Colors.black87)),
+                  fontFamily: 'semi-bold', fontSize: 16, letterSpacing: 0.1, color: Colors.white)),
         ),
         home: _isLogined
             ? HomePage()

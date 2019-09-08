@@ -6,6 +6,7 @@ import 'package:footballground/ui/widgets/app-bar-widget.dart';
 import 'package:footballground/ui/widgets/button-widget.dart';
 import 'package:footballground/ui/widgets/input-widget.dart';
 import 'package:footballground/ui/widgets/loading.dart';
+import 'package:footballground/utils/constants.dart';
 import 'package:footballground/utils/validator.dart';
 
 import '../base-page.dart';
@@ -32,8 +33,7 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
     return Container(
       padding: EdgeInsets.only(left: 15, right: 15),
       decoration: BoxDecoration(
-          image:
-              DecorationImage(image: AssetImage('assets/images/bg_login.jpg'), fit: BoxFit.fill)),
+          image: DecorationImage(image: AssetImage('assets/images/bg.jpg'), fit: BoxFit.fill)),
       child: Column(
         children: <Widget>[
           Expanded(
@@ -43,7 +43,7 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   Image.asset(
-                    'assets/images/icn_logo.jpg',
+                    'assets/images/icn_logo.png',
                     width: 50,
                     height: 50,
                     fit: BoxFit.contain,
@@ -57,7 +57,7 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
                         fontFamily: 'bold',
                         fontSize: 24,
                         letterSpacing: 0.1,
-                        color: AppColor.GREEN),
+                        color: AppColor.WHITE),
                   )
                 ],
               ),
@@ -150,7 +150,7 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
                         backgroundColor: Colors.grey,
                         child: Text(
                           StringRes.BACK,
-                          style: Theme.of(context).textTheme.body2.copyWith(color: Colors.white),
+                          style: Theme.of(context).textTheme.body2,
                         ),
                       ),
                       ButtonWidget(
@@ -166,7 +166,7 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
                         backgroundColor: AppColor.GREEN,
                         child: Text(
                           StringRes.CONFIRM,
-                          style: Theme.of(context).textTheme.body2.copyWith(color: Colors.white),
+                          style: Theme.of(context).textTheme.body2,
                         ),
                       ),
                     ],
@@ -181,7 +181,7 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
   @override
   void listenData(BuildContext context) {
     pageBloc.submitEmailStream.listen((onData) {
-      if (!onData.success) {
+      if (onData.statusCode != Constants.CODE_OK) {
         showSnackBar(onData.errorMessage);
       } else {
         showSnackBar(onData.errorMessage, backgroundColor: AppColor.GREEN);
@@ -189,7 +189,7 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
       }
     });
     pageBloc.submitChangePasswordStream.listen((onData) {
-      if (!onData.success) {
+      if (onData.statusCode != Constants.CODE_OK) {
         showSnackBar(onData.errorMessage);
       } else {
         showSnackBar('Mật khẩu đã được thay đổi', backgroundColor: AppColor.GREEN);

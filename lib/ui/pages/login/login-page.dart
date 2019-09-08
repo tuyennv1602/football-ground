@@ -8,6 +8,7 @@ import 'package:footballground/ui/widgets/app-bar-widget.dart';
 import 'package:footballground/ui/widgets/button-widget.dart';
 import 'package:footballground/ui/widgets/input-widget.dart';
 import 'package:footballground/ui/widgets/loading.dart';
+import 'package:footballground/utils/constants.dart';
 import 'package:footballground/utils/validator.dart';
 
 import '../base-page.dart';
@@ -34,8 +35,7 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
     return Container(
       padding: EdgeInsets.only(left: 15, right: 15),
       decoration: BoxDecoration(
-          image:
-              DecorationImage(image: AssetImage('assets/images/bg_login.jpg'), fit: BoxFit.fill)),
+          image: DecorationImage(image: AssetImage('assets/images/bg.jpg'), fit: BoxFit.fill)),
       child: Column(
         children: <Widget>[
           Expanded(
@@ -45,7 +45,7 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   Image.asset(
-                    'assets/images/icn_logo.jpg',
+                    'assets/images/icn_logo.png',
                     width: 50,
                     height: 50,
                     fit: BoxFit.contain,
@@ -59,7 +59,7 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
                         fontFamily: 'bold',
                         fontSize: 24,
                         letterSpacing: 0.1,
-                        color: AppColor.GREEN),
+                        color: AppColor.WHITE),
                   )
                 ],
               ),
@@ -105,9 +105,6 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
                             obscureText: true,
                             onChangedText: (text) => pageBloc.changePasswordFunc(text),
                           ),
-                          SizedBox(
-                            height: 10,
-                          )
                         ],
                       ),
                     ),
@@ -117,14 +114,11 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       ButtonWidget(
-                        backgroundColor: AppColor.WHITE,
+                        backgroundColor: AppColor.TRANSPARENT,
                         onTap: () => Routes.routeToForgotPasswordPage(context),
                         child: Text(
                           StringRes.FORGOT_PASSWORD,
-                          style: Theme.of(context)
-                              .textTheme
-                              .body1
-                              .copyWith(fontFamily: 'semi-bold', color: AppColor.GREEN),
+                          style: Theme.of(context).textTheme.body2,
                         ),
                       ),
                       ButtonWidget(
@@ -140,7 +134,7 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
                         backgroundColor: AppColor.GREEN,
                         child: Text(
                           StringRes.LOGIN.toUpperCase(),
-                          style: Theme.of(context).textTheme.body2.copyWith(color: Colors.white),
+                          style: Theme.of(context).textTheme.body2,
                         ),
                       )
                     ],
@@ -157,10 +151,7 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
                         padding: EdgeInsets.only(left: 10, right: 10),
                         child: Text(
                           StringRes.LOGIN_VIA,
-                          style: Theme.of(context)
-                              .textTheme
-                              .body2
-                              .copyWith(fontFamily: 'semi-bold', color: Colors.grey),
+                          style: Theme.of(context).textTheme.body1.copyWith(color: AppColor.WHITE),
                         ),
                       ),
                       Expanded(
@@ -194,14 +185,16 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
                     child: Center(
                       child: RichText(
                         text: TextSpan(
-                            text: 'Bạn chưa chưa có tài khoản? ',
-                            style: TextStyle(
-                                fontFamily: 'semi-bold', color: AppColor.MAIN_BLACK, fontSize: 16),
+                            text: 'Bạn chưa có tài khoản? ',
+                            style: TextStyle(color: AppColor.WHITE, fontSize: 16),
                             children: <TextSpan>[
                               TextSpan(
                                   text: 'Đăng ký ngay',
                                   style: TextStyle(
-                                      fontFamily: 'semi-bold', color: AppColor.GREEN, fontSize: 16),
+                                      decoration: TextDecoration.underline,
+                                      fontFamily: 'semi-bold',
+                                      color: AppColor.WHITE,
+                                      fontSize: 16),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () => Routes.routeToRegisterPage(context)),
                             ]),
@@ -218,7 +211,7 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
   @override
   void listenData(BuildContext context) {
     pageBloc.loginEmailStream.listen((response) {
-      if (!response.success) {
+      if (response.statusCode != Constants.CODE_OK) {
         showSnackBar(response.errorMessage);
       } else {
         appBloc.updateUser();

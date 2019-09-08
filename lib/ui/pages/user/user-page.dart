@@ -75,8 +75,7 @@ class UserPage extends BasePage<UserBloc> {
                             ),
                             Text(
                               'Số dư trong ví: $wallet',
-                              style:
-                                  Theme.of(context).textTheme.body2.copyWith(color: AppColor.WHITE),
+                              style: Theme.of(context).textTheme.body2,
                             )
                           ],
                         ),

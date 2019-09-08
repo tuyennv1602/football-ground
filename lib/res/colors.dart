@@ -11,6 +11,8 @@ class AppColor {
   static const Color GREEN = Colors.green;
   static const Color RED = Colors.red;
   static const Color BLACK_TRANSPARENT = Color(0x66000000);
+  static const Color GREY = Colors.grey;
+  static const Color TRANSPARENT = Colors.transparent;
   static const List<Color> BLACK_GRADIENT = [
     Color(0xCC000000),
     Color(0xBF000000),

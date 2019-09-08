@@ -27,7 +27,7 @@ class ChooseImageWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(21),
             child: Text(
               'Chọn từ thư viện',
-              style: Theme.of(context).textTheme.body2,
+              style: Theme.of(context).textTheme.body2.copyWith(color: AppColor.MAIN_BLACK),
             ),
           ),
           Container(
@@ -44,7 +44,7 @@ class ChooseImageWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(21),
             child: Text(
               'Chọn từ máy ảnh',
-              style: Theme.of(context).textTheme.body2,
+              style: Theme.of(context).textTheme.body2.copyWith(color: AppColor.MAIN_BLACK),
             ),
           ),
           Container(
@@ -58,7 +58,7 @@ class ChooseImageWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(21),
             child: Text(
               'Huỷ',
-              style: Theme.of(context).textTheme.body2.copyWith(color: AppColor.WHITE),
+              style: Theme.of(context).textTheme.body2,
             ),
           ),
         ],

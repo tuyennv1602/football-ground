@@ -73,7 +73,7 @@ abstract class BasePage<T extends BaseBloc> extends StatelessWidget {
                   backgroundColor: AppColor.GREEN,
                   child: Text(
                     StringRes.OK,
-                    style: Theme.of(context).textTheme.body2.copyWith(color: Colors.white),
+                    style: Theme.of(context).textTheme.body2,
                   ),
                 ),
               ],
@@ -101,7 +101,7 @@ abstract class BasePage<T extends BaseBloc> extends StatelessWidget {
                     ),
                     Text(
                       message,
-                      style: Theme.of(context).textTheme.body2,
+                      style: Theme.of(context).textTheme.body2.copyWith(color: AppColor.MAIN_BLACK),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -115,7 +115,7 @@ abstract class BasePage<T extends BaseBloc> extends StatelessWidget {
                           backgroundColor: Colors.grey,
                           child: Text(
                             StringRes.CANCEL,
-                            style: Theme.of(context).textTheme.body2.copyWith(color: Colors.white),
+                            style: Theme.of(context).textTheme.body2,
                           ),
                         ),
                         ButtonWidget(
@@ -130,7 +130,7 @@ abstract class BasePage<T extends BaseBloc> extends StatelessWidget {
                           backgroundColor: AppColor.GREEN,
                           child: Text(
                             StringRes.OK,
-                            style: Theme.of(context).textTheme.body2.copyWith(color: Colors.white),
+                            style: Theme.of(context).textTheme.body2,
                           ),
                         )
                       ],

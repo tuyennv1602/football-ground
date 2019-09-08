@@ -9,7 +9,11 @@ class NotiPage extends BasePage<NotiBloc> {
   @override
   AppBarWidget buildAppBar(BuildContext context) {
     return AppBarWidget(
-      centerContent: Text("Noti"),
+      centerContent: Text(
+        "Thông báo",
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.title,
+      ),
     );
   }
 

@@ -5,6 +5,7 @@ import 'package:footballground/models/header.dart';
 import 'package:footballground/models/responses/login-response.dart';
 import 'package:footballground/models/token.dart';
 import 'package:footballground/models/user.dart';
+import 'package:footballground/utils/constants.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'base-bloc.dart';
@@ -29,7 +30,7 @@ class AppBloc extends BaseBloc {
   }
 
   Future<bool> _handleLoginResp(LoginResponse response) async {
-    if (response.success) {
+    if (response.statusCode == Constants.CODE_OK) {
       await _appPref.setToken(Token(token: response.token, refreshToken: response.refreshToken));
       await _appPref.setUser(response.user);
       AppApi.setHeader(Header(accessToken: response.token));

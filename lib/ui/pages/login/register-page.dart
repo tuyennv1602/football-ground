@@ -5,6 +5,7 @@ import 'package:footballground/res/stringres.dart';
 import 'package:footballground/ui/widgets/app-bar-widget.dart';
 import 'package:footballground/ui/widgets/button-widget.dart';
 import 'package:footballground/ui/widgets/input-widget.dart';
+import 'package:footballground/utils/constants.dart';
 import 'package:footballground/utils/validator.dart';
 
 import '../base-page.dart';
@@ -27,8 +28,7 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
     return Container(
       padding: EdgeInsets.only(left: 15, right: 15),
       decoration: BoxDecoration(
-          image:
-              DecorationImage(image: AssetImage('assets/images/bg_login.jpg'), fit: BoxFit.cover)),
+          image: DecorationImage(image: AssetImage('assets/images/bg.jpg'), fit: BoxFit.cover)),
       child: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: SizedBox(
@@ -42,7 +42,7 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       Image.asset(
-                        'assets/images/icn_logo.jpg',
+                        'assets/images/icn_logo.png',
                         width: 50,
                         height: 50,
                         fit: BoxFit.contain,
@@ -56,7 +56,7 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
                             fontFamily: 'bold',
                             fontSize: 24,
                             letterSpacing: 0.1,
-                            color: AppColor.GREEN),
+                            color: AppColor.WHITE),
                       )
                     ],
                   ),
@@ -139,8 +139,7 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
                             backgroundColor: Colors.grey,
                             child: Text(
                               StringRes.BACK,
-                              style:
-                                  Theme.of(context).textTheme.body2.copyWith(color: Colors.white),
+                              style: Theme.of(context).textTheme.body2,
                             ),
                           ),
                           ButtonWidget(
@@ -158,8 +157,7 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
                             backgroundColor: AppColor.GREEN,
                             child: Text(
                               StringRes.REGISTER.toUpperCase(),
-                              style:
-                                  Theme.of(context).textTheme.body2.copyWith(color: Colors.white),
+                              style: Theme.of(context).textTheme.body2,
                             ),
                           ),
                         ],
@@ -176,7 +174,7 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
   @override
   void listenData(BuildContext context) {
     pageBloc.registerStream.listen((data) {
-      if (!data.success) {
+      if (data.statusCode == Constants.CODE_OK) {
         showSnackBar(data.errorMessage);
       } else {
         showSimpleDialog(context, data.errorMessage, onTap: () => Navigator.of(context).pop());
