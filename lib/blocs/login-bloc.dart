@@ -35,7 +35,7 @@ class LoginBloc extends BaseBloc {
   }
 
   Future<LoginResponse> _handleLoginResp(LoginResponse response) async {
-    if (response.statusCode == Constants.CODE_OK) {
+    if (response.isSuccess) {
       await _appPref.setToken(Token(token: response.token, refreshToken: response.refreshToken));
       await _appPref.setUser(response.user);
       AppApi.setHeader(Header(accessToken: response.token));

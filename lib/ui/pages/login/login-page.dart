@@ -211,7 +211,7 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
   @override
   void listenData(BuildContext context) {
     pageBloc.loginEmailStream.listen((response) {
-      if (response.statusCode != Constants.CODE_OK) {
+      if (!response.isSuccess) {
         showSnackBar(response.errorMessage);
       } else {
         appBloc.updateUser();

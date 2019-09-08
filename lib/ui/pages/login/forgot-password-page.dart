@@ -128,7 +128,7 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
                                   "Một mã xác nhận sẽ được gửi đến email của bạn. Vui lòng kiểm tra email và sử dụng mã xác nhận để thay đổi mật khẩu",
                                   style: Theme.of(context)
                                       .textTheme
-                                      .body2
+                                      .body1
                                       .copyWith(fontFamily: 'italic', color: Colors.grey),
                                 ),
                               );
@@ -181,7 +181,7 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
   @override
   void listenData(BuildContext context) {
     pageBloc.submitEmailStream.listen((onData) {
-      if (onData.statusCode != Constants.CODE_OK) {
+      if (!onData.isSuccess) {
         showSnackBar(onData.errorMessage);
       } else {
         showSnackBar(onData.errorMessage, backgroundColor: AppColor.GREEN);
@@ -189,7 +189,7 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
       }
     });
     pageBloc.submitChangePasswordStream.listen((onData) {
-      if (onData.statusCode != Constants.CODE_OK) {
+      if (!onData.isSuccess) {
         showSnackBar(onData.errorMessage);
       } else {
         showSnackBar('Mật khẩu đã được thay đổi', backgroundColor: AppColor.GREEN);

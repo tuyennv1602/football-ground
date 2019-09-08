@@ -174,7 +174,7 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
   @override
   void listenData(BuildContext context) {
     pageBloc.registerStream.listen((data) {
-      if (data.statusCode == Constants.CODE_OK) {
+      if (!data.isSuccess) {
         showSnackBar(data.errorMessage);
       } else {
         showSimpleDialog(context, data.errorMessage, onTap: () => Navigator.of(context).pop());

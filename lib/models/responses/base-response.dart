@@ -1,3 +1,5 @@
+import 'package:footballground/utils/constants.dart';
+
 class BaseResponse {
   String errorMessage;
   String statusCode;
@@ -15,4 +17,6 @@ class BaseResponse {
     this.success = false;
     this.errorMessage = message;
   }
+
+  bool get isSuccess => statusCode == Constants.CODE_OK;
 }

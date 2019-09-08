@@ -59,7 +59,7 @@ abstract class BasePage<T extends BaseBloc> extends StatelessWidget {
                 ),
                 Text(
                   message,
-                  style: Theme.of(context).textTheme.body2,
+                  style: Theme.of(context).textTheme.body1
                 ),
                 ButtonWidget(
                   onTap: () {
@@ -101,7 +101,7 @@ abstract class BasePage<T extends BaseBloc> extends StatelessWidget {
                     ),
                     Text(
                       message,
-                      style: Theme.of(context).textTheme.body2.copyWith(color: AppColor.MAIN_BLACK),
+                      style: Theme.of(context).textTheme.body1,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
