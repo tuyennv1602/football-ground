@@ -5,6 +5,7 @@ import 'package:footballground/ui/widgets/app-bar-widget.dart';
 import 'package:footballground/utils/device-util.dart';
 import 'base-page.dart';
 
+// ignore: must_be_immutable
 class SocialPage extends BasePage<SocialBloc> {
   Widget _buildCateTitle(String title) => Text(
         title,
@@ -121,10 +122,6 @@ class SocialPage extends BasePage<SocialBloc> {
         ),
       );
 
-  @override
-  Widget buildLoading(BuildContext context) {
-    return null;
-  }
 
   @override
   Widget buildMainContainer(BuildContext context) {

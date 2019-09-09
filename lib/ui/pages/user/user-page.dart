@@ -13,6 +13,7 @@ import 'package:footballground/utils/string-util.dart';
 
 import '../base-page.dart';
 
+// ignore: must_be_immutable
 class UserPage extends BasePage<UserBloc> {
   @override
   AppBarWidget buildAppBar(BuildContext context) {
@@ -22,13 +23,6 @@ class UserPage extends BasePage<UserBloc> {
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.title,
       ),
-    );
-  }
-
-  @override
-  Widget buildLoading(BuildContext context) {
-    return LoadingWidget(
-      show: false,
     );
   }
 

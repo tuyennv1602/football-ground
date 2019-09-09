@@ -18,5 +18,5 @@ class BaseResponse {
     this.errorMessage = message;
   }
 
-  bool get isSuccess => statusCode == Constants.CODE_OK;
+  bool get isSuccess => success && statusCode == Constants.CODE_OK;
 }

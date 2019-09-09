@@ -3,6 +3,7 @@ import 'package:footballground/blocs/ground-bloc.dart';
 import 'package:footballground/ui/pages/base-page.dart';
 import 'package:footballground/ui/widgets/app-bar-widget.dart';
 
+// ignore: must_be_immutable
 class GroundPage extends BasePage<GroundBloc> {
   @override
   AppBarWidget buildAppBar(BuildContext context) => AppBarWidget(
@@ -12,11 +13,6 @@ class GroundPage extends BasePage<GroundBloc> {
           style: Theme.of(context).textTheme.title,
         ),
       );
-
-  @override
-  Widget buildLoading(BuildContext context) {
-    return null;
-  }
 
   @override
   Widget buildMainContainer(BuildContext context) {

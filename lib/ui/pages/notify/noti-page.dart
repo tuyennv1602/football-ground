@@ -5,6 +5,7 @@ import 'package:footballground/ui/widgets/app-bar-widget.dart';
 
 import '../base-page.dart';
 
+// ignore: must_be_immutable
 class NotiPage extends BasePage<NotiBloc> {
   @override
   AppBarWidget buildAppBar(BuildContext context) {
@@ -15,11 +16,6 @@ class NotiPage extends BasePage<NotiBloc> {
         style: Theme.of(context).textTheme.title,
       ),
     );
-  }
-
-  @override
-  Widget buildLoading(BuildContext context) {
-    return null;
   }
 
   @override

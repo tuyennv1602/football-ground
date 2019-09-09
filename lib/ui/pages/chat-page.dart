@@ -4,6 +4,7 @@ import 'package:footballground/ui/widgets/app-bar-widget.dart';
 
 import 'base-page.dart';
 
+// ignore: must_be_immutable
 class ChatPage extends BasePage<ChatBloc> {
   @override
   AppBarWidget buildAppBar(BuildContext context) => AppBarWidget(
@@ -13,9 +14,6 @@ class ChatPage extends BasePage<ChatBloc> {
           style: Theme.of(context).textTheme.title,
         ),
       );
-
-  @override
-  Widget buildLoading(BuildContext context) => null;
 
   @override
   Widget buildMainContainer(BuildContext context) {

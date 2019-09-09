@@ -7,12 +7,11 @@ import 'package:footballground/ui/routes/routes.dart';
 import 'package:footballground/ui/widgets/app-bar-widget.dart';
 import 'package:footballground/ui/widgets/button-widget.dart';
 import 'package:footballground/ui/widgets/input-widget.dart';
-import 'package:footballground/ui/widgets/loading.dart';
-import 'package:footballground/utils/constants.dart';
 import 'package:footballground/utils/validator.dart';
 
 import '../base-page.dart';
 
+// ignore: must_be_immutable
 class LoginPage extends BasePage<LoginBloc> with Validator {
   final _formKey = GlobalKey<FormState>();
 
@@ -20,22 +19,12 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
   AppBarWidget buildAppBar(BuildContext context) => null;
 
   @override
-  Widget buildLoading(BuildContext context) => StreamBuilder<bool>(
-        stream: pageBloc.loadingStream,
-        builder: (c, snap) {
-          bool isLoading = snap.hasData && snap.data;
-          return LoadingWidget(
-            show: isLoading,
-          );
-        },
-      );
-
-  @override
   Widget buildMainContainer(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 15, right: 15),
+      padding: EdgeInsets.only(left: 20, right: 20),
       decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/images/bg.jpg'), fit: BoxFit.fill)),
+          image: DecorationImage(
+              image: AssetImage('assets/images/bg.jpg'), fit: BoxFit.fill)),
       child: Column(
         children: <Widget>[
           Expanded(
@@ -72,8 +61,9 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
                   Container(
                     width: double.infinity,
                     padding: EdgeInsets.all(10),
-                    decoration:
-                        BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(5)),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5)),
                     child: Form(
                       key: _formKey,
                       child: Column(
@@ -81,29 +71,35 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
                         children: <Widget>[
                           Text(
                             StringRes.LOGIN,
-                            style: Theme.of(context)
-                                .textTheme
-                                .title
-                                .copyWith(fontSize: 20, color: AppColor.GREEN, fontFamily: 'bold'),
+                            style: Theme.of(context).textTheme.title.copyWith(
+                                fontSize: 20,
+                                color: AppColor.GREEN,
+                                fontFamily: 'bold'),
                           ),
                           InputWidget(
                             validator: (value) {
-                              if (value.isEmpty) return StringRes.REQUIRED_EMAIL;
-                              if (!validEmail(value)) return StringRes.EMAIL_INVALID;
+                              if (value.isEmpty)
+                                return StringRes.REQUIRED_EMAIL;
+                              if (!validEmail(value))
+                                return StringRes.EMAIL_INVALID;
                               return null;
                             },
                             labelText: StringRes.EMAIL,
-                            onChangedText: (text) => pageBloc.changeEmailFunc(text),
+                            onChangedText: (text) =>
+                                pageBloc.changeEmailFunc(text),
                           ),
                           InputWidget(
                             validator: (value) {
-                              if (value.isEmpty) return StringRes.REQUIRED_PASSWORD;
-                              if (!validPassword(value)) return StringRes.PASSWORD_INVALID;
+                              if (value.isEmpty)
+                                return StringRes.REQUIRED_PASSWORD;
+                              if (!validPassword(value))
+                                return StringRes.PASSWORD_INVALID;
                               return null;
                             },
                             labelText: StringRes.PASSWORD,
                             obscureText: true,
-                            onChangedText: (text) => pageBloc.changePasswordFunc(text),
+                            onChangedText: (text) =>
+                                pageBloc.changePasswordFunc(text),
                           ),
                         ],
                       ),
@@ -122,8 +118,7 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
                         ),
                       ),
                       ButtonWidget(
-                        height: 40,
-                        width: 150,
+                        width: 200,
                         onTap: () {
                           if (_formKey.currentState.validate()) {
                             pageBloc.submitLoginEmailFunc(true);
@@ -151,7 +146,10 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
                         padding: EdgeInsets.only(left: 10, right: 10),
                         child: Text(
                           StringRes.LOGIN_VIA,
-                          style: Theme.of(context).textTheme.body1.copyWith(color: AppColor.WHITE),
+                          style: Theme.of(context)
+                              .textTheme
+                              .body1
+                              .copyWith(color: AppColor.WHITE),
                         ),
                       ),
                       Expanded(
@@ -170,7 +168,8 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
                     children: <Widget>[
                       IconButton(
                         iconSize: 45,
-                        onPressed: () => showConfirmDialog(context, "data.errorMessage",
+                        onPressed: () => showConfirmDialog(
+                            context, "data.errorMessage",
                             onConfirmed: () => Navigator.of(context).pop()),
                         icon: Image.asset('assets/images/icn_facebook.png'),
                       ),
@@ -186,7 +185,8 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
                       child: RichText(
                         text: TextSpan(
                             text: 'Bạn chưa có tài khoản? ',
-                            style: TextStyle(color: AppColor.WHITE, fontSize: 16),
+                            style:
+                                TextStyle(color: AppColor.WHITE, fontSize: 16),
                             children: <TextSpan>[
                               TextSpan(
                                   text: 'Đăng ký ngay',
@@ -196,7 +196,8 @@ class LoginPage extends BasePage<LoginBloc> with Validator {
                                       color: AppColor.WHITE,
                                       fontSize: 16),
                                   recognizer: TapGestureRecognizer()
-                                    ..onTap = () => Routes.routeToRegisterPage(context)),
+                                    ..onTap = () =>
+                                        Routes.routeToRegisterPage(context)),
                             ]),
                       ),
                     ),

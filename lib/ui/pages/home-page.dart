@@ -14,6 +14,7 @@ import 'package:footballground/ui/routes/routes.dart';
 import 'ground/ground-page.dart';
 import 'notify/noti-page.dart';
 
+// ignore: must_be_immutable
 class HomePage extends StatelessWidget {
   AppBloc _appBloc;
 
