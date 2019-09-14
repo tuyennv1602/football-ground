@@ -6,7 +6,7 @@ import 'package:footballground/ui/widgets/app-bar-widget.dart';
 // ignore: must_be_immutable
 class GroundPage extends BasePage<GroundBloc> {
   @override
-  AppBarWidget buildAppBar(BuildContext context) => AppBarWidget(
+  Widget buildAppBar(BuildContext context) => AppBarWidget(
         centerContent: Text(
           'Quản lý sân bóng',
           textAlign: TextAlign.center,

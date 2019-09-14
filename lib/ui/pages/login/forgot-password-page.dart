@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:footballground/blocs/forgot-password-bloc.dart';
 import 'package:footballground/res/colors.dart';
+import 'package:footballground/res/fonts.dart';
 import 'package:footballground/res/images.dart';
 import 'package:footballground/res/stringres.dart';
-import 'package:footballground/ui/widgets/app-bar-widget.dart';
 import 'package:footballground/ui/widgets/button-widget.dart';
 import 'package:footballground/ui/widgets/input-widget.dart';
 import 'package:footballground/utils/device-util.dart';
@@ -16,7 +16,7 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
   final _formKey = GlobalKey<FormState>();
 
   @override
-  AppBarWidget buildAppBar(BuildContext context) => null;
+  Widget buildAppBar(BuildContext context) => null;
 
   @override
   Widget buildMainContainer(BuildContext context) {
@@ -39,12 +39,12 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
                     onTap: () => Navigator.of(context).pop(),
                     margin:
                         EdgeInsets.only(top: DeviceUtil.getPaddingTop(context)),
-                    backgroundColor: AppColor.TRANSPARENT,
+                    backgroundColor: Colors.transparent,
                     child: Padding(
                       padding: EdgeInsets.only(top: 12, right: 12, bottom: 12),
                       child: Image.asset(
                         Images.LEFT_ARROW,
-                        color: AppColor.WHITE,
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -64,10 +64,10 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
                         Text(
                           StringRes.APP_NAME,
                           style: TextStyle(
-                              fontFamily: 'bold',
+                              fontFamily: Fonts.BOLD,
                               fontSize: 24,
                               letterSpacing: 0.1,
-                              color: AppColor.WHITE),
+                              color: Colors.white),
                         )
                       ],
                     ),
@@ -99,8 +99,8 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
                                   : 'Lấy mã xác nhận',
                               style: Theme.of(context).textTheme.title.copyWith(
                                   fontSize: 20,
-                                  color: AppColor.GREEN,
-                                  fontFamily: 'bold'),
+                                  color: AppColor.PRIMARY,
+                                  fontFamily: Fonts.BOLD),
                             ),
                           ),
                           InputWidget(
@@ -155,7 +155,7 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
                                       .textTheme
                                       .body1
                                       .copyWith(
-                                          fontFamily: 'italic',
+                                          fontFamily: Fonts.ITALIC,
                                           color: Colors.grey),
                                 ),
                               );
@@ -174,7 +174,7 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
                       },
                       borderRadius: BorderRadius.circular(5),
                       margin: EdgeInsets.only(top: 25, bottom: 25),
-                      backgroundColor: AppColor.GREEN,
+                      backgroundColor: AppColor.PRIMARY,
                       child: Text(
                         StringRes.CONFIRM,
                         style: Theme.of(context).textTheme.body2,
@@ -194,7 +194,7 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
       if (!onData.isSuccess) {
         showSnackBar(onData.errorMessage);
       } else {
-        showSnackBar(onData.errorMessage, backgroundColor: AppColor.GREEN);
+        showSnackBar(onData.errorMessage, backgroundColor: AppColor.PRIMARY);
         pageBloc.changeTypeFunc(true);
       }
     });
@@ -203,7 +203,7 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
         showSnackBar(onData.errorMessage);
       } else {
         showSnackBar('Mật khẩu đã được thay đổi',
-            backgroundColor: AppColor.GREEN);
+            backgroundColor: AppColor.PRIMARY);
         Future.delayed(
             Duration(milliseconds: 5000), () => Navigator.of(context).pop());
       }

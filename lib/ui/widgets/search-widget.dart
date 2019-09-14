@@ -37,7 +37,7 @@ class SearchWidget extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: TextField(
-              cursorColor: AppColor.GREEN,
+              cursorColor: AppColor.PRIMARY,
               cursorWidth: 1,
               onSubmitted: onSubmitText,
               onChanged: onChangedText,

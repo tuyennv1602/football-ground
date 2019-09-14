@@ -20,7 +20,7 @@ abstract class BasePage<T extends BaseBloc> extends StatelessWidget {
 
   void listenData(BuildContext context);
 
-  AppBarWidget buildAppBar(BuildContext context);
+  Widget buildAppBar(BuildContext context);
 
   bool showFullScreen = false;
 
@@ -41,131 +41,133 @@ abstract class BasePage<T extends BaseBloc> extends StatelessWidget {
   }
 
   void showSimpleDialog(BuildContext context, String message,
-          {Function onTap}) =>
+      {Function onTap}) =>
       showDialog(
           context: context,
           barrierDismissible: false,
           builder: (context) => AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+            contentPadding: EdgeInsets.zero,
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        StringRes.NOTIFY,
+                        style: Theme.of(context)
+                            .textTheme
+                            .body2
+                            .copyWith(color: AppColor.BLACK_TEXT),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(message,
+                          style: Theme.of(context)
+                              .textTheme
+                              .body1
+                              .copyWith(fontSize: 16))
+                    ],
+                  ),
                 ),
-                contentPadding: EdgeInsets.zero,
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
+                Align(
+                  child: ButtonWidget(
+                    onTap: () {
+                      onTap();
+                      Navigator.of(context).pop();
+                    },
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(5),
+                        bottomRight: Radius.circular(5)),
+                    backgroundColor: AppColor.PRIMARY,
+                    child: Text(
+                      StringRes.OK,
+                      style: Theme.of(context).textTheme.body2,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ));
+
+  void showConfirmDialog(BuildContext context, String message,
+      {Function onConfirmed}) =>
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+            contentPadding: EdgeInsets.zero,
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        StringRes.NOTIFY,
+                        style: Theme.of(context)
+                            .textTheme
+                            .body2
+                            .copyWith(color: AppColor.BLACK_TEXT),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        message,
+                        style: Theme.of(context)
+                            .textTheme
+                            .body1
+                            .copyWith(fontSize: 16),
+                      )
+                    ],
+                  ),
+                ),
+                Row(
                   children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(15),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            StringRes.NOTIFY,
-                            style: Theme.of(context)
-                                .textTheme
-                                .body2
-                                .copyWith(color: AppColor.MAIN_BLACK),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(message,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .body1
-                                  .copyWith(fontSize: 16))
-                        ],
+                    Expanded(
+                      child: ButtonWidget(
+                        onTap: () => Navigator.of(context).pop(),
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(5)),
+                        height: 40,
+                        backgroundColor: Colors.grey,
+                        child: Text(
+                          StringRes.CANCEL,
+                          style: Theme.of(context).textTheme.body2,
+                        ),
                       ),
                     ),
-                    Align(
+                    Expanded(
                       child: ButtonWidget(
                         onTap: () {
-                          onTap();
+                          onConfirmed();
                           Navigator.of(context).pop();
                         },
                         borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(5),
                             bottomRight: Radius.circular(5)),
-                        backgroundColor: AppColor.GREEN,
+                        height: 40,
+                        backgroundColor: AppColor.PRIMARY,
                         child: Text(
                           StringRes.OK,
                           style: Theme.of(context).textTheme.body2,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ));
-
-  void showConfirmDialog(BuildContext context, String message,
-          {Function onConfirmed}) =>
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) => AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                contentPadding: EdgeInsets.zero,
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(15),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            StringRes.NOTIFY,
-                            style: Theme.of(context)
-                                .textTheme
-                                .body2
-                                .copyWith(color: AppColor.MAIN_BLACK),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            message,
-                            style: Theme.of(context)
-                                .textTheme
-                                .body1
-                                .copyWith(fontSize: 16),
-                          )
-                        ],
-                      ),
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: ButtonWidget(
-                            onTap: () => Navigator.of(context).pop(),
-                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5)),
-                            height: 40,
-                            backgroundColor: Colors.grey,
-                            child: Text(
-                              StringRes.CANCEL,
-                              style: Theme.of(context).textTheme.body2,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: ButtonWidget(
-                            onTap: () {
-                              onConfirmed();
-                              Navigator.of(context).pop();
-                            },
-                            borderRadius: BorderRadius.only(bottomRight: Radius.circular(5)),
-                            height: 40,
-                            backgroundColor: AppColor.GREEN,
-                            child: Text(
-                              StringRes.OK,
-                              style: Theme.of(context).textTheme.body2,
-                            ),
-                          ),
-                        )
-                      ],
                     )
                   ],
-                ),
-              ));
+                )
+              ],
+            ),
+          ));
 
   void hideKeyBoard(BuildContext context) =>
       FocusScope.of(context).requestFocus(new FocusNode());
@@ -191,9 +193,9 @@ abstract class BasePage<T extends BaseBloc> extends StatelessWidget {
             children: <Widget>[
               !showFullScreen
                   ? Container(
-                      height: DeviceUtil.getPaddingTop(context),
-                      color: AppColor.GREEN,
-                    )
+                height: DeviceUtil.getPaddingTop(context),
+                color: AppColor.PRIMARY,
+              )
                   : SizedBox(),
               buildAppBar(context) ?? SizedBox(),
               Expanded(
@@ -208,10 +210,10 @@ abstract class BasePage<T extends BaseBloc> extends StatelessWidget {
               ),
               !showFullScreen
                   ? SizedBox(
-                      height: hasBottomBar
-                          ? MediaQuery.of(context).padding.bottom
-                          : DeviceUtil.getPaddingBottom(context),
-                    )
+                height: hasBottomBar
+                    ? MediaQuery.of(context).padding.bottom
+                    : DeviceUtil.getPaddingBottom(context),
+              )
                   : SizedBox()
             ],
           ),

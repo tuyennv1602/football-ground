@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:footballground/res/colors.dart';
+import 'package:footballground/res/fonts.dart';
 
 typedef void OnChangedText(String text);
 typedef void OnSubmitText(String text);
@@ -63,12 +64,12 @@ class InputState extends State<InputWidget> {
   @override
   Widget build(BuildContext context) => TextFormField(
         autocorrect: false,
-        cursorColor: AppColor.GREEN,
+        cursorColor: AppColor.PRIMARY,
         cursorWidth: 1,
         maxLength: widget.maxLength ?? 50,
         maxLines: widget.maxLines ?? 1,
         style: TextStyle(
-            fontFamily: 'regular', fontSize: 16, color: AppColor.MAIN_BLACK, letterSpacing: 0.15),
+            fontFamily: Fonts.REGULAR, fontSize: 16, color: AppColor.BLACK_TEXT, letterSpacing: 0.15),
         initialValue: widget.initValue,
         controller: _controller,
         focusNode: _textFocus,
@@ -84,13 +85,13 @@ class InputState extends State<InputWidget> {
           ),
           errorBorder: UnderlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.red)),
           focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(width: 1, color: AppColor.GREEN),
+            borderSide: BorderSide(width: 1, color: AppColor.PRIMARY),
           ),
           labelText: widget.labelText,
           errorText: widget.errorText,
           counter: SizedBox(),
-          errorStyle: TextStyle(fontFamily: 'regular', color: Colors.red, fontSize: 11),
-          labelStyle: TextStyle(fontFamily: 'regular', color: AppColor.SECOND_BLACK, fontSize: 15),
+          errorStyle: TextStyle(fontFamily: Fonts.REGULAR, color: Colors.red, fontSize: 11),
+          labelStyle: TextStyle(fontFamily: Fonts.REGULAR, color: Colors.grey, fontSize: 15),
         ),
       );
 }

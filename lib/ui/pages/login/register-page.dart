@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:footballground/blocs/register-bloc.dart';
 import 'package:footballground/res/colors.dart';
+import 'package:footballground/res/fonts.dart';
 import 'package:footballground/res/images.dart';
 import 'package:footballground/res/stringres.dart';
-import 'package:footballground/ui/widgets/app-bar-widget.dart';
 import 'package:footballground/ui/widgets/button-widget.dart';
 import 'package:footballground/ui/widgets/input-widget.dart';
 import 'package:footballground/utils/device-util.dart';
@@ -16,7 +16,7 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
   final _formKey = GlobalKey<FormState>();
 
   @override
-  AppBarWidget buildAppBar(BuildContext context) => null;
+  Widget buildAppBar(BuildContext context) => null;
 
   @override
   Widget buildMainContainer(BuildContext context) {
@@ -43,13 +43,13 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
                         onTap: () => Navigator.of(context).pop(),
                         margin: EdgeInsets.only(
                             top: DeviceUtil.getPaddingTop(context)),
-                        backgroundColor: AppColor.TRANSPARENT,
+                        backgroundColor: Colors.transparent,
                         child: Padding(
                           padding:
-                              EdgeInsets.only(top: 12, right: 12, bottom: 12),
+                          EdgeInsets.only(top: 12, right: 12, bottom: 12),
                           child: Image.asset(
                             Images.LEFT_ARROW,
-                            color: AppColor.WHITE,
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -69,10 +69,10 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
                             Text(
                               StringRes.APP_NAME,
                               style: TextStyle(
-                                  fontFamily: 'bold',
+                                  fontFamily: Fonts.BOLD,
                                   fontSize: 24,
                                   letterSpacing: 0.1,
-                                  color: AppColor.WHITE),
+                                  color:Colors.white),
                             )
                           ],
                         ),
@@ -102,9 +102,9 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
                                     .textTheme
                                     .title
                                     .copyWith(
-                                        fontSize: 20,
-                                        color: AppColor.GREEN,
-                                        fontFamily: 'bold'),
+                                    fontSize: 20,
+                                    color: AppColor.PRIMARY,
+                                    fontFamily: Fonts.BOLD),
                               ),
                               InputWidget(
                                 validator: (value) {
@@ -174,7 +174,7 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
                           },
                           borderRadius: BorderRadius.circular(5),
                           margin: EdgeInsets.only(top: 25, bottom: 25),
-                          backgroundColor: AppColor.GREEN,
+                          backgroundColor: AppColor.PRIMARY,
                           child: Text(
                             StringRes.REGISTER.toUpperCase(),
                             style: Theme.of(context).textTheme.body2,

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "460222255195",
+    "firebase_url": "https://footballground-3d74c.firebaseio.com",
+    "project_id": "footballground-3d74c",
+    "storage_bucket": "footballground-3d74c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460222255195:android:0a72fa098e46cf32212f7e",
+        "android_client_info": {
+          "package_name": "com.app.footballground"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460222255195-q9rsu46bu6om965oihd02ckr8loicpom.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.footballground",
+            "certificate_hash": "15ceec898ea61d35905ba1a5fd3438e621ccc0bf"
+          }
+        },
+        {
+          "client_id": "460222255195-283hnqjpsa37q0bs6ue3tqtqlfu5j4ra.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3ROXbTLWPkBZGkPkBDWDARhqzxGGINcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460222255195-283hnqjpsa37q0bs6ue3tqtqlfu5j4ra.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "460222255195-46o62r4b22it79hlfpn0lt0jt43ou1rd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.footballground"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

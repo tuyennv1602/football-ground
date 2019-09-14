@@ -7,7 +7,7 @@ import 'base-page.dart';
 // ignore: must_be_immutable
 class ChatPage extends BasePage<ChatBloc> {
   @override
-  AppBarWidget buildAppBar(BuildContext context) => AppBarWidget(
+  Widget buildAppBar(BuildContext context) => AppBarWidget(
         centerContent: Text(
           "Chat",
           textAlign: TextAlign.center,

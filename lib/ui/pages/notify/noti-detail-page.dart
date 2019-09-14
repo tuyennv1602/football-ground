@@ -7,7 +7,7 @@ import '../base-page.dart';
 // ignore: must_be_immutable
 class NotiDetailPage extends BasePage<NotiBloc> {
   @override
-  AppBarWidget buildAppBar(BuildContext context) {
+  Widget buildAppBar(BuildContext context) {
     return AppBarWidget(
       centerContent: Text("data"),
     );

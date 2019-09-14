@@ -70,7 +70,7 @@ class HomePage extends StatelessWidget {
     }
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
-        activeColor: AppColor.GREEN,
+        activeColor: AppColor.PRIMARY,
         items: tabBarItems,
         currentIndex: 0,
       ),

@@ -1,35 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:footballground/utils/device-util.dart';
+import 'package:footballground/res/fonts.dart';
 
 import 'button-widget.dart';
 
 typedef void OnClickOption(int index);
 
-class BottomSheetWidget extends StatefulWidget {
+// ignore: must_be_immutable
+class BottomSheetWidget extends StatelessWidget {
   final List<String> options;
   final OnClickOption onClickOption;
+  List<Widget> children = [];
+  static const double BUTTON_HEIGHT = 50;
 
   BottomSheetWidget({@required this.options, this.onClickOption});
 
   @override
-  State<StatefulWidget> createState() => BootomSheetState();
-}
-
-class BootomSheetState extends State<BottomSheetWidget> {
-  List<Widget> children = [];
-  static const double BUTTON_HEIGHT = 50;
-
-  @override
   Widget build(BuildContext context) {
-    int length = widget.options.length;
-    widget.options.asMap().forEach((index, value) {
+    int length = options.length;
+    options.asMap().forEach((index, value) {
       if (index == 0) {
         children.add(SizedBox(
           height: BUTTON_HEIGHT,
           child: Center(
             child: Text(
               value,
-              style: TextStyle(color: Colors.black, fontFamily: 'semi-bold', fontSize: 18),
+              style: TextStyle(
+                  color: Colors.black, fontFamily: Fonts.REGULAR, fontSize: 16),
             ),
           ),
         ));
@@ -40,7 +36,10 @@ class BootomSheetState extends State<BottomSheetWidget> {
           child: Text(
             value,
             style: TextStyle(
-                fontFamily: 'semi-bold', fontSize: 16, letterSpacing: 0.1, color: Colors.red),
+                fontFamily: Fonts.SEMI_BOLD,
+                fontSize: 16,
+                letterSpacing: 0.1,
+                color: Colors.red),
           ),
           onTap: () => Navigator.of(context).pop(),
         ));
@@ -50,9 +49,12 @@ class BootomSheetState extends State<BottomSheetWidget> {
           child: Text(
             value,
             style: TextStyle(
-                fontFamily: 'regular', fontSize: 16, letterSpacing: 0.1, color: Colors.black87),
+                fontFamily: Fonts.REGULAR,
+                fontSize: 16,
+                letterSpacing: 0.1,
+                color: Colors.black87),
           ),
-          onTap: () => widget.onClickOption(index),
+          onTap: () => onClickOption(index),
         ));
       }
       children.add(Container(
@@ -61,15 +63,19 @@ class BootomSheetState extends State<BottomSheetWidget> {
       ));
     });
     return Container(
-      height: ((length * BUTTON_HEIGHT) + length).toDouble(),
-      margin: EdgeInsets.only(left: 15, right: 15, bottom: DeviceUtil.getPaddingBottom(context)),
+      margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
       color: Colors.transparent,
-      child: Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
-        child: Column(
-          children: this.children,
-          mainAxisAlignment: MainAxisAlignment.end,
-        ),
+      child: Wrap(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), color: Colors.white),
+            child: Column(
+              children: this.children,
+              mainAxisAlignment: MainAxisAlignment.end,
+            ),
+          )
+        ],
       ),
     );
   }
