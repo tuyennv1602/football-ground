@@ -8,9 +8,9 @@ import 'base-bloc.dart';
 class RegisterBloc extends BaseBloc {
   var _userRepo = UserRepository();
 
-  final _userNameCtrl = BehaviorSubject<String>();
-  Function(String) get changeUsernameFunc => _userNameCtrl.add;
-  Observable<String> get changeUsernameStream => Observable(_userNameCtrl);
+  final _nameCtrl = BehaviorSubject<String>();
+  Function(String) get changeNameFunc => _nameCtrl.add;
+  Observable<String> get changeNameStream => Observable(_nameCtrl);
 
   final _emailCtrl = BehaviorSubject<String>();
   Function(String) get changeEmailFunc => _emailCtrl.add;
@@ -20,9 +20,9 @@ class RegisterBloc extends BaseBloc {
   Function(String) get changePasswordFunc => _passwordCtrl.add;
   Observable<String> get changePasswordStream => Observable(_passwordCtrl);
 
-  final _phonenumberCtrl = BehaviorSubject<String>();
-  Function(String) get changePhoneNumberFunc => _phonenumberCtrl.add;
-  Observable<String> get changePhoneNumberStream => Observable(_phonenumberCtrl);
+  final _phoneNumberCtrl = BehaviorSubject<String>();
+  Function(String) get changePhoneNumberFunc => _phoneNumberCtrl.add;
+  Observable<String> get changePhoneNumberStream => Observable(_phoneNumberCtrl);
 
   final _submitRegisterCtrl = PublishSubject<bool>();
   Function(bool) get submitRegisterFunc => _submitRegisterCtrl.add;
@@ -34,16 +34,17 @@ class RegisterBloc extends BaseBloc {
       .flatMap((res) => Observable.just(res));
 
   Future<BaseResponse> _register() async {
-    return _userRepo.register(_userNameCtrl.value, _emailCtrl.value, _passwordCtrl.value,
-        _phonenumberCtrl.value, [Constants.GROUND_OWNER]);
+    return _userRepo.register(_nameCtrl.value, _emailCtrl.value, _passwordCtrl.value,
+        _phoneNumberCtrl.value, [Constants.GROUND_OWNER]);
   }
 
   @override
   void dispose() {
+    super.dispose();
     _emailCtrl.close();
     _passwordCtrl.close();
-    _userNameCtrl.close();
-    _phonenumberCtrl.close();
+    _nameCtrl.close();
+    _phoneNumberCtrl.close();
     _submitRegisterCtrl.close();
   }
 }

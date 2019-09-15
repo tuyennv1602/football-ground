@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
+const double _kButtonAppbarHeight = 48;
+
 class AppBarButtonWidget extends StatelessWidget {
   final String imageName;
   final Function onTap;
   final double padding;
 
-  AppBarButtonWidget({this.imageName, this.onTap, this.padding});
+  AppBarButtonWidget({Key key, this.imageName, this.onTap, this.padding})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
-      width: 50,
+      height: _kButtonAppbarHeight,
+      width: _kButtonAppbarHeight,
       child: (imageName != null && onTap != null)
           ? InkWell(
               onTap: onTap,

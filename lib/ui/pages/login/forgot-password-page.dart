@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:footballground/blocs/forgot-password-bloc.dart';
 import 'package:footballground/res/colors.dart';
-import 'package:footballground/res/fonts.dart';
 import 'package:footballground/res/images.dart';
 import 'package:footballground/res/stringres.dart';
+import 'package:footballground/res/styles.dart';
 import 'package:footballground/ui/widgets/button-widget.dart';
 import 'package:footballground/ui/widgets/input-widget.dart';
-import 'package:footballground/utils/device-util.dart';
+import 'package:footballground/utils/size-config.dart';
 import 'package:footballground/utils/validator.dart';
 
 import '../base-page.dart';
@@ -21,7 +21,7 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
   @override
   Widget buildMainContainer(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 20, right: 20),
+      padding: EdgeInsets.symmetric(horizontal: size20),
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/bg.jpg'), fit: BoxFit.fill)),
@@ -29,19 +29,19 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
         children: <Widget>[
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(bottom: size20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   ButtonWidget(
-                    width: 50,
-                    height: 50,
+                    width: size50,
+                    height: size50,
                     onTap: () => Navigator.of(context).pop(),
-                    margin:
-                        EdgeInsets.only(top: DeviceUtil.getPaddingTop(context)),
+                    margin: EdgeInsets.only(top: SizeConfig.paddingTop),
                     backgroundColor: Colors.transparent,
                     child: Padding(
-                      padding: EdgeInsets.only(top: 12, right: 12, bottom: 12),
+                      padding: EdgeInsets.only(
+                          top: size15, right: size15, bottom: size15),
                       child: Image.asset(
                         Images.LEFT_ARROW,
                         color: Colors.white,
@@ -54,20 +54,16 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
                       children: <Widget>[
                         Image.asset(
                           'assets/images/icn_logo.png',
-                          width: 50,
-                          height: 50,
+                          width: size50,
+                          height: size50,
                           fit: BoxFit.contain,
                         ),
                         SizedBox(
-                          width: 15,
+                          width: size15,
                         ),
                         Text(
                           StringRes.APP_NAME,
-                          style: TextStyle(
-                              fontFamily: Fonts.BOLD,
-                              fontSize: 24,
-                              letterSpacing: 0.1,
-                              color: Colors.white),
+                          style: Styles.appName(),
                         )
                       ],
                     ),
@@ -82,10 +78,10 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
                 children: <Widget>[
                   Container(
                     width: double.infinity,
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(size10),
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(5)),
+                        borderRadius: BorderRadius.circular(size5)),
                     child: Form(
                       key: _formKey,
                       child: Column(
@@ -97,10 +93,7 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
                               (snap.hasData && snap.data)
                                   ? 'Đổi mật khẩu'
                                   : 'Lấy mã xác nhận',
-                              style: Theme.of(context).textTheme.title.copyWith(
-                                  fontSize: 20,
-                                  color: AppColor.PRIMARY,
-                                  fontFamily: Fonts.BOLD),
+                              style: Styles.bold(color: AppColor.PRIMARY),
                             ),
                           ),
                           InputWidget(
@@ -148,15 +141,10 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
                                 );
                               }
                               return Padding(
-                                padding: EdgeInsets.only(top: 10),
+                                padding: EdgeInsets.only(top: size10),
                                 child: Text(
                                   "Một mã xác nhận sẽ được gửi đến email của bạn. Vui lòng kiểm tra email và sử dụng mã xác nhận để thay đổi mật khẩu",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .body1
-                                      .copyWith(
-                                          fontFamily: Fonts.ITALIC,
-                                          color: Colors.grey),
+                                  style: Styles.italic(color: Colors.grey),
                                 ),
                               );
                             },
@@ -172,12 +160,12 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
                           pageBloc.submit();
                         }
                       },
-                      borderRadius: BorderRadius.circular(5),
-                      margin: EdgeInsets.only(top: 25, bottom: 25),
+                      borderRadius: BorderRadius.circular(size5),
+                      margin: EdgeInsets.symmetric(vertical: size25),
                       backgroundColor: AppColor.PRIMARY,
                       child: Text(
                         StringRes.CONFIRM,
-                        style: Theme.of(context).textTheme.body2,
+                        style: Styles.button(),
                       ),
                     ),
                   )
@@ -194,7 +182,8 @@ class ForgotPasswordPage extends BasePage<ForgotPasswordBloc> with Validator {
       if (!onData.isSuccess) {
         showSnackBar(onData.errorMessage);
       } else {
-        showSnackBar(onData.errorMessage, backgroundColor: AppColor.PRIMARY);
+        showSnackBar('Mã xác nhận đã được gửi',
+            backgroundColor: AppColor.PRIMARY);
         pageBloc.changeTypeFunc(true);
       }
     });

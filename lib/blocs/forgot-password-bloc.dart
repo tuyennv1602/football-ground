@@ -58,6 +58,7 @@ class ForgotPasswordBloc extends BaseBloc {
 
   @override
   void dispose() {
+    super.dispose();
     _emailCtrl.close();
     _submitEmailCtrl.close();
     _passwordCtrl.close();

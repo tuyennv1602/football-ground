@@ -23,6 +23,7 @@ class UserBloc extends BaseBloc {
 
   @override
   void dispose() {
+    super.dispose();
     _logoutCtrl.close();
   }
 

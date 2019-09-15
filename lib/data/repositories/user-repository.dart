@@ -13,12 +13,13 @@ class UserRepository {
     return _userProvider.forgotPassword(email);
   }
 
-  Future<BaseResponse> register(
-      String userName, String email, String password, String phoneNumber, List<int> roles) async {
-    return _userProvider.register(userName, email, password, phoneNumber, roles);
+  Future<BaseResponse> register(String name, String email, String password,
+      String phoneNumber, List<int> roles) async {
+    return _userProvider.register(name, email, password, phoneNumber, roles);
   }
 
-  Future<BaseResponse> changePassword(String email, String password, String code) async {
+  Future<BaseResponse> changePassword(
+      String email, String password, String code) async {
     return _userProvider.changePassword(email, password, code);
   }
 

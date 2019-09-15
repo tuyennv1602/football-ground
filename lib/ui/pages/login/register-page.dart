@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:footballground/blocs/register-bloc.dart';
 import 'package:footballground/res/colors.dart';
-import 'package:footballground/res/fonts.dart';
 import 'package:footballground/res/images.dart';
 import 'package:footballground/res/stringres.dart';
+import 'package:footballground/res/styles.dart';
 import 'package:footballground/ui/widgets/button-widget.dart';
 import 'package:footballground/ui/widgets/input-widget.dart';
-import 'package:footballground/utils/device-util.dart';
+import 'package:footballground/utils/size-config.dart';
 import 'package:footballground/utils/validator.dart';
 
 import '../base-page.dart';
@@ -21,7 +21,7 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
   @override
   Widget buildMainContainer(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 20, right: 20),
+      padding: EdgeInsets.symmetric(horizontal: size20),
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/bg.jpg'), fit: BoxFit.cover)),
@@ -33,20 +33,19 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
             children: <Widget>[
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: 20),
+                  padding: EdgeInsets.only(bottom: size20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       ButtonWidget(
-                        width: 50,
-                        height: 50,
+                        width: size50,
+                        height: size50,
                         onTap: () => Navigator.of(context).pop(),
-                        margin: EdgeInsets.only(
-                            top: DeviceUtil.getPaddingTop(context)),
+                        margin: EdgeInsets.only(top: SizeConfig.paddingTop),
                         backgroundColor: Colors.transparent,
                         child: Padding(
-                          padding:
-                          EdgeInsets.only(top: 12, right: 12, bottom: 12),
+                          padding: EdgeInsets.only(
+                              top: size15, right: size15, bottom: size15),
                           child: Image.asset(
                             Images.LEFT_ARROW,
                             color: Colors.white,
@@ -59,20 +58,16 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
                           children: <Widget>[
                             Image.asset(
                               'assets/images/icn_logo.png',
-                              width: 50,
-                              height: 50,
+                              width: size50,
+                              height: size50,
                               fit: BoxFit.contain,
                             ),
                             SizedBox(
-                              width: 15,
+                              width: size15,
                             ),
                             Text(
                               StringRes.APP_NAME,
-                              style: TextStyle(
-                                  fontFamily: Fonts.BOLD,
-                                  fontSize: 24,
-                                  letterSpacing: 0.1,
-                                  color:Colors.white),
+                              style: Styles.appName(),
                             )
                           ],
                         ),
@@ -87,10 +82,10 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
                     children: <Widget>[
                       Container(
                         width: double.infinity,
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(size10),
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(5)),
+                            borderRadius: BorderRadius.circular(size5)),
                         child: Form(
                           key: _formKey,
                           child: Column(
@@ -98,13 +93,7 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
                             children: <Widget>[
                               Text(
                                 StringRes.REGISTER,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .title
-                                    .copyWith(
-                                    fontSize: 20,
-                                    color: AppColor.PRIMARY,
-                                    fontFamily: Fonts.BOLD),
+                                style: Styles.bold(color: AppColor.PRIMARY),
                               ),
                               InputWidget(
                                 validator: (value) {
@@ -115,7 +104,7 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
                                 labelText: StringRes.USER_NAME,
                                 inputAction: TextInputAction.next,
                                 onChangedText: (text) =>
-                                    pageBloc.changeUsernameFunc(text),
+                                    pageBloc.changeNameFunc(text),
                               ),
                               InputWidget(
                                 validator: (value) {
@@ -172,12 +161,12 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
                               hideKeyBoard(context);
                             }
                           },
-                          borderRadius: BorderRadius.circular(5),
-                          margin: EdgeInsets.only(top: 25, bottom: 25),
+                          borderRadius: BorderRadius.circular(size5),
+                          margin: EdgeInsets.symmetric(vertical: size25),
                           backgroundColor: AppColor.PRIMARY,
                           child: Text(
                             StringRes.REGISTER.toUpperCase(),
-                            style: Theme.of(context).textTheme.body2,
+                            style: Styles.button(),
                           ),
                         ),
                       )
@@ -196,7 +185,8 @@ class RegisterPage extends BasePage<RegisterBloc> with Validator {
       if (!data.isSuccess) {
         showSnackBar(data.errorMessage);
       } else {
-        showSimpleDialog(context, data.errorMessage,
+        showSimpleDialog(context,
+            'Đăng ký thành công. Vui lòng kiểm tra email để kích hoạt tài khoản',
             onTap: () => Navigator.of(context).pop());
       }
     });

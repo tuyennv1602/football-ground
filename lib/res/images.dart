@@ -24,4 +24,6 @@ class Images {
   static const String LEFT_ARROW = '$FOLDER/ic_left_arrow.png';
   static const String SHARE = '$FOLDER/icn_share.png';
   static const String INFO = '$FOLDER/icn_info.png';
+  static const String EDIT = '$FOLDER/icn_edit.png';
+
 }

@@ -2,7 +2,7 @@ import 'package:footballground/blocs/base-bloc.dart';
 import 'package:footballground/data/app-api.dart';
 import 'package:footballground/data/app-preference.dart';
 import 'package:footballground/data/repositories/user-repository.dart';
-import 'package:footballground/models/header.dart';
+import 'package:footballground/models/headers.dart';
 import 'package:footballground/models/responses/login-response.dart';
 import 'package:footballground/models/token.dart';
 import 'package:rxdart/rxdart.dart';
@@ -37,13 +37,14 @@ class LoginBloc extends BaseBloc {
     if (response.isSuccess) {
       await _appPref.setToken(Token(token: response.token, refreshToken: response.refreshToken));
       await _appPref.setUser(response.user);
-      AppApi.setHeader(Header(accessToken: response.token));
+      AppApi.setHeader(Headers(accessToken: response.token));
     }
     return Future.value(response);
   }
 
   @override
   void dispose() {
+    super.dispose();
     _emailCtrl.close();
     _passwordCtrl.close();
     _submitLoginCtrl.close();

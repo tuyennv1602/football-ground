@@ -16,11 +16,13 @@ class SearchWidget extends StatelessWidget {
   static const double HEIGHT = 40;
 
   SearchWidget(
-      {this.keyword = '',
+      {Key key,
+      this.keyword = '',
       this.onChangedText,
       this.onSubmitText,
       this.backgroundColor,
-      this.hintText = 'Nhập từ khoá'});
+      this.hintText = 'Nhập từ khoá'})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +46,16 @@ class SearchWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.body1,
               decoration: InputDecoration(
                   hintText: this.hintText,
-                  hintStyle: Theme.of(context).textTheme.body1.copyWith(color: Colors.grey),
+                  hintStyle: Theme.of(context)
+                      .textTheme
+                      .body1
+                      .copyWith(color: Colors.grey),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.only(left: 15, right: 15)),
               textInputAction: TextInputAction.search,
               controller: TextEditingController.fromValue(TextEditingValue(
-                  text: this.keyword, selection: TextSelection.collapsed(offset: length))),
+                  text: this.keyword,
+                  selection: TextSelection.collapsed(offset: length))),
             ),
           ),
           ButtonWidget(

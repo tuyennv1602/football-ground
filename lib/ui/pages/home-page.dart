@@ -7,6 +7,7 @@ import 'package:footballground/blocs/noti-bloc.dart';
 import 'package:footballground/blocs/social-bloc.dart';
 import 'package:footballground/blocs/user-bloc.dart';
 import 'package:footballground/res/colors.dart';
+import 'package:footballground/res/fonts.dart';
 import 'package:footballground/ui/pages/social-page.dart';
 import 'package:footballground/ui/pages/user/user-page.dart';
 import 'package:footballground/ui/routes/routes.dart';
@@ -41,21 +42,24 @@ class HomePage extends StatelessWidget {
   final List<BottomNavigationBarItem> tabBarItems = [
     BottomNavigationBarItem(
       icon: Icon(Icons.rss_feed, size: 25),
-      title: Text('Cộng đồng', style: TextStyle(fontSize: 10)),
+      title: Text('Cộng đồng',
+          style: TextStyle(fontSize: 10, fontFamily: Fonts.REGULAR)),
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.flag, size: 25),
-      title: Text('Sân bóng', style: TextStyle(fontSize: 10)),
+      icon: Icon(Icons.apps, size: 25),
+      title: Text('Sân bóng',
+          style: TextStyle(fontSize: 10, fontFamily: Fonts.REGULAR)),
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.notifications, size: 25),
-      title: Text('Thông báo', style: TextStyle(fontSize: 10)),
+      title: Text('Thông báo',
+          style: TextStyle(fontSize: 10, fontFamily: Fonts.REGULAR)),
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.account_circle, size: 25),
       title: Text(
         'Cá nhân',
-        style: TextStyle(fontSize: 10),
+        style: TextStyle(fontSize: 10, fontFamily: Fonts.REGULAR),
       ),
     ),
   ];
@@ -75,10 +79,17 @@ class HomePage extends StatelessWidget {
         currentIndex: 0,
       ),
       tabBuilder: (BuildContext context, int index) {
-        if (index == 0) return CupertinoTabView(builder: (BuildContext context) => _socialTab);
-        if (index == 1) return CupertinoTabView(builder: (BuildContext context) => _groundTab);
-        if (index == 2) return CupertinoTabView(builder: (BuildContext context) => _notifyTab);
-        if (index == 3) return CupertinoTabView(builder: (BuildContext context) => _userTab);
+        if (index == 0)
+          return CupertinoTabView(
+              builder: (BuildContext context) => _socialTab);
+        if (index == 1)
+          return CupertinoTabView(
+              builder: (BuildContext context) => _groundTab);
+        if (index == 2)
+          return CupertinoTabView(
+              builder: (BuildContext context) => _notifyTab);
+        if (index == 3)
+          return CupertinoTabView(builder: (BuildContext context) => _userTab);
         return null;
       },
     );

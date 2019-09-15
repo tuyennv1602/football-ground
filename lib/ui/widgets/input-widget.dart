@@ -20,7 +20,8 @@ class InputWidget extends StatefulWidget {
   final int maxLength;
 
   InputWidget(
-      {this.labelText,
+      {Key key,
+      this.labelText,
       this.obscureText,
       @required this.onChangedText,
       this.validator,
@@ -30,7 +31,9 @@ class InputWidget extends StatefulWidget {
       this.errorText,
       this.maxLines,
       this.maxLength,
-      this.onSubmitText});
+      this.onSubmitText})
+      : assert(onChangedText != null),
+        super(key: key);
 
   @override
   State<StatefulWidget> createState() => InputState();
@@ -69,7 +72,10 @@ class InputState extends State<InputWidget> {
         maxLength: widget.maxLength ?? 50,
         maxLines: widget.maxLines ?? 1,
         style: TextStyle(
-            fontFamily: Fonts.REGULAR, fontSize: 16, color: AppColor.BLACK_TEXT, letterSpacing: 0.15),
+            fontFamily: Fonts.REGULAR,
+            fontSize: 16,
+            color: AppColor.BLACK_TEXT,
+            letterSpacing: 0.15),
         initialValue: widget.initValue,
         controller: _controller,
         focusNode: _textFocus,
@@ -83,15 +89,18 @@ class InputState extends State<InputWidget> {
           border: UnderlineInputBorder(
             borderSide: BorderSide(width: 1, color: AppColor.LINE_COLOR),
           ),
-          errorBorder: UnderlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.red)),
+          errorBorder: UnderlineInputBorder(
+              borderSide: BorderSide(width: 1, color: Colors.red)),
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(width: 1, color: AppColor.PRIMARY),
           ),
           labelText: widget.labelText,
           errorText: widget.errorText,
           counter: SizedBox(),
-          errorStyle: TextStyle(fontFamily: Fonts.REGULAR, color: Colors.red, fontSize: 11),
-          labelStyle: TextStyle(fontFamily: Fonts.REGULAR, color: Colors.grey, fontSize: 15),
+          errorStyle: TextStyle(
+              fontFamily: Fonts.REGULAR, color: Colors.red, fontSize: 11),
+          labelStyle: TextStyle(
+              fontFamily: Fonts.REGULAR, color: Colors.grey, fontSize: 15),
         ),
       );
 }

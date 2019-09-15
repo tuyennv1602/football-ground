@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:footballground/res/colors.dart';
 
-class DividerWidget extends StatelessWidget {
+class LineWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Divider(

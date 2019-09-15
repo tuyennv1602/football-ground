@@ -11,7 +11,8 @@ class UserProvider {
         'email': email,
         'password': password,
       });
-      var response = await AppApi.getApi('user/login', queryParams: formData);
+      var response =
+          await AppApi.getAuthApi('user/login', queryParams: formData);
       return LoginResponse.success(response.data);
     } on DioError catch (e) {
       return LoginResponse.error(e.message);
@@ -20,19 +21,20 @@ class UserProvider {
 
   Future<BaseResponse> forgotPassword(String email) async {
     try {
-      var response = await AppApi.postApi('user/forgot-password', body: {"email": email});
+      var response = await AppApi.postAuthApi('user/forgot-password',
+          body: {"email": email});
       return BaseResponse.success(response.data);
     } on DioError catch (e) {
       return BaseResponse.error(e.message);
     }
   }
 
-  Future<BaseResponse> register(
-      String userName, String email, String password, String phoneNumber, List<int> roles) async {
+  Future<BaseResponse> register(String name, String email, String password,
+      String phoneNumber, List<int> roles) async {
     try {
       // for body
-      var response = await AppApi.postApi('user/register', body: {
-        "userName": userName,
+      var response = await AppApi.postAuthApi('user/register', body: {
+        "name": name,
         "email": email,
         "password": password,
         "phone": phoneNumber,
@@ -44,7 +46,8 @@ class UserProvider {
     }
   }
 
-  Future<BaseResponse> changePassword(String email, String password, String code) async {
+  Future<BaseResponse> changePassword(
+      String email, String password, String code) async {
     try {
       var response = await AppApi.postApi('user/change-password',
           body: {"email": email, "password": password, "code": code});

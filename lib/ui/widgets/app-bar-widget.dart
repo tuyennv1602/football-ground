@@ -3,8 +3,9 @@ import 'package:footballground/res/colors.dart';
 
 import 'app-bar-button.dart';
 
+const double _kAppbarHeight = 48;
+
 class AppBarWidget extends StatelessWidget {
-  final appBarHeight;
   final Widget leftContent;
   final Widget centerContent;
   final Widget rightContent;
@@ -12,16 +13,18 @@ class AppBarWidget extends StatelessWidget {
   final Color backgroundColor;
 
   AppBarWidget(
-      {this.appBarHeight,
+      {Key key,
       this.leftContent,
       this.rightContent,
       @required this.centerContent,
       this.backgroundColor,
-      this.showBorder = false});
+      this.showBorder = false})
+      : assert(centerContent != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
-        height: appBarHeight ?? 50,
+        height: _kAppbarHeight,
         decoration: BoxDecoration(
             color: backgroundColor ?? AppColor.PRIMARY,
             border: showBorder

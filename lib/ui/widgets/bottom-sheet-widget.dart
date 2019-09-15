@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:footballground/res/colors.dart';
 import 'package:footballground/res/fonts.dart';
+import 'package:footballground/ui/widgets/border-background.dart';
 
 import 'button-widget.dart';
 
@@ -12,7 +14,9 @@ class BottomSheetWidget extends StatelessWidget {
   List<Widget> children = [];
   static const double BUTTON_HEIGHT = 50;
 
-  BottomSheetWidget({@required this.options, this.onClickOption});
+  BottomSheetWidget({Key key, @required this.options, this.onClickOption})
+      : assert(options != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +29,14 @@ class BottomSheetWidget extends StatelessWidget {
             child: Text(
               value,
               style: TextStyle(
-                  color: Colors.black, fontFamily: Fonts.REGULAR, fontSize: 16),
+                  color: AppColor.PRIMARY,
+                  fontFamily: Fonts.SEMI_BOLD,
+                  fontSize: 16),
             ),
           ),
         ));
       } else if (index == length - 1) {
         children.add(ButtonWidget(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
           height: BUTTON_HEIGHT,
           child: Text(
             value,
@@ -63,13 +68,10 @@ class BottomSheetWidget extends StatelessWidget {
       ));
     });
     return Container(
-      margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
       color: Colors.transparent,
       child: Wrap(
         children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: Colors.white),
+          BorderBackground(
             child: Column(
               children: this.children,
               mainAxisAlignment: MainAxisAlignment.end,

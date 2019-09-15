@@ -7,20 +7,22 @@ class RotationWidget extends StatefulWidget {
   final Widget widget;
   final Duration duration;
 
-  RotationWidget({this.widget, this.width, this.height, this.duration});
+  RotationWidget({Key key, this.widget, this.width, this.height, this.duration})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => RotationState();
 }
 
-class RotationState extends State<RotationWidget> with SingleTickerProviderStateMixin {
+class RotationState extends State<RotationWidget>
+    with SingleTickerProviderStateMixin {
   AnimationController rotationController;
 
   @override
   void initState() {
     super.initState();
-    rotationController =
-        AnimationController(duration: widget.duration ?? Duration(milliseconds: 1000), vsync: this);
+    rotationController = AnimationController(
+        duration: widget.duration ?? Duration(milliseconds: 1000), vsync: this);
     rotationController.repeat();
   }
 

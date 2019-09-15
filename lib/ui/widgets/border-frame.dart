@@ -5,8 +5,16 @@ class BorderFrameWidget extends StatelessWidget {
   final EdgeInsets margin;
   final Widget child;
   final Color backgroundColor;
+  final double border;
 
-  BorderFrameWidget({this.margin, @required this.child, this.backgroundColor});
+  BorderFrameWidget(
+      {Key key,
+      this.margin,
+      @required this.child,
+      this.backgroundColor,
+      this.border})
+      : assert(child != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -14,7 +22,7 @@ class BorderFrameWidget extends StatelessWidget {
         padding: EdgeInsets.all(10),
         margin: this.margin ?? EdgeInsets.zero,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(7),
+            borderRadius: BorderRadius.circular(border ?? 5),
             color: backgroundColor ?? AppColor.GREY_BACKGROUND),
         child: this.child,
       );

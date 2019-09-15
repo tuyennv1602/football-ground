@@ -10,13 +10,17 @@ class ButtonWidget extends StatelessWidget {
   final BorderRadius borderRadius;
 
   ButtonWidget(
-      {@required this.child,
+      {Key key,
+      @required this.child,
       @required this.onTap,
       this.backgroundColor,
       this.margin,
       this.width,
       this.height = 45,
-      this.borderRadius});
+      this.borderRadius})
+      : assert(child != null),
+        assert(onTap != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(

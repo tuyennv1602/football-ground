@@ -11,6 +11,9 @@ import 'data/app-preference.dart';
 import 'http.dart';
 import 'ui/pages/home-page.dart';
 import 'ui/pages/login/login-page.dart'; // make dio as global top-level variable
+import 'package:firebase_messaging/firebase_messaging.dart';
+
+final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
 // Must be top-level function
 _parseAndDecode(String response) {
@@ -24,8 +27,11 @@ parseJson(String text) {
 void main() async {
   await FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
   await FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
+  _firebaseMessaging.requestNotificationPermissions();
   var token = await AppPreference().getToken();
-  dio.interceptors..add(CookieManager(CookieJar()))..add(LogInterceptor(responseBody: true));
+  dio.interceptors
+    ..add(CookieManager(CookieJar()))
+    ..add(LogInterceptor(responseBody: true));
   (dio.transformer as DefaultTransformer).jsonDecodeCallback = parseJson;
   return runApp(BlocProvider<AppBloc>(
     bloc: AppBloc(),
@@ -44,17 +50,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           canvasColor: Colors.transparent,
-          textTheme: Theme.of(context).textTheme.copyWith(
-              title: TextStyle(
-                  fontFamily: 'semi-bold', fontSize: 18, letterSpacing: 0.1, color: Colors.white),
-              body1: TextStyle(
-                fontFamily: 'regular',
-                fontSize: 14,
-                letterSpacing: 0.1,
-                color: Colors.black87,
-              ),
-              body2: TextStyle(
-                  fontFamily: 'semi-bold', fontSize: 16, letterSpacing: 0.1, color: Colors.white)),
+          fontFamily: 'regular',
         ),
         home: _isLogined
             ? HomePage()

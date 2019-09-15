@@ -1,30 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:footballground/blocs/social-bloc.dart';
 import 'package:footballground/res/colors.dart';
+import 'package:footballground/res/fonts.dart';
+import 'package:footballground/res/styles.dart';
 import 'package:footballground/ui/widgets/app-bar-widget.dart';
-import 'package:footballground/utils/device-util.dart';
+import 'package:footballground/ui/widgets/border-background.dart';
+import 'package:footballground/utils/size-config.dart';
 import 'base-page.dart';
 
 // ignore: must_be_immutable
 class SocialPage extends BasePage<SocialBloc> {
+  @override
+  Widget buildAppBar(BuildContext context) => AppBarWidget(
+    centerContent: Text(
+      'Cộng đồng',
+      textAlign: TextAlign.center,
+      style: Styles.title(),
+    ),
+  );
+
   Widget _buildCateTitle(String title) => Text(
-        title,
-        style: TextStyle(
-          color: AppColor.PRIMARY,
-          fontFamily: 'bold',
-          fontSize: 18,
-        ),
-      );
+    title,
+    style: Styles.semiBold(color: AppColor.PRIMARY),
+  );
 
   Widget _buildItemNew(BuildContext context, int index) => Container(
-        width: DeviceUtil.getWidth(context) / 2,
-        margin: EdgeInsets.only(right: 10),
-        decoration: BoxDecoration(
-            color: AppColor.GREY_BACKGROUND,
-            borderRadius: BorderRadius.circular(10)),
-        padding: EdgeInsets.all(10),
-        child: Text("Item $index"),
-      );
+    width: SizeConfig.screenWidth / 2,
+    margin: EdgeInsets.only(right: size10),
+    decoration: BoxDecoration(
+        color: AppColor.GREY_BACKGROUND,
+        borderRadius: BorderRadius.circular(size10)),
+    padding: EdgeInsets.all(size10),
+    child: Text("Item $index"),
+  );
 
   Widget _buildNewsest(BuildContext context) {
     return Column(
@@ -32,11 +40,11 @@ class SocialPage extends BasePage<SocialBloc> {
       children: <Widget>[
         _buildCateTitle('Tin tức mới nhất'),
         SizedBox(
-          height: 10,
+          height: size10,
         ),
         Container(
-            margin: EdgeInsets.only(bottom: 10),
-            height: 150,
+            margin: EdgeInsets.only(bottom: size10),
+            height: SizeConfig.size(150),
             child: ListView.builder(
               itemCount: 10,
               scrollDirection: Axis.horizontal,
@@ -54,11 +62,11 @@ class SocialPage extends BasePage<SocialBloc> {
       children: <Widget>[
         _buildCateTitle('Bảng xếp hạng'),
         SizedBox(
-          height: 10,
+          height: size10,
         ),
         Container(
-            margin: EdgeInsets.only(bottom: 10),
-            height: 150,
+            margin: EdgeInsets.only(bottom: size10),
+            height: SizeConfig.size(150),
             child: ListView.builder(
               itemCount: 10,
               scrollDirection: Axis.horizontal,
@@ -76,11 +84,11 @@ class SocialPage extends BasePage<SocialBloc> {
       children: <Widget>[
         _buildCateTitle('Giải đấu'),
         SizedBox(
-          height: 10,
+          height: size10,
         ),
         Container(
-            margin: EdgeInsets.only(bottom: 10),
-            height: 150,
+            margin: EdgeInsets.only(bottom: size10),
+            height: SizeConfig.size(150),
             child: ListView.builder(
               itemCount: 10,
               scrollDirection: Axis.horizontal,
@@ -98,11 +106,10 @@ class SocialPage extends BasePage<SocialBloc> {
       children: <Widget>[
         _buildCateTitle('Thông tin tuyển quân'),
         SizedBox(
-          height: 10,
+          height: size10,
         ),
         Container(
-            margin: EdgeInsets.only(bottom: 10),
-            height: 150,
+            height: SizeConfig.size(150),
             child: ListView.builder(
               itemCount: 10,
               scrollDirection: Axis.horizontal,
@@ -115,32 +122,23 @@ class SocialPage extends BasePage<SocialBloc> {
   }
 
   @override
-  Widget buildAppBar(BuildContext context) => AppBarWidget(
-        centerContent: Text(
-          'Cộng đồng',
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.title,
-        ),
-      );
-
-  @override
   Widget buildMainContainer(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.all(10),
-      physics: BouncingScrollPhysics(),
-      shrinkWrap: true,
-      children: <Widget>[
-        _buildNewsest(context),
-        _buildRanking(context),
-        _buildTournament(context),
-        _buildRecruit(context)
-      ],
+    return BorderBackground(
+      child: ListView(
+        padding: EdgeInsets.all(size10),
+        physics: BouncingScrollPhysics(),
+        shrinkWrap: true,
+        children: <Widget>[
+          _buildNewsest(context),
+          _buildRanking(context),
+          _buildTournament(context),
+          _buildRecruit(context)
+        ],
+      ),
     );
   }
 
   @override
   void listenData(BuildContext context) {}
-
-  @override
-  bool get hasBottomBar => true;
 }
+
