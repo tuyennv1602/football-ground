@@ -3,14 +3,12 @@ import 'dart:convert';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
-import 'blocs/app-bloc.dart';
-import 'blocs/base-bloc.dart';
-import 'blocs/login-bloc.dart';
-import 'data/app-preference.dart';
+import 'package:footballground/provider_setup.dart' as setupProvider;
+import 'package:footballground/services/share_preferences.dart';
+import 'package:footballground/ui/pages/login/login-page.dart';
+import 'package:provider/provider.dart';
 import 'http.dart';
-import 'ui/pages/home-page.dart';
-import 'ui/pages/login/login-page.dart'; // make dio as global top-level variable
+import 'ui/pages/home_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
@@ -25,18 +23,14 @@ parseJson(String text) {
 }
 
 void main() async {
-  await FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
-  await FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
   _firebaseMessaging.requestNotificationPermissions();
-  var token = await AppPreference().getToken();
+  var token = await SharePreferences().getToken();
   dio.interceptors
     ..add(CookieManager(CookieJar()))
-    ..add(LogInterceptor(responseBody: true));
+    ..add(LogInterceptor(
+        responseBody: true, requestBody: true, requestHeader: true));
   (dio.transformer as DefaultTransformer).jsonDecodeCallback = parseJson;
-  return runApp(BlocProvider<AppBloc>(
-    bloc: AppBloc(),
-    child: MyApp(token != null),
-  ));
+  return runApp(MyApp(token != null));
 }
 
 class MyApp extends StatelessWidget {
@@ -46,17 +40,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiProvider(
+      providers: setupProvider.providers,
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           canvasColor: Colors.transparent,
           fontFamily: 'regular',
         ),
-        home: _isLogined
-            ? HomePage()
-            : BlocProvider<LoginBloc>(
-                bloc: LoginBloc(),
-                child: LoginPage(),
-              ));
+        home: _isLogined ? HomePage() : LoginPage(),
+      ),
+    );
   }
 }

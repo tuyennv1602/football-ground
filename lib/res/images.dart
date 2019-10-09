@@ -1,5 +1,7 @@
 class Images {
   static const String FOLDER = 'assets/images';
+  static const String LOGO = '$FOLDER/icn_logo.png';
+  static const String BACKGROUND = '$FOLDER/bg.jpg';
   static const String EDIT_PROFILE = '$FOLDER/icn_edit_profile.png';
   static const String WALLET_IN = '$FOLDER/icn_wallet_in.png';
   static const String WALLET_OUT = '$FOLDER/icn_wallet_out.png';
@@ -13,7 +15,6 @@ class Images {
   static const String GALLERY = '$FOLDER/icn_gallery.png';
   static const String SHIRT = '$FOLDER/icn_shirt.png';
   static const String ANALYTIC = '$FOLDER/icn_analytics.png';
-  static const String BOOKING = '$FOLDER/icn_booking.png';
   static const String COMMENT = '$FOLDER/icn_comment.png';
   static const String SCHEDULE = '$FOLDER/icn_schedule.png';
   static const String ADMIN = '$FOLDER/icn_admin.png';
@@ -25,5 +26,6 @@ class Images {
   static const String SHARE = '$FOLDER/icn_share.png';
   static const String INFO = '$FOLDER/icn_info.png';
   static const String EDIT = '$FOLDER/icn_edit.png';
+  static const String CLEAR = '$FOLDER/icn_clear.png';
 
 }

@@ -1,54 +1,63 @@
 import 'package:flutter/material.dart';
-import 'package:footballground/utils/size-config.dart';
-
+import 'package:footballground/utils/ui_helper.dart';
 import 'fonts.dart';
 
-class Styles {
-  static TextStyle title({Color color}) => TextStyle(
-      fontSize: SizeConfig.size(18),
-      fontFamily: Fonts.SEMI_BOLD,
-      color: color ?? Colors.white,
-      letterSpacing: 0.1);
+textStyleTitle({Color color}) => TextStyle(
+    fontSize: UIHelper.size(18),
+    fontFamily: SEMI_BOLD,
+    color: color ?? Colors.white,
+    letterSpacing: 0.1);
 
-  static TextStyle appName({Color color}) => TextStyle(
-      fontSize: SizeConfig.size(25),
-      fontFamily: Fonts.BOLD,
-      color: color ?? Colors.white,
-      letterSpacing: 0.1);
+textStyleAppName({Color color}) => TextStyle(
+    fontSize: UIHelper.size(25),
+    fontFamily: BOLD,
+    color: color ?? Colors.white,
+    letterSpacing: 0.1);
 
-  static TextStyle button({double size, Color color}) => TextStyle(
-      fontSize: SizeConfig.size(size ?? 16),
-      fontFamily: Fonts.SEMI_BOLD,
-      color: color ?? Colors.white,
-      letterSpacing: 0.1);
+textStyleButton({double size, Color color}) => TextStyle(
+    fontSize: UIHelper.size(size ?? 16),
+    fontFamily: SEMI_BOLD,
+    color: color ?? Colors.white,
+    letterSpacing: 0.1);
 
-  static TextStyle italic({double size, Color color}) => TextStyle(
-      fontSize: SizeConfig.size(size ?? 14),
-      fontFamily: Fonts.ITALIC,
-      color: color ?? Colors.black87,
-      letterSpacing: 0.1);
+textStyleItalic({double size, Color color}) => TextStyle(
+    fontSize: UIHelper.size(size ?? 12),
+    fontFamily: ITALIC,
+    color: color ?? Colors.black,
+    letterSpacing: 0.1);
 
-  static TextStyle regular({double size, Color color}) => TextStyle(
-      fontSize: SizeConfig.size(size ?? 14),
-      fontFamily: Fonts.REGULAR,
-      color: color ?? Colors.black87,
-      letterSpacing: 0.1);
+textStyleRegular({double size, Color color}) => TextStyle(
+    fontSize: UIHelper.size(size ?? 14),
+    fontFamily: REGULAR,
+    color: color ?? Colors.black,
+    letterSpacing: 0.1);
 
-  static TextStyle semiBold({double size, Color color}) => TextStyle(
-      fontSize: SizeConfig.size(size ?? 16),
-      fontFamily: Fonts.SEMI_BOLD,
-      color: color ?? Colors.black87,
-      letterSpacing: 0.1);
+textStyleRegularTitle({double size, Color color}) => TextStyle(
+    fontSize: UIHelper.size(size ?? 16),
+    fontFamily: REGULAR,
+    color: color ?? Colors.black,
+    letterSpacing: 0.1);
 
-  static TextStyle bold({double size, Color color}) => TextStyle(
-      fontSize: SizeConfig.size(size ?? 18),
-      fontFamily: Fonts.BOLD,
-      color: color ?? Colors.black87,
-      letterSpacing: 0.1);
+textStyleRegularBody({double size, Color color}) => TextStyle(
+    fontSize: UIHelper.size(size ?? 13),
+    fontFamily: REGULAR,
+    color: color ?? Colors.black87,
+    letterSpacing: 0.1);
 
-  static TextStyle textInput({double size, Color color}) => TextStyle(
-      fontSize: SizeConfig.size(size ?? 16),
-      fontFamily: Fonts.REGULAR,
-      color: color ?? Colors.black87,
-      letterSpacing: 0.1);
-}
+textStyleSemiBold({double size, Color color}) => TextStyle(
+    fontSize: UIHelper.size(size ?? 16),
+    fontFamily: SEMI_BOLD,
+    color: color ?? Colors.black,
+    letterSpacing: 0.1);
+
+textStyleBold({double size, Color color}) => TextStyle(
+    fontSize: UIHelper.size(size ?? 18),
+    fontFamily: BOLD,
+    color: color ?? Colors.black,
+    letterSpacing: 0.1);
+
+textStyleInput({double size, Color color}) => TextStyle(
+    fontSize: UIHelper.size(size ?? 16),
+    fontFamily: REGULAR,
+    color: color ?? Colors.black,
+    letterSpacing: 0.1);

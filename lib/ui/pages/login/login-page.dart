@@ -1,219 +1,220 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:footballground/blocs/login-bloc.dart';
 import 'package:footballground/res/colors.dart';
 import 'package:footballground/res/fonts.dart';
+import 'package:footballground/res/images.dart';
 import 'package:footballground/res/stringres.dart';
 import 'package:footballground/res/styles.dart';
 import 'package:footballground/ui/routes/routes.dart';
-import 'package:footballground/ui/widgets/button-widget.dart';
-import 'package:footballground/ui/widgets/input-widget.dart';
-import 'package:footballground/utils/size-config.dart';
+import 'package:footballground/ui/widgets/border_textformfield.dart';
+import 'package:footballground/ui/widgets/button_widget.dart';
+import 'package:footballground/utils/ui_helper.dart';
 import 'package:footballground/utils/validator.dart';
+import 'package:footballground/viewmodels/login_viewmodel.dart';
+import 'package:provider/provider.dart';
 
-import '../base-page.dart';
+import '../base_widget.dart';
 
-// ignore: must_be_immutable
-class LoginPage extends BasePage<LoginBloc> with Validator {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginState createState() {
+    return _LoginState();
+  }
+}
+
+class _LoginState extends State<LoginPage> {
+  String _email;
+  String _password;
   final _formKey = GlobalKey<FormState>();
 
-  @override
-  Widget buildAppBar(BuildContext context) => null;
+  bool validateAndSave() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
+  }
+
+  void _handleSubmit(LoginViewModel model) async {
+    UIHelper.showProgressDialog;
+    var _loginResp = await model.loginEmail(_email, _password);
+    if (_loginResp.isSuccess) {
+      var _registerDeviceResp = await model.registerDevice();
+      UIHelper.hideProgressDialog;
+      if (_registerDeviceResp.isSuccess) {
+        Routes.routeToHome(context);
+      } else {
+        UIHelper.showSimpleDialog(_registerDeviceResp.errorMessage);
+      }
+    } else {
+      UIHelper.hideProgressDialog;
+      UIHelper.showSimpleDialog(_loginResp.errorMessage);
+    }
+  }
 
   @override
-  Widget buildMainContainer(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: size20),
-      decoration: BoxDecoration(
+  Widget build(BuildContext context) {
+    UIHelper().init(context);
+    return Scaffold(
+      resizeToAvoidBottomPadding: false,
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: UIHelper.size20),
+        decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/images/bg.jpg'), fit: BoxFit.fill)),
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(bottom: size20),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Image.asset(
-                    'assets/images/icn_logo.png',
-                    width: size50,
-                    height: size50,
-                    fit: BoxFit.contain,
-                  ),
-                  SizedBox(
-                    width: size15,
-                  ),
-                  Text(
-                    StringRes.APP_NAME,
-                    style: Styles.appName(),
-                  )
-                ],
+              image: AssetImage(Images.BACKGROUND), fit: BoxFit.fill),
+        ),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(bottom: UIHelper.size20),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    Image.asset(
+                      Images.LOGO,
+                      width: UIHelper.size50,
+                      height: UIHelper.size50,
+                      fit: BoxFit.contain,
+                    ),
+                    UIHelper.horizontalSpaceMedium,
+                    Text(
+                      StringRes.APP_NAME,
+                      style: textStyleAppName(),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          Expanded(
+            Expanded(
               flex: 3,
               child: Column(
                 children: <Widget>[
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(size10),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(size5)),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: UIHelper.size10),
                     child: Form(
                       key: _formKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            StringRes.LOGIN,
-                            style: Styles.bold(color: AppColor.PRIMARY),
-                          ),
-                          InputWidget(
-                            validator: (value) {
-                              if (value.isEmpty)
-                                return StringRes.REQUIRED_EMAIL;
-                              if (!validEmail(value))
-                                return StringRes.EMAIL_INVALID;
-                              return null;
-                            },
+                          UIHelper.verticalSpaceLarge,
+                          BorderTextFormField(
                             labelText: StringRes.EMAIL,
-                            onChangedText: (text) =>
-                                pageBloc.changeEmailFunc(text),
+                            validator: Validator.validEmail,
+                            onSaved: (value) => _email = value.trim(),
                           ),
-                          InputWidget(
-                            validator: (value) {
-                              if (value.isEmpty)
-                                return StringRes.REQUIRED_PASSWORD;
-                              if (!validPassword(value))
-                                return StringRes.PASSWORD_INVALID;
-                              return null;
-                            },
+                          UIHelper.verticalSpaceMedium,
+                          BorderTextFormField(
                             labelText: StringRes.PASSWORD,
+                            validator: Validator.validPassword,
                             obscureText: true,
-                            onChangedText: (text) =>
-                                pageBloc.changePasswordFunc(text),
+                            onSaved: (value) => _password = value.trim(),
+                          ),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: InkWell(
+                              onTap: () =>
+                                  Routes.routeToForgotPassword(context),
+                              child: Text(
+                                'Quên mật khẩu?',
+                                style: textStyleRegular(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                          BaseWidget<LoginViewModel>(
+                            model: LoginViewModel(
+                                authServices: Provider.of(context)),
+                            builder: (context, model, child) => ButtonWidget(
+                              margin: EdgeInsets.symmetric(
+                                  vertical: UIHelper.size30),
+                              child: Text(
+                                StringRes.LOGIN.toUpperCase(),
+                                style: textStyleButton(),
+                              ),
+                              onTap: () {
+                                if (validateAndSave()) {
+                                  _handleSubmit(model);
+                                }
+                              },
+                            ),
                           ),
                         ],
                       ),
                     ),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      ButtonWidget(
-                        backgroundColor: Colors.transparent,
-                        onTap: () => Routes.routeToForgotPasswordPage(context),
-                        child: Text(
-                          StringRes.FORGOT_PASSWORD,
-                          style: Styles.button(),
-                        ),
-                      ),
-                      ButtonWidget(
-                        width: (SizeConfig.screenWidth - size40) / 2,
-                        onTap: () {
-                          if (_formKey.currentState.validate()) {
-                            pageBloc.submitLoginEmailFunc(true);
-                          }
-                        },
-                        borderRadius: BorderRadius.circular(size5),
-                        margin: EdgeInsets.symmetric(vertical: size30),
-                        backgroundColor: AppColor.PRIMARY,
-                        child: Text(
-                          StringRes.LOGIN.toUpperCase(),
-                          style: Styles.button(),
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
                     children: <Widget>[
                       Expanded(
                         child: Container(
                           height: 1,
-                          color: AppColor.LINE_COLOR,
+                          color: LINE_COLOR,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: size10),
+                        padding:
+                        EdgeInsets.symmetric(horizontal: UIHelper.size10),
                         child: Text(
                           StringRes.LOGIN_VIA,
-                          style: Styles.regular(color: Colors.white),
+                          style: textStyleRegular(color: Colors.white),
                         ),
                       ),
                       Expanded(
                         child: Container(
                           height: 1,
-                          color: AppColor.LINE_COLOR,
+                          color: LINE_COLOR,
                         ),
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: size30,
-                  ),
+                  UIHelper.verticalSpaceLarge,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       IconButton(
-                        iconSize: size45,
-                        onPressed: () => showConfirmDialog(
-                            context, "data.errorMessage",
-                            onConfirmed: () => Navigator.of(context).pop()),
+                        iconSize: UIHelper.size40,
+                        onPressed: () => print('facebook'),
                         icon: Image.asset('assets/images/icn_facebook.png'),
                       ),
                       IconButton(
-                        iconSize: size45,
+                        iconSize: UIHelper.size40,
                         onPressed: () => print('google'),
                         icon: Image.asset('assets/images/icn_google.png'),
                       )
                     ],
                   ),
                   Expanded(
-                    child: Center(
+                    child: Align(
+                      alignment: Alignment.center,
                       child: RichText(
                         text: TextSpan(
-                            text: 'Bạn chưa có tài khoản? ',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: SizeConfig.size(16)),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: 'Đăng ký ngay',
-                                  style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      fontFamily: Fonts.SEMI_BOLD,
-                                      color: Colors.white,
-                                      fontSize: SizeConfig.size(18)),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () =>
-                                        Routes.routeToRegisterPage(context)),
-                            ]),
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: 'Bạn chưa có tài khoản? ',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: UIHelper.size(16))),
+                            TextSpan(
+                                text: 'Đăng ký ngay',
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    fontFamily: SEMI_BOLD,
+                                    color: Colors.white,
+                                    fontSize: UIHelper.size(16)),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap =
+                                      () => Routes.routeToRegister(context)),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ],
-              ))
-        ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
-
-  @override
-  void listenData(BuildContext context) {
-    pageBloc.loginEmailStream.listen((response) {
-      if (!response.isSuccess) {
-        showSnackBar(response.errorMessage);
-      } else {
-        appBloc.updateUser();
-        Routes.routeToHomePage(context);
-      }
-    });
-  }
-
-  @override
-  bool get showFullScreen => true;
 }

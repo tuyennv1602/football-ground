@@ -1,103 +1,103 @@
 import 'package:flutter/material.dart';
-import 'package:footballground/blocs/user-bloc.dart';
 import 'package:footballground/models/user.dart';
 import 'package:footballground/res/colors.dart';
 import 'package:footballground/res/images.dart';
 import 'package:footballground/res/styles.dart';
 import 'package:footballground/ui/routes/routes.dart';
-import 'package:footballground/ui/widgets/app-bar-button.dart';
-import 'package:footballground/ui/widgets/border-background.dart';
+import 'package:footballground/ui/widgets/app_bar_button.dart';
+import 'package:footballground/ui/widgets/app_bar_widget.dart';
+import 'package:footballground/ui/widgets/border_background.dart';
 import 'package:footballground/ui/widgets/line.dart';
-import 'package:footballground/ui/widgets/image-widget.dart';
-import 'package:footballground/ui/widgets/item-option.dart';
-import 'package:footballground/utils/size-config.dart';
-import 'package:footballground/utils/string-util.dart';
+import 'package:footballground/ui/widgets/image_widget.dart';
+import 'package:footballground/ui/widgets/item_option.dart';
+import 'package:footballground/utils/ui_helper.dart';
+import 'package:footballground/utils/string_util.dart';
+import 'package:footballground/viewmodels/user_viewmodel.dart';
+import 'package:provider/provider.dart';
 
-import '../base-page.dart';
+import '../base_widget.dart';
 
-// ignore: must_be_immutable
-class UserPage extends BasePage<UserBloc> {
+class UserPage extends StatefulWidget {
   @override
-  Widget buildAppBar(BuildContext context) => null;
+  State<StatefulWidget> createState() {
+    return UserState();
+  }
+}
+
+class UserState extends State<UserPage> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
-  Widget buildMainContainer(BuildContext context) => Container(
-        color: AppColor.PRIMARY,
+  Widget build(BuildContext context) {
+    super.build(context);
+    UIHelper().init(context);
+    var _user = Provider.of<User>(context);
+    var wallet = _user.wallet != null
+        ? StringUtil.formatCurrency(_user.wallet * 1000)
+        : '0đ';
+    return Scaffold(
+      key: _scaffoldKey,
+      body: Container(
+        color: PRIMARY,
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(bottom: size20),
-              child: StreamBuilder<User>(
-                stream: appBloc.userStream,
-                builder: (c, snap) {
-                  if (snap.hasData) {
-                    var _user = snap.data;
-                    return Column(
-                      children: <Widget>[
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            AppBarButtonWidget(
-                              imageName: Images.LOGOUT,
-                              onTap: () => pageBloc.logoutFunc(true),
-                            ),
-                            Text(
-                              _user.name ?? _user.userName,
-                              style: Styles.title(),
-                            ),
-                            AppBarButtonWidget(
-                              imageName: Images.EDIT,
-                              onTap: () {},
-                            )
-                          ],
+                padding: EdgeInsets.only(bottom: UIHelper.size20),
+                child: Column(
+                  children: <Widget>[
+                    BaseWidget<UserViewModel>(
+                      model:
+                      UserViewModel(sharePreferences: Provider.of(context)),
+                      builder: (context, model, child) => AppBarWidget(
+                        leftContent: AppBarButtonWidget(
+                          imageName: Images.LOGOUT,
+                          onTap: () async {
+                            UIHelper.showProgressDialog;
+                            await model.logout();
+                            UIHelper.hideProgressDialog;
+                            Routes.routeToLogin(_scaffoldKey.currentContext);
+                          },
                         ),
-                        ImageWidget(
-                          source: _user.avatar,
-                          placeHolder: Images.DEFAULT_AVATAR,
-                          size: SizeConfig.size(100),
-                          radius: SizeConfig.size(50),
-                        )
-                      ],
-                    );
-                  }
-                  return Container();
-                },
-              ),
-            ),
+                        centerContent: Text(_user.name ?? _user.userName,
+                            textAlign: TextAlign.center,
+                            style: textStyleTitle()),
+                        rightContent: AppBarButtonWidget(
+                          imageName: Images.EDIT,
+                          onTap: () {},
+                        ),
+                      ),
+                    ),
+                    ImageWidget(
+                      source: _user.avatar,
+                      placeHolder: Images.DEFAULT_AVATAR,
+                      size: UIHelper.size(100),
+                      radius: UIHelper.size(50),
+                    )
+                  ],
+                )),
             Expanded(
               child: BorderBackground(
                 child: Column(children: <Widget>[
-                  StreamBuilder<User>(
-                      stream: appBloc.userStream,
-                      builder: (c, snap) {
-                        if (snap.hasData) {
-                          var wallet = snap.data.wallet != null
-                              ? StringUtil.formatCurrency(
-                                  snap.data.wallet * 1000)
-                              : '0đ';
-                          return Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size20, vertical: size10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  'Số dư trong ví',
-                                  style:
-                                      Styles.title(color: AppColor.BLACK_TEXT),
-                                ),
-                                Text(
-                                  '$wallet',
-                                  style:
-                                      Styles.title(color: AppColor.BLACK_TEXT),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                        return SizedBox();
-                      }),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: UIHelper.size20, vertical: UIHelper.size10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'Số dư trong ví',
+                          style: textStyleTitle(color: BLACK_TEXT),
+                        ),
+                        Text(
+                          '$wallet',
+                          style: textStyleTitle(color: BLACK_TEXT),
+                        ),
+                      ],
+                    ),
+                  ),
                   Expanded(
                     child: ListView(
                       physics: BouncingScrollPhysics(),
@@ -147,16 +147,7 @@ class UserPage extends BasePage<UserBloc> {
             ),
           ],
         ),
-      );
-
-  @override
-  void listenData(BuildContext context) {
-    pageBloc.logoutStream.listen((result) {
-      if (result) {
-        Routes.routeToLoginPage(context);
-      } else {
-        showSnackBar('Lỗi');
-      }
-    });
+      ),
+    );
   }
 }

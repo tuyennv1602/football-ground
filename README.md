@@ -14,3 +14,10 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+Document architechture https://www.filledstacks.com/post/flutter-provider-v3-architecture
+
+
+"Gather together the things that change for the same reasons. Separate those things that change for different reasons."
+"Nhóm những thứ thay đổi cùng 1 lý do. Tách những thứ thay đổi vì những lý do khác nhau"
