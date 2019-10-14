@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:footballground/models/device_info.dart';
+import 'package:footballground/models/ground.dart';
 import 'package:footballground/models/headers.dart';
-import 'package:footballground/models/responses/base-response.dart';
-import 'package:footballground/models/responses/login-response.dart';
+import 'package:footballground/models/responses/base_response.dart';
+import 'package:footballground/models/responses/login_response.dart';
 import 'package:footballground/models/token.dart';
 import 'package:footballground/models/user.dart';
 import 'package:footballground/services/api.dart';
@@ -12,6 +13,7 @@ import 'base_api.dart';
 class AuthServices {
   final Api _api;
   final SharePreferences _preferences;
+  User _user;
 
   AuthServices({Api api, SharePreferences sharePreferences})
       : _api = api,
@@ -22,7 +24,13 @@ class AuthServices {
   Stream<User> get user => _userController.stream;
 
   updateUser(User user) {
+    _user = user;
     _userController.add(user);
+  }
+
+  updateUserGround(Ground ground) {
+    _user.ground = ground;
+    _userController.add(_user);
   }
 
   Future<LoginResponse> loginEmail(String email, String password) async {
@@ -49,6 +57,9 @@ class AuthServices {
         _preferences.setToken(
             Token(token: resp.token, refreshToken: resp.refreshToken));
         BaseApi.setHeader(Headers(accessToken: resp.token));
+      } else {
+        _preferences.clearToken();
+        _preferences.clearLastTeam();
       }
       return resp;
     }

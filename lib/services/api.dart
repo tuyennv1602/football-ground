@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:footballground/models/device_info.dart';
-import 'package:footballground/models/responses/base-response.dart';
-import 'package:footballground/models/responses/login-response.dart';
+import 'package:footballground/models/ground.dart';
+import 'package:footballground/models/responses/base_response.dart';
+import 'package:footballground/models/responses/ground_resp.dart';
+import 'package:footballground/models/responses/list_ground_resp.dart';
+import 'package:footballground/models/responses/login_response.dart';
 
 import 'base_api.dart';
 
@@ -75,6 +78,34 @@ class Api {
       return LoginResponse.success(resp.data);
     } on DioError catch (e) {
       return LoginResponse.error(e.message);
+    }
+  }
+
+  Future<GroundResponse> createGround(Ground ground) async {
+    try {
+      var resp =
+          await _api.postApi('ground/create', body: ground.createGroundJson());
+      return GroundResponse.success(resp.data);
+    } on DioError catch (e) {
+      return GroundResponse.error(e.message);
+    }
+  }
+
+  Future<GroundResponse> updateGround(Ground ground) async {
+    try {
+      var resp = await _api.putApi('ground/update', body: ground.toJson());
+      return GroundResponse.success(resp.data);
+    } on DioError catch (e) {
+      return GroundResponse.error(e.message);
+    }
+  }
+
+  Future<ListGroundResponse> getGrounds() async {
+    try {
+      var resp = await _api.getApi('ground/user');
+      return ListGroundResponse.success(resp.data);
+    } on DioError catch (e) {
+      return ListGroundResponse.error(e.message);
     }
   }
 }

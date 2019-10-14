@@ -4,8 +4,8 @@ import 'package:device_info/device_info.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:footballground/models/device_info.dart';
-import 'package:footballground/models/responses/base-response.dart';
-import 'package:footballground/models/responses/login-response.dart';
+import 'package:footballground/models/responses/base_response.dart';
+import 'package:footballground/models/responses/login_response.dart';
 import 'package:footballground/services/auth_services.dart';
 
 import 'base_viewmodel.dart';

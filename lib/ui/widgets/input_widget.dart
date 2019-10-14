@@ -14,18 +14,20 @@ class InputWidget extends StatelessWidget {
   final Function(String) onSaved;
   final TextStyle textStyle;
   final int maxLines;
+  final int maxLength;
 
   InputWidget(
       {Key key,
-      this.initValue,
-      this.validator,
-      this.inputType,
-      this.inputAction,
-      this.errorText,
-      this.labelText,
-      this.onSaved,
-      this.maxLines = 1,
-      this.textStyle})
+        this.initValue,
+        this.validator,
+        this.inputType,
+        this.inputAction,
+        this.errorText,
+        this.labelText,
+        this.onSaved,
+        this.maxLines = 1,
+        this.maxLength = 200,
+        this.textStyle})
       : super(key: key);
 
   @override
@@ -35,7 +37,7 @@ class InputWidget extends StatelessWidget {
       cursorColor: PRIMARY,
       cursorWidth: 1,
       maxLines: maxLines,
-      maxLength: 200,
+      maxLength: maxLength,
       initialValue: initValue,
       validator: validator,
       keyboardType: inputType ?? TextInputType.text,
@@ -44,7 +46,7 @@ class InputWidget extends StatelessWidget {
       style: textStyle ?? textStyleInput(),
       decoration: InputDecoration(
         helperText: '',
-        contentPadding: EdgeInsets.symmetric(vertical: UIHelper.size(14)),
+        contentPadding: EdgeInsets.symmetric(vertical: UIHelper.size5),
         alignLabelWithHint: maxLines > 1,
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(width: 0.5, color: LINE_COLOR),
@@ -60,6 +62,10 @@ class InputWidget extends StatelessWidget {
         labelText: labelText,
         errorText: errorText,
         counter: SizedBox(),
+        helperStyle: TextStyle(
+            fontFamily: REGULAR,
+            color: Colors.red,
+            fontSize: UIHelper.size(12)),
         errorStyle: TextStyle(
             fontFamily: REGULAR,
             color: Colors.red,

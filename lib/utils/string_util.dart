@@ -5,4 +5,9 @@ class StringUtil {
     final formatter = new NumberFormat("###,###.###", "vi");
     return '${formatter.format(price)}đ';
   }
+
+  static int getIdFromString(String id) {
+    id = id.replaceAll(',', '');
+    return int.parse(id);
+  }
 }

@@ -1,3 +1,5 @@
+import 'package:footballground/models/ground.dart';
+
 import 'role.dart';
 
 class User {
@@ -8,6 +10,7 @@ class User {
   String email;
   String phone;
   List<Role> roles;
+  Ground ground;
   double wallet;
 
   User(
@@ -18,6 +21,7 @@ class User {
       this.email,
       this.phone,
       this.roles,
+      this.ground,
       this.wallet});
 
   User.fromJson(Map<String, dynamic> json) {
@@ -33,7 +37,6 @@ class User {
         roles.add(new Role.fromJson(v));
       });
     }
-
     wallet = json['wallet'];
   }
 

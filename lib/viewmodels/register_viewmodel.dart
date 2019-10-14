@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:footballground/models/responses/base-response.dart';
+import 'package:footballground/models/responses/base_response.dart';
 import 'package:footballground/services/api.dart';
 
 import 'base_viewmodel.dart';

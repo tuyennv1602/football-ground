@@ -7,10 +7,21 @@ import 'package:footballground/ui/widgets/app_bar_widget.dart';
 import 'package:footballground/ui/widgets/border_background.dart';
 import 'package:footballground/utils/ui_helper.dart';
 
-// ignore: must_be_immutable
-class NotificationPage extends StatelessWidget {
+class NotificationPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return NotificationState();
+  }
+}
+
+class NotificationState extends State<NotificationPage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     UIHelper().init(context);
     return Scaffold(
       backgroundColor: PRIMARY,

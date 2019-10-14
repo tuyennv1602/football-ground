@@ -2,6 +2,7 @@
 import 'package:footballground/services/api.dart';
 import 'package:footballground/services/auth_services.dart';
 import 'package:footballground/services/share_preferences.dart';
+import 'package:footballground/services/sqlite_service.dart';
 import 'package:provider/provider.dart';
 
 import 'models/user.dart';
@@ -16,7 +17,8 @@ List<SingleChildCloneableWidget> providers = [
 // These are classes/objects that do not depend on any other services to execute their logic
 List<SingleChildCloneableWidget> independentServices = [
   Provider.value(value: Api()),
-  Provider.value(value: SharePreferences())
+  Provider.value(value: SharePreferences()),
+  Provider.value(value: SQLiteServices())
 ];
 
 // These are classes/object that depend on previously registered services

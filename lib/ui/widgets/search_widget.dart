@@ -23,11 +23,11 @@ class SearchWidget extends StatelessWidget {
 
   SearchWidget(
       {Key key,
-        this.keyword = '',
-        this.onChangedText,
-        this.backgroundColor,
-        this.isLoading = false,
-        this.hintText = 'Nhập từ khoá'})
+      this.keyword = '',
+      this.onChangedText,
+      this.backgroundColor,
+      this.isLoading = false,
+      this.hintText = 'Nhập từ khoá'})
       : super(key: key);
 
   @override
@@ -38,6 +38,7 @@ class SearchWidget extends StatelessWidget {
       margin: EdgeInsets.all(UIHelper.size(10)),
       alignment: Alignment.center,
       decoration: BoxDecoration(
+          color: Colors.white,
           borderRadius: BorderRadius.circular(_kSearchHeight / 2),
           border: Border.all(width: 0.5, color: Colors.grey)),
       child: Row(
@@ -50,7 +51,7 @@ class SearchWidget extends StatelessWidget {
               onChanged: (text) {
                 if (_debounce?.isActive ?? false) _debounce.cancel();
                 _debounce = Timer(const Duration(milliseconds: 500),
-                        () => onChangedText(text));
+                    () => onChangedText(text));
               },
               autocorrect: false,
               style: textStyleRegular(size: 16),
@@ -59,7 +60,7 @@ class SearchWidget extends StatelessWidget {
                   hintStyle: textStyleRegular(color: Colors.grey, size: 16),
                   border: InputBorder.none,
                   contentPadding:
-                  EdgeInsets.symmetric(horizontal: UIHelper.size(15))),
+                      EdgeInsets.symmetric(horizontal: UIHelper.size(15))),
               textInputAction: TextInputAction.search,
               controller: TextEditingController.fromValue(
                 TextEditingValue(
@@ -82,9 +83,9 @@ class SearchWidget extends StatelessWidget {
             child: this.isLoading
                 ? Image.asset('assets/images/icn_loading.gif')
                 : Icon(
-              length > 0 ? Icons.close : Icons.search,
-              color: Colors.grey,
-            ),
+                    length > 0 ? Icons.close : Icons.search,
+                    color: Colors.grey,
+                  ),
           )
         ],
       ),

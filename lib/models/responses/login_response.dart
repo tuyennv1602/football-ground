@@ -1,5 +1,5 @@
 import '../user.dart';
-import 'base-response.dart';
+import 'base_response.dart';
 
 class LoginResponse extends BaseResponse {
   User user;

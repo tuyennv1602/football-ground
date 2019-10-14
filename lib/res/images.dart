@@ -27,5 +27,8 @@ class Images {
   static const String INFO = '$FOLDER/icn_info.png';
   static const String EDIT = '$FOLDER/icn_edit.png';
   static const String CLEAR = '$FOLDER/icn_clear.png';
-
+  static const String ADD_GROUND = '$FOLDER/icn_add_ground.png';
+  static const String MARKER = '$FOLDER/icn_marker.png';
+  static const String MY_LOCATION = '$FOLDER/icn_my_location.png';
+  static const String NEXT = '$FOLDER/icn_next.png';
 }

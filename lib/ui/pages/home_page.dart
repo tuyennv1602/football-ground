@@ -4,8 +4,8 @@ import 'package:footballground/res/colors.dart';
 import 'package:footballground/res/fonts.dart';
 import 'package:footballground/ui/pages/notification/notification_page.dart';
 import 'package:footballground/ui/pages/social/social_page.dart';
-import 'package:footballground/ui/pages/user/user-page.dart';
-import 'ground/ground-page.dart';
+import 'package:footballground/ui/pages/user/user_page.dart';
+import 'ground/ground_page.dart';
 
 // ignore: must_be_immutable
 class HomePage extends StatelessWidget {
