@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:footballground/res/colors.dart';
+import 'package:footballground/res/images.dart';
 import 'package:footballground/res/styles.dart';
 import 'package:footballground/utils/ui_helper.dart';
 
@@ -13,11 +15,11 @@ class ItemOptionWidget extends StatelessWidget {
 
   ItemOptionWidget(this.image, this.title,
       {Key key,
-        this.onTap,
-        this.titleStyle,
-        this.iconHeight,
-        this.iconWidth,
-        this.iconColor})
+      this.onTap,
+      this.titleStyle,
+      this.iconHeight,
+      this.iconWidth,
+      this.iconColor})
       : super(key: key);
 
   @override
@@ -39,14 +41,21 @@ class ItemOptionWidget extends StatelessWidget {
                   color: this.iconColor,
                 ),
                 Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: UIHelper.size20),
-                      child: Text(
-                        this.title,
-                        style: this.titleStyle ?? textStyleRegularTitle(),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    )),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: UIHelper.size20),
+                    child: Text(
+                      this.title,
+                      style: this.titleStyle ?? textStyleRegularTitle(),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ),
+                Image.asset(
+                  Images.ARROW_RIGHT,
+                  width: UIHelper.size10,
+                  height: UIHelper.size10,
+                  color: LINE_COLOR,
+                ),
               ],
             ),
           ),

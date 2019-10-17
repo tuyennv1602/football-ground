@@ -8,21 +8,21 @@ import 'package:footballground/utils/ui_helper.dart';
 // ignore: must_be_immutable
 class SocialPage extends StatelessWidget {
   Widget _buildCateTitle(String title) => Text(
-    title,
-    style: textStyleSemiBold(color: PRIMARY),
-  );
+        title,
+        style: textStyleSemiBold(color: PRIMARY),
+      );
 
   Widget _buildItemNew(BuildContext context, int index) => Container(
-    width: UIHelper.screenWidth / 2,
-    margin: EdgeInsets.only(right: UIHelper.size10),
-    decoration: BoxDecoration(
-        color: GREY_BACKGROUND,
-        borderRadius: BorderRadius.circular(UIHelper.size10)),
-    padding: EdgeInsets.all(UIHelper.size10),
-    child: Text("Item $index"),
-  );
+        width: UIHelper.screenWidth / 2,
+        margin: EdgeInsets.only(right: UIHelper.size10),
+        decoration: BoxDecoration(
+            color: GREY_BACKGROUND,
+            borderRadius: BorderRadius.circular(UIHelper.size10)),
+        padding: EdgeInsets.all(UIHelper.size10),
+        child: Text("Item $index"),
+      );
 
-  Widget _buildNewsest(BuildContext context) {
+  Widget _buildNewest(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -49,15 +49,16 @@ class SocialPage extends StatelessWidget {
         _buildCateTitle('Bảng xếp hạng'),
         UIHelper.verticalSpaceMedium,
         Container(
-            margin: EdgeInsets.only(bottom: UIHelper.size10),
-            height: UIHelper.size(150),
-            child: ListView.builder(
-              itemCount: 10,
-              scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (c, index) => _buildItemNew(context, index),
-            )),
+          margin: EdgeInsets.only(bottom: UIHelper.size10),
+          height: UIHelper.size(150),
+          child: ListView.builder(
+            itemCount: 10,
+            scrollDirection: Axis.horizontal,
+            physics: BouncingScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (c, index) => _buildItemNew(context, index),
+          ),
+        ),
       ],
     );
   }
@@ -69,15 +70,16 @@ class SocialPage extends StatelessWidget {
         _buildCateTitle('Giải đấu'),
         UIHelper.verticalSpaceMedium,
         Container(
-            margin: EdgeInsets.only(bottom: UIHelper.size10),
-            height: UIHelper.size(150),
-            child: ListView.builder(
-              itemCount: 10,
-              scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (c, index) => _buildItemNew(context, index),
-            )),
+          margin: EdgeInsets.only(bottom: UIHelper.size10),
+          height: UIHelper.size(150),
+          child: ListView.builder(
+            itemCount: 10,
+            scrollDirection: Axis.horizontal,
+            physics: BouncingScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (c, index) => _buildItemNew(context, index),
+          ),
+        ),
       ],
     );
   }
@@ -89,14 +91,15 @@ class SocialPage extends StatelessWidget {
         _buildCateTitle('Thông tin tuyển quân'),
         UIHelper.verticalSpaceMedium,
         Container(
-            height: UIHelper.size(150),
-            child: ListView.builder(
-              itemCount: 10,
-              scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (c, index) => _buildItemNew(context, index),
-            )),
+          height: UIHelper.size(150),
+          child: ListView.builder(
+            itemCount: 10,
+            scrollDirection: Axis.horizontal,
+            physics: BouncingScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (c, index) => _buildItemNew(context, index),
+          ),
+        ),
       ],
     );
   }
@@ -117,18 +120,18 @@ class SocialPage extends StatelessWidget {
           ),
           Expanded(
               child: BorderBackground(
-                child: ListView(
-                  padding: EdgeInsets.all(UIHelper.size10),
-                  physics: BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  children: <Widget>[
-                    _buildNewsest(context),
-                    _buildRanking(context),
-                    _buildTournament(context),
-                    _buildRecruit(context)
-                  ],
-                ),
-              ))
+            child: ListView(
+              padding: EdgeInsets.all(UIHelper.size10),
+              physics: BouncingScrollPhysics(),
+              shrinkWrap: true,
+              children: <Widget>[
+                _buildNewest(context),
+                _buildRanking(context),
+                _buildTournament(context),
+                _buildRecruit(context)
+              ],
+            ),
+          ))
         ],
       ),
     );

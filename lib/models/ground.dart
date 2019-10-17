@@ -2,6 +2,7 @@ class Ground {
   int id;
   int status;
   int userId;
+  String phone;
   String name;
   String rule;
   String avatar;
@@ -11,9 +12,13 @@ class Ground {
   double lng;
   double rating;
   bool rated;
+  int createDate;
   int wardId;
+  String wardName;
   int districtId;
+  String districtName;
   int provinceId;
+  String provinceName;
   int countField;
   int countFreeField;
 
@@ -21,6 +26,7 @@ class Ground {
       {this.id,
       this.status,
       this.userId,
+      this.phone,
       this.name,
       this.rule,
       this.avatar,
@@ -30,9 +36,13 @@ class Ground {
       this.lng,
       this.rating,
       this.rated,
+      this.createDate,
       this.wardId,
+      this.wardName,
       this.districtId,
+      this.districtName,
       this.provinceId,
+      this.provinceName,
       this.countField,
       this.countFreeField});
 
@@ -40,6 +50,7 @@ class Ground {
     id = json['id'];
     status = json['status'];
     userId = json['userId'];
+    phone = json['phone'];
     name = json['name'];
     rule = json['rule'];
     avatar = json['avatar'];
@@ -49,9 +60,13 @@ class Ground {
     lng = json['lng'];
     rating = json['rating'];
     rated = json['rated'];
+    createDate = json['create_date'];
     wardId = json['ward_id'];
+    wardName = json['ward_name'];
     districtId = json['district_id'];
+    districtName = json['district_name'];
     provinceId = json['province_id'];
+    provinceName = json['province_name'];
     countField = json['count_field'];
     countFreeField = json['count_free_field'];
   }
@@ -61,6 +76,7 @@ class Ground {
     data['id'] = this.id;
     data['status'] = this.status;
     data['userId'] = this.userId;
+    data['phone'] = this.phone;
     data['name'] = this.name;
     data['rule'] = this.rule;
     data['avatar'] = this.avatar;
@@ -70,9 +86,13 @@ class Ground {
     data['lng'] = this.lng;
     data['rating'] = this.rating;
     data['rated'] = this.rated;
+    data['create_date'] = this.createDate;
     data['ward_id'] = this.wardId;
+    data['ward_name'] = this.wardName;
     data['district_id'] = this.districtId;
+    data['district_name'] = this.districtName;
     data['province_id'] = this.provinceId;
+    data['province_name'] = this.provinceName;
     data['count_field'] = this.countField;
     data['count_free_field'] = this.countFreeField;
     return data;
@@ -81,6 +101,7 @@ class Ground {
   Map<String, dynamic> createGroundJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name;
+    data['phone'] = this.phone;
     data['rule'] = this.rule;
     data['deposit'] = 0;
     data['address'] = this.address;
@@ -91,4 +112,7 @@ class Ground {
     data['province_id'] = this.provinceId;
     return data;
   }
+
+  String get getRegion => '$wardName, $districtName, $provinceName';
+
 }

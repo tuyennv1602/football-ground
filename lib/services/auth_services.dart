@@ -29,7 +29,11 @@ class AuthServices {
   }
 
   updateUserGround(Ground ground) {
-    _user.ground = ground;
+    if (_user.grounds != null) {
+      _user.grounds.add(ground);
+    } else {
+      _user.grounds = [ground];
+    }
     _userController.add(_user);
   }
 

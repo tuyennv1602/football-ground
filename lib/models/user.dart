@@ -10,7 +10,7 @@ class User {
   String email;
   String phone;
   List<Role> roles;
-  Ground ground;
+  List<Ground> grounds;
   double wallet;
 
   User(
@@ -21,7 +21,7 @@ class User {
       this.email,
       this.phone,
       this.roles,
-      this.ground,
+      this.grounds,
       this.wallet});
 
   User.fromJson(Map<String, dynamic> json) {
@@ -38,6 +38,12 @@ class User {
       });
     }
     wallet = json['wallet'];
+    if (json['ground_list'] != null) {
+      grounds = new List<Ground>();
+      json['ground_list'].forEach((v) {
+        grounds.add(new Ground.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -50,6 +56,9 @@ class User {
     data['phone'] = this.phone;
     if (this.roles != null) {
       data['role_list'] = this.roles.map((v) => v.toJson()).toList();
+    }
+    if (this.grounds != null) {
+      data['ground_list'] = this.grounds.map((v) => v.toJson()).toList();
     }
     data['wallet'] = this.wallet;
     return data;

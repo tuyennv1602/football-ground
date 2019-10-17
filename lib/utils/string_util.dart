@@ -10,4 +10,11 @@ class StringUtil {
     id = id.replaceAll(',', '');
     return int.parse(id);
   }
+
+  static double getPriceFromString(String price) {
+    if(price.isEmpty) return 0;
+    price = price.replaceAll('.', '');
+    price = price.replaceAll('đ', '');
+    return double.parse(price);
+  }
 }

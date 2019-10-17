@@ -31,4 +31,13 @@ class Images {
   static const String MARKER = '$FOLDER/icn_marker.png';
   static const String MY_LOCATION = '$FOLDER/icn_my_location.png';
   static const String NEXT = '$FOLDER/icn_next.png';
+  static const String ARROW_RIGHT = '$FOLDER/icn_arrow_right.png';
+  static const String PHONE = '$FOLDER/icn_phone.png';
+  static const String PIN_LOCATION = '$FOLDER/icn_pin.png';
+  static const String LOCATION = '$FOLDER/icn_location.png';
+  static const String REGION = '$FOLDER/icn_region.png';
+  static const String ADD = '$FOLDER/icn_add.png';
+  static const String ACCEPT = '$FOLDER/icn_accept.png';
+  static const String DENY = '$FOLDER/icn_deny.png';
+
 }

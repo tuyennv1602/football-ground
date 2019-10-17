@@ -1,6 +1,7 @@
-
+import 'package:footballground/models/ground.dart';
 import 'package:footballground/services/api.dart';
 import 'package:footballground/services/auth_services.dart';
+import 'package:footballground/services/ground_services.dart';
 import 'package:footballground/services/share_preferences.dart';
 import 'package:footballground/services/sqlite_service.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,8 @@ List<SingleChildCloneableWidget> dependentServices = [
   ProxyProvider2<Api, SharePreferences, AuthServices>(
       builder: (context, api, sharePref, authenticationService) =>
           AuthServices(api: api, sharePreferences: sharePref)),
+  ProxyProvider<Api, GroundServices>(
+      builder: (context, api, groundServices) => GroundServices(api: api))
 ];
 
 // These are values that you want to consume directly in the UI
@@ -36,6 +39,10 @@ List<SingleChildCloneableWidget> dependentServices = [
 List<SingleChildCloneableWidget> uiConsumableProviders = [
   StreamProvider<User>(
     builder: (context) =>
-    Provider.of<AuthServices>(context, listen: false).user,
+        Provider.of<AuthServices>(context, listen: false).user,
+  ),
+  StreamProvider<Ground>(
+    builder: (context) =>
+        Provider.of<GroundServices>(context, listen: false).ground,
   ),
 ];

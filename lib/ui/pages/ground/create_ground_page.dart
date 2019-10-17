@@ -15,6 +15,7 @@ import 'package:footballground/ui/widgets/button_widget.dart';
 import 'package:footballground/ui/widgets/input_widget.dart';
 import 'package:footballground/utils/string_util.dart';
 import 'package:footballground/utils/ui_helper.dart';
+import 'package:footballground/utils/validator.dart';
 import 'package:footballground/viewmodels/create_ground_viewmodel.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:image_picker/image_picker.dart';
@@ -27,6 +28,7 @@ class CreateGroundPage extends StatelessWidget {
   String _groundName;
   String _role;
   String _addressName;
+  String _phoneNumber;
 
   CreateGroundPage(
       {@required Address address, @required AddressInfo addressInfo})
@@ -68,6 +70,7 @@ class CreateGroundPage extends StatelessWidget {
         Ground(
             name: _groundName,
             rule: _role,
+            phone: _phoneNumber,
             address: _addressName,
             lat: _address.coordinates.latitude,
             lng: _address.coordinates.longitude,
@@ -76,7 +79,7 @@ class CreateGroundPage extends StatelessWidget {
             provinceId: StringUtil.getIdFromString(_addressInfo.provinceId)));
     UIHelper.hideProgressDialog;
     if (resp.isSuccess) {
-      Routes.routeToCreateField(context);
+      Routes.routeToCreateField(context, true, 1);
     } else {
       UIHelper.showSimpleDialog(resp.errorMessage);
     }
@@ -146,8 +149,7 @@ class CreateGroundPage extends StatelessWidget {
                                     return 'Vui lòng nhập tên sân bóng';
                                   return null;
                                 },
-                                inputType: TextInputType.text,
-                                inputAction: TextInputAction.next,
+                                inputAction: TextInputAction.done,
                                 labelText: 'Tên sân bóng',
                                 onSaved: (value) => _groundName = value,
                               ),
@@ -164,9 +166,17 @@ class CreateGroundPage extends StatelessWidget {
                                 onSaved: (value) => _role = value,
                               ),
                               InputWidget(
+                                validator: Validator.validPhoneNumber,
+                                maxLines: 1,
+                                inputAction: TextInputAction.done,
+                                inputType: TextInputType.phone,
+                                labelText: 'Số điện thoại',
+                                onSaved: (value) => _phoneNumber = value,
+                              ),
+                              InputWidget(
                                 validator: (value) {
                                   if (value.isEmpty)
-                                    return 'Vui lòng nhập nội quy sân bóng';
+                                    return 'Vui lòng nhập địa chỉ sân bóng';
                                   return null;
                                 },
                                 initValue: _address.addressLine,
@@ -188,16 +198,17 @@ class CreateGroundPage extends StatelessWidget {
                       ),
                       UIHelper.verticalSpaceLarge,
                       ButtonWidget(
-                          margin: EdgeInsets.all(UIHelper.size15),
-                          child: Text(
-                            'ĐĂNG KÝ',
-                            style: textStyleButton(),
-                          ),
-                          onTap: () {
-                            if (validateAndSave()) {
-                              _handleCreateGround(context, model);
-                            }
-                          })
+                        margin: EdgeInsets.all(UIHelper.size15),
+                        child: Text(
+                          'ĐĂNG KÝ',
+                          style: textStyleButton(),
+                        ),
+                        onTap: () {
+                          if (validateAndSave()) {
+                            _handleCreateGround(context, model);
+                          }
+                        },
+                      )
                     ],
                   );
                 },

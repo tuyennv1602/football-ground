@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:footballground/models/device_info.dart';
+import 'package:footballground/models/field.dart';
 import 'package:footballground/models/ground.dart';
 import 'package:footballground/models/responses/base_response.dart';
+import 'package:footballground/models/responses/field_resp.dart';
 import 'package:footballground/models/responses/ground_resp.dart';
-import 'package:footballground/models/responses/list_ground_resp.dart';
 import 'package:footballground/models/responses/login_response.dart';
 
 import 'base_api.dart';
@@ -100,12 +101,13 @@ class Api {
     }
   }
 
-  Future<ListGroundResponse> getGrounds() async {
+  Future<FieldResponse> createField(int groundId, Field field) async {
     try {
-      var resp = await _api.getApi('ground/user');
-      return ListGroundResponse.success(resp.data);
+      var resp = await _api.putApi('football/ground/$groundId/field',
+          body: field.toCreateJson());
+      return FieldResponse.success(resp.data);
     } on DioError catch (e) {
-      return ListGroundResponse.error(e.message);
+      return FieldResponse.error(e.message);
     }
   }
 }

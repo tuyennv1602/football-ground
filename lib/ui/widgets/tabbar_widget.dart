@@ -25,7 +25,7 @@ class TabBarWidget extends StatelessWidget {
               ),
             )
             .toList(),
-        labelStyle: textStyleRegularTitle(),
+        labelStyle: textStyleSemiBold(),
         isScrollable: isScrollable,
         unselectedLabelStyle: textStyleRegularTitle(),
         labelColor: PRIMARY,
