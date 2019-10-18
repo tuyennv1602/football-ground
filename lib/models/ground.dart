@@ -1,3 +1,5 @@
+import 'package:footballground/models/field.dart';
+
 class Ground {
   int id;
   int status;
@@ -21,6 +23,7 @@ class Ground {
   String provinceName;
   int countField;
   int countFreeField;
+  List<Field> fields;
 
   Ground(
       {this.id,
@@ -44,7 +47,8 @@ class Ground {
       this.provinceId,
       this.provinceName,
       this.countField,
-      this.countFreeField});
+      this.countFreeField,
+      this.fields});
 
   Ground.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -69,6 +73,12 @@ class Ground {
     provinceName = json['province_name'];
     countField = json['count_field'];
     countFreeField = json['count_free_field'];
+    if (json['fields'] != null) {
+      fields = new List<Field>();
+      json['fields'].forEach((v) {
+        fields.add(new Field.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -95,6 +105,9 @@ class Ground {
     data['province_name'] = this.provinceName;
     data['count_field'] = this.countField;
     data['count_free_field'] = this.countFreeField;
+    if (this.fields != null) {
+      data['fields'] = this.fields.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 
@@ -110,9 +123,11 @@ class Ground {
     data['ward_id'] = this.wardId;
     data['district_id'] = this.districtId;
     data['province_id'] = this.provinceId;
+    data['ward_name'] = this.wardName;
+    data['district_name'] = this.districtName;
+    data['province_name'] = this.provinceName;
     return data;
   }
 
   String get getRegion => '$wardName, $districtName, $provinceName';
-
 }

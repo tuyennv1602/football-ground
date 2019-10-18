@@ -22,6 +22,16 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Cho phép FootballTeam truy cập máy ảnh để lấy ảnh avatar, logo</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>FootballGround muốn truy cập vị trí của bạn để hiển thị trên bản đồ</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>FootballGround muốn truy cập vị trí của bạn để hiển thị trên bản đồ</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>FootballGround muốn truy cập vị trí của bạn để hiển thị trên bản đồ</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Cho phép FootballTeam truy cập thư viện để lấy ảnh avatar, logo</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -31,6 +41,8 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -44,17 +56,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>FootballGround muốn truy cập vị trí của bạn để hiển thị trên bản đồ</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>FootballGround muốn truy cập vị trí của bạn để hiển thị trên bản đồ</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>FootballGround muốn truy cập vị trí của bạn để hiển thị trên bản đồ</string>
-    <key>NSCameraUsageDescription</key>
-    <string>Cho phép FootballTeam truy cập máy ảnh để lấy ảnh avatar, logo</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Cho phép FootballTeam truy cập thư viện để lấy ảnh avatar, logo</string>
-    <key>io.flutter.embedded_views_preview</key>
-    <true/>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
 </dict>
 </plist>

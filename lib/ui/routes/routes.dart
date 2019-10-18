@@ -64,10 +64,9 @@ class Routes {
   }
 
   static Future<dynamic> routeToCreateField(
-      BuildContext context, bool isPopToRoot, int number) async {
+      BuildContext context, int number) async {
     return await Navigator.of(context, rootNavigator: true).push(SlideLeftRoute(
         widget: CreateFieldPage(
-      isPopToRoot: isPopToRoot,
       number: number,
     )));
   }

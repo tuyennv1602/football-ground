@@ -6,6 +6,7 @@ import 'package:footballground/models/responses/base_response.dart';
 import 'package:footballground/models/responses/field_resp.dart';
 import 'package:footballground/models/responses/ground_resp.dart';
 import 'package:footballground/models/responses/login_response.dart';
+import 'package:footballground/models/responses/notification_resp.dart';
 
 import 'base_api.dart';
 
@@ -103,11 +104,20 @@ class Api {
 
   Future<FieldResponse> createField(int groundId, Field field) async {
     try {
-      var resp = await _api.putApi('football/ground/$groundId/field',
+      var resp = await _api.postApi('ground/$groundId/field',
           body: field.toCreateJson());
       return FieldResponse.success(resp.data);
     } on DioError catch (e) {
       return FieldResponse.error(e.message);
+    }
+  }
+
+  Future<NotificationResponse> getNotifications() async {
+    try {
+      var resp = await _api.getApi("user/notification");
+      return NotificationResponse.success(resp.data);
+    } on DioError catch (e) {
+      return NotificationResponse.error(e.message);
     }
   }
 }

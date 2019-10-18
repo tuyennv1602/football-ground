@@ -24,8 +24,4 @@ class SharePreferences {
     return prefs.remove(ACCESS_TOKEN);
   }
 
-  Future<bool> clearLastTeam() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.remove(TEAM);
-  }
 }

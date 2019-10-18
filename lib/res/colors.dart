@@ -6,6 +6,7 @@ const Color LINE_COLOR = Color(0xFFE0E0E0);
 const Color GREY_BACKGROUND = Color(0xFFF2F3F4);
 const Color BLACK_TRANSPARENT = Color(0x66000000);
 const Color BLACK_TEXT = Colors.black87;
+const Color SHADOW_GREEN = Color(0xFFE9F7EF);
 const List<Color> BLACK_GRADIENT = [
   Color(0xCC000000),
   Color(0xBF000000),

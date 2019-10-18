@@ -76,7 +76,9 @@ class CreateFieldViewModel extends BaseViewModel {
       int groundId, String fieldName, int type) async {
     Field field = Field(name: fieldName, type: type, timeSlots: timeSlots);
     var resp = await _api.createField(groundId, field);
-    if (resp.isSuccess) {}
+    if (resp.isSuccess) {
+      _groundServices.addField(resp.field);
+    }
     return resp;
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:footballground/models/field.dart';
 import 'package:footballground/models/ground.dart';
 import 'package:footballground/models/responses/ground_resp.dart';
 import 'package:footballground/services/api.dart';
@@ -21,6 +22,15 @@ class GroundServices {
 
   setGround(Ground ground) {
     _currentGround = ground;
+    _groundController.add(_currentGround);
+  }
+
+  addField(Field field) {
+    field.timeSlots.clear();
+    if (_currentGround.fields == null) {
+      _currentGround.fields = List<Field>();
+    }
+    _currentGround.fields.add(field);
     _groundController.add(_currentGround);
   }
 }

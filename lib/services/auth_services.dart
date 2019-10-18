@@ -63,7 +63,6 @@ class AuthServices {
         BaseApi.setHeader(Headers(accessToken: resp.token));
       } else {
         _preferences.clearToken();
-        _preferences.clearLastTeam();
       }
       return resp;
     }

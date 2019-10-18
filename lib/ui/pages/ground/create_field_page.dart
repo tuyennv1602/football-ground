@@ -22,19 +22,10 @@ import 'package:footballground/viewmodels/create_field_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class CreateFieldPage extends StatelessWidget {
-  final bool _isPopToRoot;
   final int _number;
   int type = Constants.VS7;
 
-  CreateFieldPage({@required bool isPopToRoot, @required int number})
-      : _isPopToRoot = isPopToRoot,
-        _number = number;
-
-  Future<bool> _onWillPop(BuildContext context) {
-    return _isPopToRoot
-        ? Routes.routeToHome2(context)
-        : Navigator.of(context).pop() ?? false;
-  }
+  CreateFieldPage({@required int number}) : _number = number;
 
   Widget _buildItemTimeSlot(BuildContext context, TimeSlot timeSlot,
           CreateFieldViewModel model) =>
@@ -94,45 +85,44 @@ class CreateFieldPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UIHelper().init(context);
-    return WillPopScope(
-        child: Scaffold(
-          backgroundColor: PRIMARY,
-          body: BaseWidget<CreateFieldViewModel>(
-              model: CreateFieldViewModel(
-                api: Provider.of(context),
-                groundServices: Provider.of(context),
-              ),
-              onModelReady: (model) => model.changeTimeActive(4, 23.5),
-              builder: (c, model, child) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    AppBarWidget(
-                      centerContent: Text(
-                        'Sân số $_number',
-                        textAlign: TextAlign.center,
-                        style: textStyleTitle(),
-                      ),
-                      leftContent: AppBarButtonWidget(
-                        imageName: Images.BACK,
-                        onTap: () => _isPopToRoot
-                            ? Routes.routeToHome2(context)
-                            : Navigator.pop(context),
-                      ),
-                      rightContent: InkWell(
-                        onTap: () => _handleCreateField(context, model),
-                        child: SizedBox(
-                          width: UIHelper.size50,
-                          child: Text(
-                            'Thêm',
-                            style: textStyleButton(),
-                          ),
-                        ),
+    return Scaffold(
+      backgroundColor: PRIMARY,
+      body: SafeArea(
+        top: false,
+        child: BaseWidget<CreateFieldViewModel>(
+          model: CreateFieldViewModel(
+            api: Provider.of(context),
+            groundServices: Provider.of(context),
+          ),
+          onModelReady: (model) => model.changeTimeActive(4, 23.5),
+          builder: (c, model, child) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                AppBarWidget(
+                  centerContent: Text(
+                    'Sân số $_number',
+                    textAlign: TextAlign.center,
+                    style: textStyleTitle(),
+                  ),
+                  leftContent: AppBarButtonWidget(
+                    imageName: Images.BACK,
+                    onTap: () => Navigator.pop(context),
+                  ),
+                  rightContent: InkWell(
+                    onTap: () => _handleCreateField(context, model),
+                    child: SizedBox(
+                      width: UIHelper.size50,
+                      child: Text(
+                        'Thêm',
+                        style: textStyleButton(),
                       ),
                     ),
-                    Expanded(
-                        child: BorderBackground(
-                            child: Column(
+                  ),
+                ),
+                Expanded(
+                  child: BorderBackground(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         UIHelper.verticalSpaceMedium,
@@ -191,11 +181,14 @@ class CreateFieldPage extends StatelessWidget {
                           ),
                         ),
                       ],
-                    )))
-                  ],
-                );
-              }),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
-        onWillPop: () => _onWillPop(context));
+      ),
+    );
   }
 }

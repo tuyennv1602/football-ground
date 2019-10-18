@@ -39,5 +39,6 @@ class Images {
   static const String ADD = '$FOLDER/icn_add.png';
   static const String ACCEPT = '$FOLDER/icn_accept.png';
   static const String DENY = '$FOLDER/icn_deny.png';
-
+  static const String FIELD = '$FOLDER/icn_field.png';
+  static const String LOADING = '$FOLDER/icn_loading.gif';
 }

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:footballground/models/ground.dart';
-import 'package:footballground/models/user.dart';
-import 'package:footballground/provider_setup.dart';
 import 'package:footballground/res/colors.dart';
 import 'package:footballground/res/images.dart';
 import 'package:footballground/res/styles.dart';
@@ -46,21 +44,23 @@ class GroundState extends State<GroundPage> with AutomaticKeepAliveClientMixin {
 
   Widget _buildEmptyGround(BuildContext context) => InkWell(
         onTap: () => Routes.routeToLocation(context),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset(
-              Images.ADD_GROUND,
-              width: UIHelper.size50,
-              height: UIHelper.size50,
-              color: PRIMARY,
-            ),
-            UIHelper.verticalSpaceMedium,
-            Text(
-              'Tạo sân bóng',
-              style: textStyleTitle(color: BLACK_TEXT),
-            ),
-          ],
+        child: BorderBackground(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset(
+                Images.ADD_GROUND,
+                width: UIHelper.size50,
+                height: UIHelper.size50,
+                color: PRIMARY,
+              ),
+              UIHelper.verticalSpaceMedium,
+              Text(
+                'Tạo sân bóng',
+                style: textStyleTitle(color: BLACK_TEXT),
+              ),
+            ],
+          ),
         ),
       );
 
@@ -83,7 +83,7 @@ class GroundState extends State<GroundPage> with AutomaticKeepAliveClientMixin {
                     )
                   : FadeInImage.assetNetwork(
                       image: ground.avatar,
-                      placeholder: Images.GALLERY,
+                      placeholder: Images.LOADING,
                       fit: BoxFit.cover,
                     ),
             ),
@@ -98,13 +98,13 @@ class GroundState extends State<GroundPage> with AutomaticKeepAliveClientMixin {
           ItemOptionWidget(
             Images.PHONE,
             ground.phone,
-            iconColor: Colors.blueAccent,
+            iconColor: Colors.green,
           ),
           LineWidget(),
           ItemOptionWidget(
             Images.LOCATION,
             ground.address,
-            iconColor: Colors.green,
+            iconColor: Colors.blueAccent,
           ),
           LineWidget(),
           ItemOptionWidget(
@@ -125,8 +125,8 @@ class GroundState extends State<GroundPage> with AutomaticKeepAliveClientMixin {
               Padding(
                 padding: EdgeInsets.all(UIHelper.size10),
                 child: InkWell(
-                  onTap: () => Routes.routeToCreateField(
-                      context, false, ground.countField + 1),
+                  onTap: () =>
+                      Routes.routeToCreateField(context, ground.countField + 1),
                   child: Image.asset(
                     Images.ADD,
                     width: UIHelper.size20,
@@ -137,16 +137,24 @@ class GroundState extends State<GroundPage> with AutomaticKeepAliveClientMixin {
               )
             ],
           ),
-          Padding(
-            padding: EdgeInsets.all(UIHelper.size10),
-            child: ground.countField > 0
-                ? Text('has field')
-                : Text(
+          ground.countField > 0
+              ? Column(
+                  children: ground.fields
+                      .map((field) => ItemOptionWidget(
+                            Images.FIELD,
+                            field.name,
+                            iconColor: Colors.green,
+                          ))
+                      .toList(),
+                )
+              : Padding(
+                  padding: EdgeInsets.all(UIHelper.size15),
+                  child: Text(
                     'Bạn chưa thêm sân. Click (+) để thêm sân',
                     textAlign: TextAlign.center,
                     style: textStyleRegularTitle(),
                   ),
-          )
+                ),
         ],
       );
 
@@ -228,17 +236,18 @@ class GroundState extends State<GroundPage> with AutomaticKeepAliveClientMixin {
             titles: TABS,
           ),
           Expanded(
-              child: Padding(
-            padding: EdgeInsets.all(UIHelper.size10),
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                _buildFieldTicket(context, 'Sân số 1'),
-                _buildFieldTicket(context, 'Sân số 2'),
-                _buildFieldTicket(context, 'Sân số 3')
-              ],
+            child: Padding(
+              padding: EdgeInsets.all(UIHelper.size10),
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: <Widget>[
+                  _buildFieldTicket(context, 'Sân số 1'),
+                  _buildFieldTicket(context, 'Sân số 2'),
+                  _buildFieldTicket(context, 'Sân số 3')
+                ],
+              ),
             ),
-          ))
+          )
         ],
       ),
     );
@@ -306,9 +315,20 @@ class GroundState extends State<GroundPage> with AutomaticKeepAliveClientMixin {
                                           _buildGroundDetail(context, _ground),
                                     ),
                                     Container(
-                                      height: 30,
+                                      height: UIHelper.size50,
                                       decoration: BoxDecoration(
-                                        color: PRIMARY,
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius: 3,
+                                            // has the effect of softening the shadow
+                                            offset: Offset(
+                                              0, // horizontal, move right 10
+                                              -1, // vertical, move down 10
+                                            ),
+                                          )
+                                        ],
                                         borderRadius: BorderRadius.only(
                                           topLeft:
                                               Radius.circular(UIHelper.size15),

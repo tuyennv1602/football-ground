@@ -6,7 +6,6 @@ import 'package:footballground/res/colors.dart';
 import 'package:footballground/res/images.dart';
 import 'package:footballground/res/styles.dart';
 import 'package:footballground/ui/pages/base_widget.dart';
-import 'package:footballground/ui/routes/routes.dart';
 import 'package:footballground/ui/widgets/app_bar_button.dart';
 import 'package:footballground/ui/widgets/app_bar_widget.dart';
 import 'package:footballground/ui/widgets/border_background.dart';
@@ -68,18 +67,23 @@ class CreateGroundPage extends StatelessWidget {
     var resp = await model.createGround(
         Provider.of<User>(context).id,
         Ground(
-            name: _groundName,
-            rule: _role,
-            phone: _phoneNumber,
-            address: _addressName,
-            lat: _address.coordinates.latitude,
-            lng: _address.coordinates.longitude,
-            wardId: StringUtil.getIdFromString(_addressInfo.wardId),
-            districtId: StringUtil.getIdFromString(_addressInfo.districtId),
-            provinceId: StringUtil.getIdFromString(_addressInfo.provinceId)));
+          name: _groundName,
+          rule: _role,
+          phone: _phoneNumber,
+          address: _addressName,
+          lat: _address.coordinates.latitude,
+          lng: _address.coordinates.longitude,
+          wardId: StringUtil.getIdFromString(_addressInfo.wardId),
+          districtId: StringUtil.getIdFromString(_addressInfo.districtId),
+          provinceId: StringUtil.getIdFromString(_addressInfo.provinceId),
+          wardName: _addressInfo.wardName,
+          districtName: _addressInfo.districtName,
+          provinceName: _addressInfo.provinceName
+        ));
     UIHelper.hideProgressDialog;
     if (resp.isSuccess) {
-      Routes.routeToCreateField(context, true, 1);
+      UIHelper.showSimpleDialog('Đăng ký thành công sân bóng $_groundName',
+          onTap: () => Navigator.of(context).pop(2));
     } else {
       UIHelper.showSimpleDialog(resp.errorMessage);
     }
@@ -106,7 +110,10 @@ class CreateGroundPage extends StatelessWidget {
           Expanded(
             child: BorderBackground(
               child: BaseWidget<CreateGroundViewModel>(
-                model: CreateGroundViewModel(api: Provider.of(context)),
+                model: CreateGroundViewModel(
+                  api: Provider.of(context),
+                  groundServices: Provider.of(context),
+                ),
                 builder: (c, model, child) {
                   return ListView(
                     padding: EdgeInsets.zero,

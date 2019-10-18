@@ -4,13 +4,18 @@ import 'package:footballground/models/ground.dart';
 import 'package:footballground/models/responses/ground_resp.dart';
 import 'package:footballground/services/api.dart';
 import 'package:footballground/services/firebase_services.dart';
+import 'package:footballground/services/ground_services.dart';
 import 'package:footballground/viewmodels/base_viewmodel.dart';
 
 class CreateGroundViewModel extends BaseViewModel {
   Api _api;
+  GroundServices _groundServices;
   File image;
 
-  CreateGroundViewModel({@required Api api}) : _api = api;
+  CreateGroundViewModel(
+      {@required Api api, @required GroundServices groundServices})
+      : _api = api,
+        _groundServices = groundServices;
 
   void setImage(File image) {
     this.image = image;
@@ -20,15 +25,18 @@ class CreateGroundViewModel extends BaseViewModel {
   Future<GroundResponse> createGround(int userId, Ground ground) async {
     setBusy(true);
     var resp = await _api.createGround(ground);
-    if (resp.isSuccess && image != null) {
+    if (resp.isSuccess) {
       var _ground = resp.ground;
-      var _imageLink = await _uploadImage(userId, _ground.name);
-      if (_imageLink != null) {
-        // upload image success and update ground info
-        print(_imageLink);
-        _ground.avatar = _imageLink;
-        await _api.updateGround(_ground);
+      if (image != null) {
+        var _imageLink = await _uploadImage(userId, _ground.name);
+        if (_imageLink != null) {
+          // upload image success and update ground info
+          print(_imageLink);
+          _ground.avatar = _imageLink;
+          await _api.updateGround(_ground);
+        }
       }
+      _groundServices.setGround(_ground);
     }
     setBusy(false);
     return resp;
