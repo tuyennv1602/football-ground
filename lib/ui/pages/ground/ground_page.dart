@@ -322,11 +322,7 @@ class GroundState extends State<GroundPage> with AutomaticKeepAliveClientMixin {
                                           BoxShadow(
                                             color: Colors.grey,
                                             blurRadius: 3,
-                                            // has the effect of softening the shadow
-                                            offset: Offset(
-                                              0, // horizontal, move right 10
-                                              -1, // vertical, move down 10
-                                            ),
+                                            offset: Offset(0, -1),
                                           )
                                         ],
                                         borderRadius: BorderRadius.only(

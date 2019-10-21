@@ -31,6 +31,8 @@ class GroundServices {
       _currentGround.fields = List<Field>();
     }
     _currentGround.fields.add(field);
+    _currentGround.countField = _currentGround.countField + 1;
+    print(_currentGround.toJson());
     _groundController.add(_currentGround);
   }
 }
