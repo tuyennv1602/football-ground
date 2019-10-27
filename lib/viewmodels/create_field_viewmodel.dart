@@ -7,8 +7,6 @@ import 'package:footballground/services/ground_services.dart';
 import 'package:footballground/utils/object_util.dart';
 import 'package:footballground/utils/string_util.dart';
 import 'package:footballground/viewmodels/base_viewmodel.dart';
-import 'package:queries/collections.dart';
-import 'package:queries/queries.dart';
 
 class CreateFieldViewModel extends BaseViewModel {
   Api _api;

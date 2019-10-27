@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:footballground/models/address_info.dart';
 import 'package:footballground/models/ground.dart';
 import 'package:footballground/models/user.dart';
@@ -12,6 +13,7 @@ import 'package:footballground/ui/widgets/border_background.dart';
 import 'package:footballground/ui/widgets/bottom_sheet_widget.dart';
 import 'package:footballground/ui/widgets/button_widget.dart';
 import 'package:footballground/ui/widgets/input_widget.dart';
+import 'package:footballground/utils/currency_input_formatter.dart';
 import 'package:footballground/utils/string_util.dart';
 import 'package:footballground/utils/ui_helper.dart';
 import 'package:footballground/utils/validator.dart';
@@ -28,6 +30,7 @@ class CreateGroundPage extends StatelessWidget {
   String _role;
   String _addressName;
   String _phoneNumber;
+  String _deposite;
 
   CreateGroundPage(
       {@required Address address, @required AddressInfo addressInfo})
@@ -46,31 +49,39 @@ class CreateGroundPage extends StatelessWidget {
   void _showChooseImage(BuildContext context, Function onImageReady) =>
       showModalBottomSheet(
         context: context,
-        builder: (c) => BottomSheetWidget(
-          options: ['Chọn ảnh logo', 'Từ máy ảnh', 'Từ thư viện', 'Huỷ'],
-          onClickOption: (index) async {
-            if (index == 1) {
-              var image = await ImagePicker.pickImage(
-                  source: ImageSource.camera, maxHeight: 500, maxWidth: 720);
-              onImageReady(image);
-            } else if (index == 2) {
-              var image = await ImagePicker.pickImage(
-                  source: ImageSource.gallery, maxHeight: 500, maxWidth: 729);
-              onImageReady(image);
-            }
-          },
-        ),
+        builder: (c) =>
+            BottomSheetWidget(
+              options: ['Chọn ảnh logo', 'Từ máy ảnh', 'Từ thư viện', 'Huỷ'],
+              onClickOption: (index) async {
+                if (index == 1) {
+                  var image = await ImagePicker.pickImage(
+                      source: ImageSource.camera,
+                      maxHeight: 500,
+                      maxWidth: 720);
+                  onImageReady(image);
+                } else if (index == 2) {
+                  var image = await ImagePicker.pickImage(
+                      source: ImageSource.gallery,
+                      maxHeight: 500,
+                      maxWidth: 729);
+                  onImageReady(image);
+                }
+              },
+            ),
       );
 
   _handleCreateGround(BuildContext context, CreateGroundViewModel model) async {
     UIHelper.showProgressDialog;
     var resp = await model.createGround(
-        Provider.of<User>(context).id,
+        Provider
+            .of<User>(context)
+            .id,
         Ground(
             name: _groundName,
             rule: _role,
             phone: _phoneNumber,
             address: _addressName,
+            deposit: StringUtil.getPriceFromString(_deposite),
             lat: _address.coordinates.latitude,
             lng: _address.coordinates.longitude,
             wardId: StringUtil.getIdFromString(_addressInfo.wardId),
@@ -123,28 +134,29 @@ class CreateGroundPage extends StatelessWidget {
                         height: UIHelper.size(200),
                         color: GREY_BACKGROUND,
                         child: InkWell(
-                          onTap: () => _showChooseImage(
-                              context, (image) => model.setImage(image)),
+                          onTap: () =>
+                              _showChooseImage(
+                                  context, (image) => model.setImage(image)),
                           child: model.image == null
                               ? Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Image.asset(Images.GALLERY,
-                                        width: UIHelper.size50,
-                                        height: UIHelper.size50,
-                                        color: Colors.grey),
-                                    Text('Ảnh sân bóng',
-                                        style: textStyleSemiBold(
-                                            color: Colors.grey))
-                                  ],
-                                )
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset(Images.GALLERY,
+                                  width: UIHelper.size50,
+                                  height: UIHelper.size50,
+                                  color: Colors.grey),
+                              Text('Ảnh sân bóng',
+                                  style: textStyleSemiBold(
+                                      color: Colors.grey))
+                            ],
+                          )
                               : Image.file(model.image, fit: BoxFit.cover),
                         ),
                       ),
                       UIHelper.verticalSpaceMedium,
                       Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: UIHelper.size10),
+                        EdgeInsets.symmetric(horizontal: UIHelper.size10),
                         child: Form(
                           key: _formKey,
                           child: Column(
@@ -171,6 +183,15 @@ class CreateGroundPage extends StatelessWidget {
                                 inputAction: TextInputAction.newline,
                                 labelText: 'Nội quy sân bóng',
                                 onSaved: (value) => _role = value,
+                              ),
+                              InputWidget(
+                                formatter: [
+                                  WhitelistingTextInputFormatter.digitsOnly,
+                                  CurrencyInputFormatter()
+                                ],
+                                inputAction: TextInputAction.newline,
+                                labelText: 'Số tiền cọc sân',
+                                onSaved: (value) => _deposite = value,
                               ),
                               InputWidget(
                                 validator: Validator.validPhoneNumber,

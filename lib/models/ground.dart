@@ -116,7 +116,7 @@ class Ground {
     data['name'] = this.name;
     data['phone'] = this.phone;
     data['rule'] = this.rule;
-    data['deposit'] = 0;
+    data['deposit'] = this.deposit;
     data['address'] = this.address;
     data['lat'] = this.lat;
     data['lng'] = this.lng;

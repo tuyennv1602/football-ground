@@ -56,7 +56,7 @@ class CustomExpansionPanelList extends StatelessWidget {
             ),
           ),
           Container(
-            width: 30,
+            width: 40,
             height: 30,
             child: ExpandIcon(
               padding: EdgeInsets.symmetric(horizontal: 10),

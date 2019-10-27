@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:footballground/res/colors.dart';
 import 'package:footballground/res/fonts.dart';
 import 'package:footballground/res/styles.dart';
@@ -15,19 +16,21 @@ class InputWidget extends StatelessWidget {
   final TextStyle textStyle;
   final int maxLines;
   final int maxLength;
+  final List<TextInputFormatter> formatter;
 
   InputWidget(
       {Key key,
-        this.initValue,
-        this.validator,
-        this.inputType,
-        this.inputAction,
-        this.errorText,
-        this.labelText,
-        this.onSaved,
-        this.maxLines = 1,
-        this.maxLength = 200,
-        this.textStyle})
+      this.initValue,
+      this.validator,
+      this.inputType,
+      this.inputAction,
+      this.errorText,
+      this.labelText,
+      this.onSaved,
+      this.maxLines = 1,
+      this.maxLength = 200,
+      this.textStyle,
+      this.formatter})
       : super(key: key);
 
   @override
@@ -44,6 +47,7 @@ class InputWidget extends StatelessWidget {
       textInputAction: inputAction ?? TextInputAction.done,
       onSaved: onSaved,
       style: textStyle ?? textStyleInput(),
+      inputFormatters: formatter,
       decoration: InputDecoration(
         helperText: '',
         contentPadding: EdgeInsets.symmetric(vertical: UIHelper.size5),

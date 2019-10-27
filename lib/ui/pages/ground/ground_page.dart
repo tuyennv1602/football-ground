@@ -163,10 +163,10 @@ class GroundState extends State<GroundPage> with AutomaticKeepAliveClientMixin {
         strokeWidth: 1,
         dashPattern: [5, 3, 2, 3],
         borderType: BorderType.RRect,
-        radius: Radius.circular(UIHelper.size5),
+        radius: Radius.circular(UIHelper.size10),
         child: Container(
           width: UIHelper.size(150),
-          padding: EdgeInsets.all(UIHelper.size5),
+          padding: EdgeInsets.all(UIHelper.size10),
           color: GREY_BACKGROUND,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,7 +202,7 @@ class GroundState extends State<GroundPage> with AutomaticKeepAliveClientMixin {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.symmetric(vertical: UIHelper.size5),
+          padding: EdgeInsets.symmetric(vertical: UIHelper.size10),
           child: Text(
             name,
             style: textStyleSemiBold(color: PRIMARY, size: 18),
