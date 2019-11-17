@@ -16,7 +16,7 @@ class InputPriceWidget extends StatelessWidget {
   final OnChangedText onChangedText;
   Timer _debounce;
 
-  InputPriceWidget({Key key, this.keyword = '', this.onChangedText})
+  InputPriceWidget({Key key, this.keyword = '', @required this.onChangedText})
       : super(key: key);
 
   @override
