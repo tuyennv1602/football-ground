@@ -1,16 +1,10 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
-import 'package:footballground/models/field.dart';
-import 'package:footballground/models/ground.dart';
-import 'package:footballground/models/responses/ground_resp.dart';
-import 'package:footballground/services/api.dart';
+import 'package:footballground/model/field.dart';
+import 'package:footballground/model/ground.dart';
+import 'package:footballground/model/responses/ground_resp.dart';
 
 class GroundServices {
-  final Api _api;
   Ground _currentGround;
-
-  GroundServices({@required Api api}) : _api = api;
 
   StreamController<Ground> _groundController = StreamController<Ground>();
 
@@ -32,7 +26,6 @@ class GroundServices {
     }
     _currentGround.fields.add(field);
     _currentGround.countField = _currentGround.countField + 1;
-    print(_currentGround.toJson());
     _groundController.add(_currentGround);
   }
 }

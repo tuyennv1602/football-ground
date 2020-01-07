@@ -1,12 +1,12 @@
-import 'package:footballground/models/ground.dart';
+import 'package:footballground/model/ground.dart';
 import 'package:footballground/services/api.dart';
 import 'package:footballground/services/auth_services.dart';
 import 'package:footballground/services/ground_services.dart';
-import 'package:footballground/services/share_preferences.dart';
+import 'package:footballground/services/local_storage.dart';
 import 'package:footballground/services/sqlite_service.dart';
 import 'package:provider/provider.dart';
 
-import 'models/user.dart';
+import 'model/user.dart';
 
 // Define all provider in app
 List<SingleChildCloneableWidget> providers = [
@@ -18,17 +18,18 @@ List<SingleChildCloneableWidget> providers = [
 // These are classes/objects that do not depend on any other services to execute their logic
 List<SingleChildCloneableWidget> independentServices = [
   Provider.value(value: Api()),
-  Provider.value(value: SharePreferences()),
+  Provider.value(value: LocalStorage()),
   Provider.value(value: SQLiteServices())
 ];
 
 // These are classes/object that depend on previously registered services
 List<SingleChildCloneableWidget> dependentServices = [
-  ProxyProvider2<Api, SharePreferences, AuthServices>(
-      builder: (context, api, sharePref, authenticationService) =>
+  ProxyProvider2<Api, LocalStorage, AuthServices>(
+      update: (context, api, sharePref, authenticationService) =>
           AuthServices(api: api, sharePreferences: sharePref)),
   ProxyProvider<Api, GroundServices>(
-      builder: (context, api, groundServices) => GroundServices(api: api))
+    update: (context, Api api, GroundServices previous) => GroundServices(),
+  )
 ];
 
 // These are values that you want to consume directly in the UI
@@ -38,11 +39,11 @@ List<SingleChildCloneableWidget> dependentServices = [
 // You could also just add it to the BaseModel
 List<SingleChildCloneableWidget> uiConsumableProviders = [
   StreamProvider<User>(
-    builder: (context) =>
+    create: (context) =>
         Provider.of<AuthServices>(context, listen: false).user,
   ),
   StreamProvider<Ground>(
-    builder: (context) =>
+    create: (context) =>
         Provider.of<GroundServices>(context, listen: false).ground,
   ),
 ];

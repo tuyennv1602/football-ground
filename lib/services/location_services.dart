@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:footballground/http.dart';
-import 'package:footballground/models/address_info.dart';
+import 'package:footballground/model/address_info.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';

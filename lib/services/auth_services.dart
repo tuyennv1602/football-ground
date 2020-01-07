@@ -1,21 +1,21 @@
 import 'dart:async';
-import 'package:footballground/models/device_info.dart';
-import 'package:footballground/models/ground.dart';
-import 'package:footballground/models/headers.dart';
-import 'package:footballground/models/responses/base_response.dart';
-import 'package:footballground/models/responses/login_response.dart';
-import 'package:footballground/models/token.dart';
-import 'package:footballground/models/user.dart';
+import 'package:footballground/model/device_info.dart';
+import 'package:footballground/model/ground.dart';
+import 'package:footballground/model/header.dart';
+import 'package:footballground/model/responses/base_response.dart';
+import 'package:footballground/model/responses/login_response.dart';
+import 'package:footballground/model/token.dart';
+import 'package:footballground/model/user.dart';
 import 'package:footballground/services/api.dart';
-import 'package:footballground/services/share_preferences.dart';
-import 'base_api.dart';
+import 'package:footballground/services/local_storage.dart';
+import 'api_config.dart';
 
 class AuthServices {
   final Api _api;
-  final SharePreferences _preferences;
+  final LocalStorage _preferences;
   User _user;
 
-  AuthServices({Api api, SharePreferences sharePreferences})
+  AuthServices({Api api, LocalStorage sharePreferences})
       : _api = api,
         _preferences = sharePreferences;
 
@@ -37,13 +37,16 @@ class AuthServices {
     _userController.add(_user);
   }
 
-  Future<LoginResponse> loginEmail(String email, String password) async {
+  Future<LoginResponse> loginEmail(
+      String deviceId, String email, String password) async {
     var resp = await _api.loginEmail(email, password);
     if (resp.isSuccess) {
       updateUser(resp.user);
-      _preferences
-          .setToken(Token(token: resp.token, refreshToken: resp.refreshToken));
-      BaseApi.setHeader(Headers(accessToken: resp.token));
+      _preferences.setToken(Token(
+          deviceId: deviceId,
+          token: resp.token,
+          refreshToken: resp.refreshToken));
+      ApiConfig.setHeader(Header(accessToken: resp.token, deviceId: deviceId));
     }
     return resp;
   }
@@ -54,13 +57,17 @@ class AuthServices {
 
   Future<LoginResponse> refreshToken() async {
     var token = await _preferences.getToken();
+    ApiConfig.setHeader(Header(deviceId: token.deviceId));
     if (token != null) {
       var resp = await _api.refreshToken(token.refreshToken);
       if (resp.isSuccess) {
         updateUser(resp.user);
-        _preferences.setToken(
-            Token(token: resp.token, refreshToken: resp.refreshToken));
-        BaseApi.setHeader(Headers(accessToken: resp.token));
+        _preferences.setToken(Token(
+            deviceId: token.deviceId,
+            token: resp.token,
+            refreshToken: resp.refreshToken));
+        ApiConfig.setHeader(
+            Header(deviceId: token.deviceId, accessToken: resp.token));
       } else {
         _preferences.clearToken();
       }

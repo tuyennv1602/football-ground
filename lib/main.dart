@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:cookie_jar/cookie_jar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
 import 'package:footballground/provider_setup.dart' as setupProvider;
-import 'package:footballground/services/share_preferences.dart';
-import 'package:footballground/ui/pages/login/login_page.dart';
+import 'package:footballground/router/navigation.dart';
+import 'package:footballground/router/router.dart';
+import 'package:footballground/services/local_storage.dart';
+import 'package:footballground/util/local_timeago.dart';
+import 'package:footballground/view/page/login/login_page.dart';
 import 'package:provider/provider.dart';
 import 'http.dart';
-import 'ui/pages/home_page.dart';
+import 'view/page/home_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
@@ -23,11 +26,12 @@ parseJson(String text) {
 }
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  timeago.setLocaleMessages('vi', ViMessage());
   _firebaseMessaging.requestNotificationPermissions();
-  var token = await SharePreferences().getToken();
+  var token = await LocalStorage().getToken();
   dio.interceptors
-    ..add(CookieManager(CookieJar()))
-    ..add(LogInterceptor(
+   ..add(LogInterceptor(
         responseBody: true, requestBody: true, requestHeader: true));
   (dio.transformer as DefaultTransformer).jsonDecodeCallback = parseJson;
   return runApp(MyApp(token != null));
@@ -44,6 +48,8 @@ class MyApp extends StatelessWidget {
       providers: setupProvider.providers,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        navigatorKey: Navigation().navigatorKey,
+        onGenerateRoute: generateRoute,
         theme: ThemeData(
           canvasColor: Colors.transparent,
           fontFamily: 'regular',

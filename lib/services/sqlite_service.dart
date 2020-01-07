@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:footballground/models/address_info.dart';
+import 'package:footballground/model/address_info.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:io';
