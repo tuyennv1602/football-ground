@@ -19,7 +19,7 @@ class Images {
   static const String SCHEDULE = '$FOLDER/ic_schedule.png';
   static const String ADMIN = '$FOLDER/ic_admin.png';
   static const String STACK = '$FOLDER/ic_stack.png';
-  static const String QR_SEARCH = '$FOLDER/ic_qr_search.png';
+  static const String QR_SEARCH = '$FOLDER/ic_qrcode.png';
   static const String DEFAULT_LOGO = '$FOLDER/ic_club.png';
   static const String SWITCH_TEAM = '$FOLDER/ic_switch_team.png';
   static const String LEFT_ARROW = '$FOLDER/ic_left_arrow.png';
@@ -45,4 +45,6 @@ class Images {
   static const String CANCEL = '$FOLDER/ic_cancel.png';
   static const String QUESTION = '$FOLDER/ic_question.png';
   static const String DELETE = '$FOLDER/ic_delete.png';
+  static const String DEFAULT_GROUND = '$FOLDER/default_ground.jpg';
+
 }

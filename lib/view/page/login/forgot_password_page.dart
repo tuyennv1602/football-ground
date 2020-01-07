@@ -5,7 +5,7 @@ import 'package:footballground/resource/stringres.dart';
 import 'package:footballground/resource/styles.dart';
 import 'package:footballground/router/navigation.dart';
 import 'package:footballground/view/widgets/circle_input_text.dart';
-import 'package:footballground/view/widgets/customize_button.dart';
+import 'package:footballground/view/widgets/button_widget.dart';
 import 'package:footballground/view/ui_helper.dart';
 import 'package:footballground/util/validator.dart';
 import 'package:footballground/viewmodel/forgotpassword_vm.dart';
@@ -156,7 +156,7 @@ class _ForgotPasswordState extends State<ForgotPasswordPage> {
                               style: textStyleItalic(color: Colors.black87),
                             ),
                           ),
-                          CustomizeButton(
+                          ButtonWidget(
                             child: Text(
                               model.isChangePassword
                                   ? 'ĐỔI MẬT KHẨU'

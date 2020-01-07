@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 const double _kPanelHeaderCollapsedHeight = 35;
 const double _kPanelHeaderExpandedHeight = 35;
 
-class CustomExpansionPanelList extends StatelessWidget {
-  const CustomExpansionPanelList(
+class ExpansionPanelWidget extends StatelessWidget {
+  const ExpansionPanelWidget(
       {Key key,
       this.children: const <ExpansionPanel>[],
       this.expansionCallback,

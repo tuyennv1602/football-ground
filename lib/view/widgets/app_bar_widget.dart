@@ -8,17 +8,15 @@ class AppBarWidget extends StatelessWidget {
   final Widget leftContent;
   final Widget centerContent;
   final Widget rightContent;
-  final bool showBorder;
   final Color backgroundColor;
-  final double _kAppbarHeight = UIHelper.size(50);
+  final double _kAppbarHeight = UIHelper.size(55);
 
   AppBarWidget(
       {Key key,
-      this.leftContent,
-      this.rightContent,
-      @required this.centerContent,
-      this.backgroundColor,
-      this.showBorder = false})
+        this.leftContent,
+        this.rightContent,
+        @required this.centerContent,
+        this.backgroundColor})
       : assert(centerContent != null),
         super(key: key);
 
@@ -26,16 +24,17 @@ class AppBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        SizedBox(
-          height: UIHelper.paddingTop,
-        ),
         Container(
-          height: _kAppbarHeight,
+          height: _kAppbarHeight + UIHelper.paddingTop,
+          padding: EdgeInsets.only(top: UIHelper.paddingTop),
           decoration: BoxDecoration(
-              color: backgroundColor ?? PRIMARY,
-              border: showBorder
-                  ? Border(bottom: BorderSide(width: 0.5, color: LINE_COLOR))
-                  : null),
+            color: backgroundColor ?? PRIMARY,
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: GREEN_BUTTON,
+            ),
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceAround,

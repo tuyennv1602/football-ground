@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:footballground/resource/styles.dart';
 import 'package:footballground/util/constants.dart';
 import 'package:footballground/view/ui_helper.dart';
-import 'custom_expansion_panel.dart';
+import 'expansion_panel_widget.dart';
 
 typedef void OnSelectedType(int type);
 
@@ -54,7 +54,7 @@ class _ChooseFieldTypeState extends State<ChooseFieldType> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomExpansionPanelList(
+    return ExpansionPanelWidget(
       expansionCallback: (index, isExpanded) {
         setState(() {
           _isExpanded = !isExpanded;

@@ -10,7 +10,7 @@ import 'package:footballground/view/widgets/app_bar_widget.dart';
 import 'package:footballground/view/widgets/border_background.dart';
 import 'package:footballground/view/widgets/line_widget.dart';
 import 'package:footballground/view/widgets/image_widget.dart';
-import 'package:footballground/view/widgets/item_option_widget.dart';
+import 'package:footballground/view/widgets/item_option.dart';
 import 'package:footballground/view/ui_helper.dart';
 import 'package:footballground/util/string_util.dart';
 import 'package:footballground/viewmodel/user_vm.dart';
@@ -81,69 +81,65 @@ class UserState extends State<UserPage> with AutomaticKeepAliveClientMixin {
                 )),
             Expanded(
               child: BorderBackground(
-                child: Column(children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: UIHelper.size20, vertical: UIHelper.size10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          'Số dư trong ví',
-                          style: textStyleTitle(color: BLACK_TEXT),
-                        ),
-                        Text(
-                          '$wallet',
-                          style: textStyleTitle(color: BLACK_TEXT),
-                        ),
-                      ],
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: UIHelper.size20,
+                          vertical: UIHelper.size10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            'Số dư trong ví',
+                            style: textStyleTitle(color: BLACK_TEXT),
+                          ),
+                          Text(
+                            '$wallet',
+                            style: textStyleTitle(color: BLACK_TEXT),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: ListView(
-                      physics: BouncingScrollPhysics(),
-                      padding: EdgeInsets.zero,
-                      children: <Widget>[
-                        LineWidget(),
-                        ItemOptionWidget(Images.WALLET_IN, 'Nạp tiền vào ví',
-                            iconColor: Colors.green),
-                        LineWidget(),
-                        ItemOptionWidget(Images.WALLET_OUT, 'Rút tiền',
-                            iconColor: Colors.red),
-                        LineWidget(),
-                        ItemOptionWidget(
-                          Images.TRANSACTIONS,
-                          'Chuyển tiền',
-                          iconColor: Colors.amber,
-                        ),
-                        LineWidget(),
-                        ItemOptionWidget(
-                          Images.TRANSACTION_HISTORY,
-                          'Lịch sử giao dịch',
-                          iconColor: Colors.teal,
-                        ),
-                        LineWidget(),
-                        ItemOptionWidget(
-                          Images.SHARE,
-                          'Chia sẻ ứng dụng',
-                          iconColor: Colors.blueAccent,
-                        ),
-                        LineWidget(),
-                        ItemOptionWidget(
-                          Images.INFO,
-                          'Thông tin ứng dụng',
-                          iconColor: Colors.blue,
-                        ),
-                        LineWidget(),
-                        ItemOptionWidget(
-                          Images.SETTING,
-                          'Cài đặt',
-                          iconColor: Colors.orange,
-                        ),
-                      ],
+                    Expanded(
+                      child: ListView(
+                        physics: BouncingScrollPhysics(),
+                        padding: EdgeInsets.zero,
+                        children: <Widget>[
+                          ItemOption(Images.WALLET_IN, 'Nạp tiền vào ví',
+                              iconColor: Colors.green),
+                          ItemOption(Images.WALLET_OUT, 'Rút tiền',
+                              iconColor: Colors.red),
+                          ItemOption(
+                            Images.TRANSACTIONS,
+                            'Chuyển tiền',
+                            iconColor: Colors.amber,
+                          ),
+                          ItemOption(
+                            Images.TRANSACTION_HISTORY,
+                            'Lịch sử giao dịch',
+                            iconColor: Colors.teal,
+                          ),
+                          ItemOption(
+                            Images.SHARE,
+                            'Chia sẻ ứng dụng',
+                            iconColor: Colors.blueAccent,
+                          ),
+                          ItemOption(
+                            Images.INFO,
+                            'Thông tin ứng dụng',
+                            iconColor: Colors.blue,
+                          ),
+                          ItemOption(
+                            Images.SETTING,
+                            'Cài đặt',
+                            iconColor: Colors.orange,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ]),
+                  ],
+                ),
               ),
             ),
           ],

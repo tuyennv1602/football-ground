@@ -6,7 +6,7 @@ import 'package:footballground/resource/colors.dart';
 import 'package:footballground/resource/styles.dart';
 import 'package:footballground/view/ui_helper.dart';
 
-import 'customize_button.dart';
+import 'button_widget.dart';
 
 typedef void OnChangedText(String text);
 typedef void OnSubmitText(String text);

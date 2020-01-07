@@ -4,7 +4,7 @@ import 'package:footballground/resource/images.dart';
 import 'package:footballground/resource/styles.dart';
 import 'package:footballground/view/ui_helper.dart';
 
-class ItemOptionWidget extends StatelessWidget {
+class ItemOption extends StatelessWidget {
   final String image;
   final String title;
   final Function onTap;
@@ -12,14 +12,16 @@ class ItemOptionWidget extends StatelessWidget {
   final double iconHeight;
   final double iconWidth;
   final Color iconColor;
+  final Widget rightContent;
 
-  ItemOptionWidget(this.image, this.title,
+  ItemOption(this.image, this.title,
       {Key key,
-      this.onTap,
-      this.titleStyle,
-      this.iconHeight,
-      this.iconWidth,
-      this.iconColor})
+        this.onTap,
+        this.titleStyle,
+        this.iconHeight,
+        this.iconWidth,
+        this.iconColor,
+        this.rightContent})
       : super(key: key);
 
   @override
@@ -45,17 +47,18 @@ class ItemOptionWidget extends StatelessWidget {
                     padding: EdgeInsets.only(left: UIHelper.size20),
                     child: Text(
                       this.title,
-                      style: this.titleStyle ?? textStyleRegular(),
+                      style: this.titleStyle ?? textStyleMediumTitle(),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ),
-                Image.asset(
-                  Images.ARROW_RIGHT,
-                  width: UIHelper.size10,
-                  height: UIHelper.size10,
-                  color: LINE_COLOR,
-                ),
+                rightContent ??
+                    Image.asset(
+                      Images.NEXT,
+                      width: UIHelper.size10,
+                      height: UIHelper.size10,
+                      color: LINE_COLOR,
+                    )
               ],
             ),
           ),

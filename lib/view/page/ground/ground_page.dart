@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:footballground/model/ground.dart';
 import 'package:footballground/resource/colors.dart';
 import 'package:footballground/resource/images.dart';
@@ -62,12 +63,57 @@ class _GroundState extends State<GroundPage>
     super.build(context);
     var _ground = Provider.of<Ground>(context);
     return Scaffold(
-      backgroundColor: PRIMARY,
+      backgroundColor: Colors.white,
       body: _ground == null
           ? _buildEmptyGround()
           : Stack(
               children: <Widget>[
-
+                Container(
+                  width: double.infinity,
+                  height: UIHelper.size(210) + UIHelper.paddingTop,
+                  padding: EdgeInsets.symmetric(horizontal: UIHelper.size15),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: _ground.avatar != null
+                          ? NetworkImage(_ground.avatar)
+                          : AssetImage(Images.DEFAULT_GROUND),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(
+                      top: UIHelper.size(90) + UIHelper.paddingTop),
+                  height: UIHelper.size(120),
+                  width: double.infinity,
+                  padding: EdgeInsets.fromLTRB(
+                      UIHelper.size10, 0, UIHelper.size10, UIHelper.size30),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: BLACK_GRADIENT,
+                    ),
+                  ),
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Text(
+                      _ground.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: textStyleTitle(color: Colors.white),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(
+                      top: UIHelper.size(190) + UIHelper.paddingTop),
+                  child: BorderBackground(
+                    child: Column(
+                      children: <Widget>[],
+                    ),
+                  ),
+                )
               ],
             ),
     );

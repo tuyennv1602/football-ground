@@ -4,7 +4,7 @@ import 'package:footballground/resource/images.dart';
 import 'package:footballground/resource/stringres.dart';
 import 'package:footballground/resource/styles.dart';
 import 'package:footballground/view/widgets/circle_input_text.dart';
-import 'package:footballground/view/widgets/customize_button.dart';
+import 'package:footballground/view/widgets/button_widget.dart';
 import 'package:footballground/util/constants.dart';
 import 'package:footballground/view/ui_helper.dart';
 import 'package:footballground/util/validator.dart';
@@ -174,7 +174,7 @@ class _RegisterState extends State<RegisterPage> {
                                   model: RegisterViewModel(
                                       api: Provider.of(context)),
                                   builder: (context, model, child) =>
-                                      CustomizeButton(
+                                      ButtonWidget(
                                         margin: EdgeInsets.only(
                                             top: UIHelper.size40,
                                             bottom: UIHelper.paddingBottom +

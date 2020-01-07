@@ -32,8 +32,8 @@ class HomePage extends StatelessWidget {
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.receipt, size: 25),
-      title:
-          Text('Đặt sân', style: TextStyle(fontSize: 10, fontFamily: REGULAR)),
+      title: Text('Lịch đặt sân',
+          style: TextStyle(fontSize: 10, fontFamily: REGULAR)),
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.notifications, size: 25),

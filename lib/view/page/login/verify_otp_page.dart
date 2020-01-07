@@ -10,7 +10,7 @@ import 'package:footballground/router/paths.dart';
 import 'package:footballground/view/ui_helper.dart';
 import 'package:footballground/view/page/base_widget.dart';
 import 'package:footballground/view/widgets/count_down_timer.dart';
-import 'package:footballground/view/widgets/customize_button.dart';
+import 'package:footballground/view/widgets/button_widget.dart';
 import 'package:footballground/viewmodel/verify_otp_vm.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +36,7 @@ class VerifyOTPPage extends StatelessWidget {
         ),
       );
 
-  _buildItemNumber(String title, {Function onTap}) => CustomizeButton(
+  _buildItemNumber(String title, {Function onTap}) => ButtonWidget(
         onTap: onTap,
         elevation: 2,
         backgroundColor: GREY_BUTTON,
@@ -179,7 +179,7 @@ class VerifyOTPPage extends StatelessWidget {
                         ),
                         Expanded(
                           child: Center(
-                            child: CustomizeButton(
+                            child: ButtonWidget(
                               child: Row(
                                 children: <Widget>[
                                   SizedBox(
@@ -259,7 +259,7 @@ class VerifyOTPPage extends StatelessWidget {
                               SizedBox(),
                               _buildItemNumber('0',
                                   onTap: () => model.setCode('0')),
-                              CustomizeButton(
+                              ButtonWidget(
                                 onTap: () => model.deleteCode(),
                                 backgroundColor: GREY_BUTTON,
                                 elevation: 2,

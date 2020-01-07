@@ -3,7 +3,7 @@ import 'package:footballground/resource/colors.dart';
 import 'package:footballground/resource/images.dart';
 import 'package:footballground/resource/styles.dart';
 import 'package:footballground/router/navigation.dart';
-import 'package:footballground/view/widgets/customize_button.dart';
+import 'package:footballground/view/widgets/button_widget.dart';
 import 'package:footballground/view/widgets/progress_dialog.dart';
 
 class UIHelper {
@@ -167,7 +167,7 @@ class UIHelper {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
                           showCancel
-                              ? CustomizeButton(
+                              ? ButtonWidget(
                             onTap: () {
                               Navigation.instance.goBack();
                             },
@@ -184,7 +184,7 @@ class UIHelper {
                               : SizedBox(),
                           Padding(
                             padding: EdgeInsets.all(UIHelper.padding),
-                            child: CustomizeButton(
+                            child: ButtonWidget(
                               onTap: () {
                                 if (onConfirmed != null) {
                                   onConfirmed();

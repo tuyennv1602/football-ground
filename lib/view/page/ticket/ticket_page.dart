@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:footballground/model/ground.dart';
 import 'package:footballground/resource/colors.dart';
 import 'package:footballground/resource/images.dart';
@@ -11,7 +12,8 @@ import 'package:footballground/view/page/base_widget.dart';
 import 'package:footballground/view/widgets/app_bar_widget.dart';
 import 'package:footballground/view/widgets/back_drop.dart';
 import 'package:footballground/view/widgets/border_background.dart';
-import 'package:footballground/view/widgets/item_option_widget.dart';
+import 'package:footballground/view/widgets/input_search.dart';
+import 'package:footballground/view/widgets/item_option.dart';
 import 'package:footballground/view/widgets/line_widget.dart';
 import 'package:footballground/view/widgets/loading_widget.dart';
 import 'package:footballground/view/widgets/tabbar_widget.dart';
@@ -44,122 +46,16 @@ class _TicketState extends State<TicketPage>
   final GlobalKey<BackdropState> _backdropKey =
       GlobalKey<BackdropState>(debugLabel: 'Backdrop');
 
-  _buildEmptyGround(BuildContext context) => InkWell(
-        onTap: () => Navigation.instance.navigateTo(LOCATION),
-        child: BorderBackground(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.asset(
-                Images.ADD_GROUND,
-                width: UIHelper.size50,
-                height: UIHelper.size50,
-                color: PRIMARY,
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: UIHelper.size10),
-                child: Text(
-                  'Tạo sân bóng',
-                  style: textStyleTitle(color: BLACK_TEXT),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-
-  _buildGroundDetail(BuildContext context, Ground ground) => ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          Container(
-            height: UIHelper.size(200),
-            color: GREY_BACKGROUND,
-            child: InkWell(
-              child: ground.avatar == null
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Image.asset(Images.GALLERY,
-                            width: UIHelper.size50,
-                            height: UIHelper.size50,
-                            color: Colors.grey),
-                      ],
-                    )
-                  : FadeInImage.assetNetwork(
-                      image: ground.avatar,
-                      placeholder: Images.LOADING,
-                      fit: BoxFit.cover,
-                    ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(UIHelper.size10),
-            child: Text(
-              'Thông tin chung',
-              style: textStyleSemiBold(color: PRIMARY),
-            ),
-          ),
-          ItemOptionWidget(
-            Images.PHONE,
-            ground.phone,
-            iconColor: Colors.green,
-          ),
-          LineWidget(),
-          ItemOptionWidget(
-            Images.LOCATION,
-            ground.address,
-            iconColor: Colors.blueAccent,
-          ),
-          LineWidget(),
-          ItemOptionWidget(
-            Images.REGION,
-            ground.getRegion,
-            iconColor: Colors.red,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(left: UIHelper.size10),
-                child: Text(
-                  'Quản lý sân',
-                  style: textStyleSemiBold(color: PRIMARY),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(UIHelper.size10),
-                child: InkWell(
-                  onTap: () => Navigation.instance.navigateTo(CREATE_FIELD,
-                      arguments: ground.countField + 1),
-                  child: Image.asset(
-                    Images.ADD,
-                    width: UIHelper.size20,
-                    height: UIHelper.size20,
-                    color: PRIMARY,
-                  ),
-                ),
-              )
-            ],
-          ),
-          ground.countField > 0
-              ? Column(
-                  children: ground.fields
-                      .map((field) => ItemOptionWidget(
-                            Images.FIELD,
-                            field.name,
-                            iconColor: Colors.green,
-                          ))
-                      .toList(),
-                )
-              : Padding(
-                  padding: EdgeInsets.all(UIHelper.size15),
-                  child: Text(
-                    'Bạn chưa thêm sân. Click (+) để thêm sân',
-                    textAlign: TextAlign.center,
-                    style: textStyleRegular(),
-                  ),
-                ),
-        ],
+  _buildCalendarView(BuildContext context) => CalendarCarousel(
+        weekdayTextStyle: textStyleMedium(size: 16, color: PRIMARY),
+        weekendTextStyle: textStyleRegular(size: 17, color: Colors.red),
+        todayTextStyle: textStyleRegular(size: 17, color: Colors.white),
+        daysTextStyle: textStyleRegular(size: 17),
+        selectedDayButtonColor: PRIMARY,
+        todayButtonColor: Colors.white,
+        selectedDateTime: DateTime.now(),
+        headerTextStyle: textStyleBold(color: PRIMARY, size: 20),
+        iconColor: PRIMARY,
       );
 
   _buildTicket(BuildContext context, int index) => DottedBorder(
@@ -231,37 +127,46 @@ class _TicketState extends State<TicketPage>
     );
   }
 
-  _buildBookingScheduler(BuildContext context) {
-    return DefaultTabController(
-      length: TABS.length,
-      child: Column(
-        children: <Widget>[
-          TabBarWidget(
-            isScrollable: true,
-            titles: TABS,
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(UIHelper.size10),
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: <Widget>[
-                  _buildFieldTicket(context, 'Sân số 1'),
-                  _buildFieldTicket(context, 'Sân số 2'),
-                  _buildFieldTicket(context, 'Sân số 3')
-                ],
-              ),
+  _buildBookingScheduler(BuildContext context) => Padding(
+        padding: EdgeInsets.symmetric(horizontal: 0),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: InputSearch(
+                    hintText: 'Nhập mã vé',
+                    onChangedText: (text) {},
+                  ),
+                ),
+                InkWell(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: UIHelper.size10,
+                        bottom: UIHelper.size10,
+                        right: UIHelper.size15,
+                        left: UIHelper.size10),
+                    child: Image.asset(
+                      Images.QR_SEARCH,
+                      width: UIHelper.size25,
+                      height: UIHelper.size25,
+                      color: PRIMARY,
+                    ),
+                  ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
-    );
-  }
+            _buildFieldTicket(context, 'Sân số 1'),
+            _buildFieldTicket(context, 'Sân số 2'),
+            _buildFieldTicket(context, 'Sân số 3')
+          ],
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    UIHelper().init(context);
     return Scaffold(
       backgroundColor: PRIMARY,
       body: BaseWidget<TicketViewModel>(
@@ -270,81 +175,68 @@ class _TicketState extends State<TicketPage>
         ),
         builder: (c, model, child) {
           var _ground = Provider.of<Ground>(context);
-          bool _hasGround = _ground != null;
-          return Column(
-            children: <Widget>[
-              _hasGround
-                  ? SizedBox()
-                  : AppBarWidget(
-                      centerContent: Text(
-                        'Sân bóng',
-                        textAlign: TextAlign.center,
+          return model.busy
+              ? BorderBackground(
+                  child: LoadingWidget(),
+                )
+              : Container(
+                  color: PRIMARY,
+                  child: Backdrop(
+                    key: _backdropKey,
+                    color: Colors.white,
+                    backTitle: Align(
+                      child: Text(
+                        'Danh mục',
                         style: textStyleTitle(),
                       ),
                     ),
-              Expanded(
-                child: model.busy
-                    ? BorderBackground(
-                        child: LoadingWidget(),
-                      )
-                    : _hasGround
-                        ? Container(
-                            padding: EdgeInsets.only(top: UIHelper.paddingTop),
-                            color: PRIMARY,
-                            child: Backdrop(
-                              key: _backdropKey,
-                              color: Colors.white,
-                              backTitle: Align(
-                                child: Text(
-                                  _ground.name,
-                                  style: textStyleTitle(),
-                                ),
-                              ),
-                              frontLayer: Container(
-                                color: Colors.white,
-                                child: _buildBookingScheduler(context),
-                              ),
-                              backLayer: BorderBackground(
-                                child: Column(
-                                  children: <Widget>[
-                                    Expanded(
-                                      child:
-                                          _buildGroundDetail(context, _ground),
-                                    ),
-                                    Container(
-                                      height: UIHelper.size50,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey,
-                                            blurRadius: 3,
-                                            offset: Offset(0, -1),
-                                          )
-                                        ],
-                                        borderRadius: BorderRadius.only(
-                                          topLeft:
-                                              Radius.circular(UIHelper.size15),
-                                          topRight:
-                                              Radius.circular(UIHelper.size15),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              frontTitle: Align(
-                                child: Text(
-                                  'Lịch đặt sân',
-                                  style: textStyleTitle(),
-                                ),
-                              ),
-                            ),
+                    frontLayer: Container(
+                      color: Colors.white,
+                      child: _buildBookingScheduler(context),
+                    ),
+                    backLayer: BorderBackground(
+                      child: _buildCalendarView(context),
+                    ),
+                    frontHeading: Container(
+                      width: double.infinity,
+                      height: UIHelper.size40,
+                      padding: EdgeInsets.only(top: UIHelper.size10),
+                      alignment: Alignment.topCenter,
+                      decoration: BoxDecoration(
+                        color: PRIMARY,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(UIHelper.radius),
+                          topRight: Radius.circular(UIHelper.radius),
+                        ),
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [Color(0xFF02DC37), PRIMARY]),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 3,
+                            offset: Offset(0, -1),
                           )
-                        : _buildEmptyGround(context),
-              ),
-            ],
-          );
+                        ],
+                      ),
+                      child: Container(
+                        height: UIHelper.size5,
+                        width: UIHelper.size50,
+                        decoration: BoxDecoration(
+                          color: Colors.white70,
+                          borderRadius: BorderRadius.circular(UIHelper.size(4)),
+                        ),
+                      ),
+                    ),
+                    frontTitle: Align(
+                      child: Text(
+                        '10/01/2019',
+                        style: textStyleTitle(),
+                      ),
+                    ),
+                  ),
+                );
         },
       ),
     );

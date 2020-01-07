@@ -11,7 +11,7 @@ import 'package:footballground/view/widgets/app_bar_button.dart';
 import 'package:footballground/view/widgets/app_bar_widget.dart';
 import 'package:footballground/view/widgets/border_background.dart';
 import 'package:footballground/view/widgets/bottom_sheet.dart';
-import 'package:footballground/view/widgets/customize_button.dart';
+import 'package:footballground/view/widgets/button_widget.dart';
 import 'package:footballground/view/widgets/input_widget.dart';
 import 'package:footballground/util/currency_input_formatter.dart';
 import 'package:footballground/util/string_util.dart';
@@ -220,7 +220,7 @@ class CreateGroundPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      CustomizeButton(
+                      ButtonWidget(
                         margin: EdgeInsets.all(UIHelper.size15),
                         child: Text(
                           'ĐĂNG KÝ',
