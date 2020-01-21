@@ -165,6 +165,7 @@ PODS:
     - Flutter
   - location_permissions (2.0.3):
     - Flutter
+  - MTBBarcodeScanner (5.0.11)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
@@ -173,6 +174,9 @@ PODS:
   - permission_handler (4.0.0):
     - Flutter
   - Protobuf (3.11.2)
+  - qr_code_scanner (0.0.2):
+    - Flutter
+    - MTBBarcodeScanner
   - shared_preferences (0.0.1):
     - Flutter
   - sqflite (0.0.1):
@@ -198,6 +202,7 @@ DEPENDENCIES:
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - location_permissions (from `.symlinks/plugins/location_permissions/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+  - qr_code_scanner (from `.symlinks/plugins/qr_code_scanner/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
 
@@ -226,6 +231,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
+    - MTBBarcodeScanner
     - nanopb
     - Protobuf
 
@@ -266,6 +272,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/location_permissions/ios"
   permission_handler:
     :path: ".symlinks/plugins/permission_handler/ios"
+  qr_code_scanner:
+    :path: ".symlinks/plugins/qr_code_scanner/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
   sqflite:
@@ -312,12 +320,14 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
   image_picker: 16e5fec1fbc87fd3b297c53e4048521eaf17cd06
   location_permissions: 195ff2a1182fa9029ef3f2653156961ee5a1e40b
+  MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   permission_handler: 0fb88b8a3c23e31e5de45b8f1bb8b7de28cf8941
   Protobuf: dd1aaea7140debfe4dd0683fb8ef208e527ae153
+  qr_code_scanner: 16107718bdad7d708cdf6a5eacdca24b56cdf471
   shared_preferences: 1feebfa37bb57264736e16865e7ffae7fc99b523
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
 
-PODFILE CHECKSUM: 7fb83752f59ead6285236625b82473f90b1cb932
+PODFILE CHECKSUM: 2c26e2bafa90f053205a9e99ab1fdce88251e293
 
 COCOAPODS: 1.8.4
