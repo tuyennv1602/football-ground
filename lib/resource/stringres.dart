@@ -1,5 +1,5 @@
 class StringRes {
-  static const String APP_NAME = 'FootballGround';
+  static const String APP_NAME = 'Football Ground';
   static const String LOGIN = 'Đăng nhập';
   static const String REQUIRED_EMAIL = 'Vui lòng nhập email';
   static const String EMAIL_INVALID = 'Email không hợp lệ';

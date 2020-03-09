@@ -31,7 +31,6 @@ class Images {
   static const String MARKER = '$FOLDER/ic_marker.png';
   static const String MY_LOCATION = '$FOLDER/ic_my_location.png';
   static const String NEXT = '$FOLDER/ic_next.png';
-  static const String ARROW_RIGHT = '$FOLDER/ic_arrow_right.png';
   static const String PHONE = '$FOLDER/ic_phone.png';
   static const String PIN_LOCATION = '$FOLDER/ic_pin.png';
   static const String LOCATION = '$FOLDER/ic_location.png';
@@ -46,5 +45,7 @@ class Images {
   static const String QUESTION = '$FOLDER/ic_question.png';
   static const String DELETE = '$FOLDER/ic_delete.png';
   static const String DEFAULT_GROUND = '$FOLDER/default_ground.jpg';
+  static const String WALLET = '$FOLDER/ic_wallet.png';
+  static const String EMPTY_FIELD = '$FOLDER/ic_empty_field.png';
 
 }

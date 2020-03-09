@@ -3,13 +3,19 @@ import 'package:footballground/resource/colors.dart';
 import 'package:footballground/view/ui_helper.dart';
 
 class LineWidget extends StatelessWidget {
+  final double indent;
+  final Color color;
+  final double height;
+
+  LineWidget({this.indent = 10, this.color = LINE_COLOR, this.height = 1});
+
   @override
   Widget build(BuildContext context) {
     return Divider(
-      height: 0.7,
-      indent: UIHelper.size(10),
-      endIndent: UIHelper.size(10),
-      color: LINE_COLOR,
+      height: height,
+      indent: UIHelper.size(indent),
+      endIndent: UIHelper.size(indent),
+      color: color,
     );
   }
 }

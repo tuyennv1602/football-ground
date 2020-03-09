@@ -10,6 +10,7 @@ import 'package:footballground/view/page/home_page.dart';
 import 'package:footballground/view/page/login/forgot_password_page.dart';
 import 'package:footballground/view/page/login/login_page.dart';
 import 'package:footballground/view/page/login/register_page.dart';
+import 'package:footballground/view/page/ticket/qr_scan_page.dart';
 import 'fade_in_router.dart';
 import 'slide_left_router.dart';
 
@@ -34,6 +35,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case CREATE_FIELD:
       var number = settings.arguments as int;
       return SlideLeftRoute(widget: CreateFieldPage(number: number));
+    case QR_SCAN:
+      return SlideLeftRoute(widget: QrScanPage());
     default:
       return MaterialPageRoute(
         builder: (context) => Scaffold(

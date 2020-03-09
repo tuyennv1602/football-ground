@@ -7,3 +7,4 @@ const String CREATE_FIELD = 'CREATE_FIELD';
 const String CREATE_GROUND = 'CREATE_GROUND';
 const String LOCATION = 'LOCATION';
 const String REGION = 'REGION';
+const String QR_SCAN = 'QR_SCAN';

@@ -7,6 +7,7 @@ import 'package:footballground/resource/styles.dart';
 import 'package:footballground/view/ui_helper.dart';
 import 'package:footballground/view/widgets/app_bar_widget.dart';
 import 'package:footballground/view/widgets/border_background.dart';
+import 'package:footballground/view/widgets/item_option.dart';
 import 'package:provider/provider.dart';
 
 class GroundPage extends StatefulWidget {
@@ -110,7 +111,13 @@ class _GroundState extends State<GroundPage>
                       top: UIHelper.size(190) + UIHelper.paddingTop),
                   child: BorderBackground(
                     child: Column(
-                      children: <Widget>[],
+                      children: <Widget>[
+                        ItemOption(Images.TRANSACTION_HISTORY, 'Xem đánh giá & nhận xét'),
+                        ItemOption(Images.EDIT, 'Thành viên thân thiết'),
+                        ItemOption(Images.EDIT, 'Chỉnh sửa thông tin chung'),
+                        ItemOption(Images.FIELD, 'Chỉnh sửa sân bóng'),
+                        ItemOption(Images.SETTING, 'Quản lý nhân viên')
+                      ],
                     ),
                   ),
                 )
