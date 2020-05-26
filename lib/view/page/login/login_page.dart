@@ -132,9 +132,10 @@ class _LoginState extends State<LoginPage> {
                           style: textStyleButton(),
                         ),
                         onTap: () {
-                          if (validateAndSave()) {
-                            model.loginEmail(_email, _password);
-                          }
+//                          if (validateAndSave()) {
+//                            model.loginEmail(_email, _password);
+                            model.loginEmail('hunghovan288@gmail.com', 'Hung0972522128');
+//                          }
                         },
                       ),
                       Row(

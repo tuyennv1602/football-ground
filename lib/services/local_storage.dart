@@ -15,6 +15,7 @@ class LocalStorage {
   Future<Token> getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tokenData = prefs.getString(ACCESS_TOKEN);
+//    var tokenData = 'e4a6332f-a7ff-4700-aa42-43c08342ac0a';
     if (tokenData == null) return null;
     return Token.fromJson(jsonDecode(tokenData));
   }
@@ -23,5 +24,4 @@ class LocalStorage {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.remove(ACCESS_TOKEN);
   }
-
 }

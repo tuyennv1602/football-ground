@@ -143,7 +143,7 @@ class _RegisterState extends State<RegisterPage> {
                                 ),
                                 CircleInputText(
                                   labelText: 'Số điện thoại',
-                                  validator: Validator.validPhoneNumber,
+//                                  validator: Validator.validPhoneNumber,
                                   inputType: TextInputType.phone,
                                   formatter: [
                                     MaskTextInputFormatter(
@@ -184,14 +184,20 @@ class _RegisterState extends State<RegisterPage> {
                                           style: textStyleButton(),
                                         ),
                                         onTap: () {
-                                          if (validateAndSave()) {
-                                            model.registerWithEmail(
-                                                _name,
-                                                _email,
-                                                _password,
-                                                _phone,
+//                                          if (validateAndSave()) {
+//                                            model.registerWithEmail(
+//                                                _name,
+//                                                _email,
+//                                                _password,
+//                                                _phone,
+//                                                [Constants.GROUND_OWNER]);
+//                                          }
+                                          model.registerWithEmail(
+                                                'hovanhung28',
+                                                'hunghovan2898@gmail.com',
+                                                'matkhau9',
+                                                '0972522128',
                                                 [Constants.GROUND_OWNER]);
-                                          }
                                         },
                                       ),
                                 )

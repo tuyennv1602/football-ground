@@ -55,6 +55,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'regular',
         ),
         home: _isLogined ? HomePage() : LoginPage(),
+//        home:  HomePage(),
       ),
     );
   }

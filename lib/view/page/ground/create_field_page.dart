@@ -4,6 +4,8 @@ import 'package:footballground/model/time_slot.dart';
 import 'package:footballground/resource/colors.dart';
 import 'package:footballground/resource/images.dart';
 import 'package:footballground/resource/styles.dart';
+import 'package:footballground/services/api.dart';
+import 'package:footballground/services/ground_services.dart';
 import 'package:footballground/view/page/base_widget.dart';
 import 'package:footballground/view/widgets/app_bar_button.dart';
 import 'package:footballground/view/widgets/app_bar_widget.dart';
@@ -91,8 +93,8 @@ class CreateFieldPage extends StatelessWidget {
         top: false,
         child: BaseWidget<CreateFieldViewModel>(
           model: CreateFieldViewModel(
-            api: Provider.of(context),
-            groundServices: Provider.of(context),
+            api: Provider.of<Api>(context),
+            groundServices: Provider.of<GroundServices>(context),
           ),
           onModelReady: (model) => model.changeTimeActive(4, 23.5),
           builder: (c, model, child) {
@@ -126,8 +128,9 @@ class CreateFieldPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: UIHelper.size15, vertical: UIHelper.size10),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: UIHelper.size15,
+                              vertical: UIHelper.size10),
                           child: ChooseFieldType(
                             onSelectedType: (type) => this.type = type,
                           ),
